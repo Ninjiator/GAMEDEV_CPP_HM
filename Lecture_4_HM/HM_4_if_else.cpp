@@ -28,18 +28,17 @@ int main()
     int value;
     cout << "Enter value: \n";
     cin >> value;
-    if ((value % 5 == 0) && (value % 11 == 0))
-    {
-        if (value == 0)
-            cout << "We cannot devide 0 by 5 and 11\n\n\n";
-        else
+    if (value == 0)
+    { 
+        cout << "We cannot devide 0 by 5 and 11\n\n\n";
+        if ((value % 5 == 0) && (value % 11 == 0))
         {
             cout << "This value can be devided by 5 and 11 simultaneously\n\n\n";
         }
-    }
-    else
-    {
-        cout << "This value CAN NOT be devided by 5 and 11 simultaneously\n\n\n";
+        else
+        {
+            cout << "This value CAN NOT be devided by 5 and 11 simultaneously\n\n\n";
+        }
     }
 
     //Task 3
