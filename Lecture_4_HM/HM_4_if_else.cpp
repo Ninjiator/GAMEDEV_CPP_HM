@@ -10,18 +10,33 @@ int main()
     cout << "Task 1" << endl;
     cout << "Enter 3 numbers" << endl;
     cin >> a >> b >> c;
-    if (a > b && a > c)
+
+    //if (a > b && a > c)
+    //{
+    //    cout << "a is bigger one" << endl << endl << endl;
+    //}
+    //else if (b > a && b > c)
+    //{
+    //    cout << "b is bigger one" << endl << endl << endl;
+    //}
+    //else
+    //{
+    //    cout << "c is bigger one" << endl << endl << endl;
+    //}
+
+    int largest = a;  // Initially, we assume that a is the largest
+
+    if (b > largest) 
     {
-        cout << "a is bigger one" << endl << endl << endl;
+        largest = b;  // If b is larger, then update the largest
     }
-    else if (b > a && b > c)
+
+    if (c > largest) 
     {
-        cout << "b is bigger one" << endl << endl << endl;
+        largest = c;  // If c is larger, then update the largest
     }
-    else
-    {
-        cout << "c is bigger one" << endl << endl << endl;
-    }
+
+    cout << largest << " is the biggest one" << endl << endl << endl;
 
     //Task 2
     cout << "Task 2" << endl;
