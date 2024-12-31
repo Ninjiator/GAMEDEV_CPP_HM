@@ -11,19 +11,6 @@ int main()
     cout << "Enter 3 numbers" << endl;
     cin >> a >> b >> c;
 
-    //if (a > b && a > c)
-    //{
-    //    cout << "a is bigger one" << endl << endl << endl;
-    //}
-    //else if (b > a && b > c)
-    //{
-    //    cout << "b is bigger one" << endl << endl << endl;
-    //}
-    //else
-    //{
-    //    cout << "c is bigger one" << endl << endl << endl;
-    //}
-
     int largest = a;  // Initially, we assume that a is the largest
 
     if (b > largest) 
@@ -38,19 +25,22 @@ int main()
 
     cout << largest << " is the biggest one" << endl << endl << endl;
 
-    //Task 2
+    // Task 2
     cout << "Task 2" << endl;
     int value;
     cout << "Enter value: \n";
     cin >> value;
-    if (value == 0)
-    { 
+
+    if (value == 0) {
         cout << "We cannot devide 0 by 5 and 11\n\n\n";
-        if ((value % 5 == 0) && (value % 11 == 0))
+    }
+    else 
+    {
+        if ((value % 5 == 0) && (value % 11 == 0)) 
         {
             cout << "This value can be devided by 5 and 11 simultaneously\n\n\n";
         }
-        else
+        else 
         {
             cout << "This value CAN NOT be devided by 5 and 11 simultaneously\n\n\n";
         }
@@ -61,20 +51,30 @@ int main()
     int sumOfTrianglesAngles = 180;
     int sumOfParams;
     cout << "Task 3" << endl;
-    cout << "Enter 3 parameters for triangle angles" << endl;
+    cout << "Enter 3 parameters for triangle angles: " << endl;
     cin >> x >> y >> z;
-    sumOfParams = x + y + z;
-    if (sumOfParams == sumOfTrianglesAngles)
+
+    // check on negative angles
+    if (x < 0 || y < 0 || z < 0) 
     {
-        cout << "it is possible to build a triangle from these angles\n\n\n";
+        cout << "Angles must be positive numbers!" << endl;
     }
-    else if (sumOfParams >= sumOfTrianglesAngles)
+    else 
     {
-        cout << "the sum of the angles of the triangles cannot be greater than 180\n\n\n";
-    }
-    else
-    {
-        cout << "the sum of the angles of the triangles cannot be lesser than 180\n\n\n";
+        sumOfParams = x + y + z;
+
+        if (sumOfParams == sumOfTrianglesAngles) 
+        {
+            cout << "It is possible to build a triangle from these angles\n\n\n";
+        }
+        else if (sumOfParams > sumOfTrianglesAngles) 
+        {
+            cout << "The sum of the angles of the triangle cannot be greater than 180\n\n\n";
+        }
+        else 
+        {
+            cout << "The sum of the angles of the triangle cannot be lesser than 180\n\n\n";
+        }
     }
 
     //task 4
