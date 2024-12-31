@@ -6,7 +6,7 @@ using std::endl;
 
 int main()
 {
-	
+
 	//Task 1
 	//a1, a1 + d, a1 + 2d, Е, a1 + (n - 1)d, Е, де a1 - це перший член прогрес≥њ, d = an + 1 - an
 
@@ -26,14 +26,15 @@ int main()
 	//	n -= 1;
 	//}
 
-	for (n; n != 0 ; n-=1)  
+	for (n; n != 0; n -= 1)
 	{
 		cout << a1 << endl;
 		a1 = a1 + d;
 	}
 
+
 	//Task 2 geometery figures creation
-	
+
 	int h, w;
 	cout << "Enter h or cube: ";
 	cin >> h;
@@ -74,11 +75,11 @@ int main()
 	cout << endl << endl;
 
 	//diamond
-	for (int i = 0; i < h; i++) 
+	for (int i = 0; i < h; i++)
 	{
 		for (int j = 0; j < i; j++) // adding a space before * 
 		{
-			cout << " "; 
+			cout << " ";
 		}
 		for (int j = 0; j < w; j++) // adding *
 		{
@@ -120,8 +121,60 @@ int main()
 		}
 	}
 
+	// Task 4
+	int fiboNum;
+	int temp;
+	cout << "Task 4\n";
+	cout << "Enter the Fibonacci number fiboNum ";
+	cin >> fiboNum;
 
-	
+	if (fiboNum < 1)
+	{
+		cout << "Enter a positive integer for the Fibonacci sequence.\n";
+	}
+	else
+	{
+		int a = 1, b = 1;
+		if (fiboNum == 1)
+		{
+			cout << "The 1st Fibonacci number is: " << a << endl << endl << endl;
+		}
+		else if (fiboNum == 2)
+		{
+			cout << "The 2nd Fibonacci number is: " << b << endl << endl << endl;
+		}
+		else
+		{
+			for (int i = 3; i <= fiboNum; ++i)
+			{
+				temp = a + b;
+				a = b;
+				b = temp;
+			}
+			cout << "The " << fiboNum << "-th Fibonacci number is: " << b << endl << endl << endl;
+		}
+	}
+
+	// Task 5
+	int factorialNum;
+	cout << "Task 5\n";
+	cout << "Enter a positive integer for factorial calculation: ";
+	cin >> factorialNum;
+
+	if (factorialNum < 1)
+	{
+		cout << "Please enter a positive integer for factorial calculation.\n";
+	}
+	else
+	{
+		long long result = 1;
+		for (int i = 1; i <= factorialNum; ++i)
+		{
+			result *= i;
+		}
+		cout << "The factorial of " << factorialNum << " is: " << result << endl << endl << endl;
+	}
+
 
 
 }
