@@ -1,50 +1,8 @@
 #include <iostream>
+#include "HM_10_Functions.h"
 using std::endl;
 using std::cout;
 using std::cin;
-
-void swap(int& a, int& b)
-{
-	int temp = a;
-	a = b;
-	b = temp;
-}
-
-void swap(int* a, int* b)
-{
-	cout << "swap *";
-	int temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
-bool find(const int* arr, int size, int elem)
-{
-	for (int i = 0; i < size; i++)
-	{
-		if(elem == *(arr + i))
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-bool calculateSum(const double* arr, int arrSize, double& sum)
-{
-	for (int i = 0; i < arrSize; i++)
-	{
-		sum = sum + *(arr + i);
-	}
-	if (sum > 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
 
 int main()
 {
@@ -81,6 +39,7 @@ int main()
 	for (int i = 0; i < lenght; i++)
 	{
 		cout << myArray[i] << ' ';
+
 	}
 	cout << "\nIs [-2] present in array ? -> " << std::boolalpha <<find(myArray, lenght, searchedNum);
 
@@ -95,7 +54,6 @@ int main()
 		cout << myArray2[i] << ' ';
 	}
 	cout << "\nResult is: [" << std::boolalpha << calculateSum(myArray2, lenght, sum) << "] sum of all elements = " << sum;
-
 
 }
 
