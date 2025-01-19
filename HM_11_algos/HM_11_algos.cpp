@@ -17,38 +17,66 @@ bool find(int arr_2d[ROWS][COLUMNS], int toFind)
 		}
 	return false;
 }
-//#2
-bool isSorted(const int* arr, int size)
-{
-	for (int i = 1; i < size; i++)
-	{
-		if (arr[i-1] > *(arr + i))
-		{
-			return false;
-		}
-	}
-	return true;
-}
-//#2_additional
 
-//{1, 2, 3, 4, 5} SortingDirection::Ascending - true, SortingDirection::Descending - false
-//{5, 4, 3, 2, 1} SortingDirection::Ascending - false, SortingDirection::Descending - true
-//{1, 2, 5, 4, 3} SortingDirection::Ascending - false, SortingDirection::Descending - false
-
+//#2 & #2.1
 enum class SortingDirection
 {
 	Ascending,
 	Descending
 };
+
+bool isSorted(const int* arr, int size, SortingDirection SortingDirection)
+{
+	switch (SortingDirection)
+	{
+	case SortingDirection::Ascending:
+		for (int i = 1; i < size; i++)
+		{
+			if (arr[i - 1] > *(arr + i))
+			{
+				return false;
+				break;
+			}
+		}
+		return true;
+	case SortingDirection::Descending:
+		for (int i = 1; i < size; i++)
+		{
+			if (arr[i - 1] < *(arr + i))
+			{
+				return false;
+				break;
+			}
+		}
+		return true;
+	default:
+		break;
+	}
+}
+
 //#3_1
 void traverseTopDownRightLeftByColumns(int arr_2d[ROWS][COLUMNS])
 {
-	//Output result into std::cout
+	for (int j = COLUMNS - 1; j >= 0; j--)
+	{
+		for (int i = 0; i < ROWS; i++)
+		{
+			cout << arr_2d[i][j] << " ";
+		}
+		cout << "\n";
+	}
 }
 //#3_2
 void traverseLeftRightDownTopSwitchingByRows(int arr_2d[ROWS][COLUMNS])
 {
-   //Output result into std::cout
+	for (int x = ROWS-1; x >= 0; x--)
+	{
+		for (int y = 0; y < COLUMNS; y++)
+		{
+			cout << arr_2d[x][y] << " ";
+		}
+		cout << "\n";
+	}
 }
 
 int main()
@@ -65,9 +93,15 @@ int main()
 
 	cout << "\n\nTask 2: ";
 	int const length = 5;
-	const int arrayIsSorted[length] = { 1, 4, 5, 8, 7 };
-	cout << "is Array_2 is sorted by growth? -> " << std::boolalpha << isSorted(arrayIsSorted, length);
+	const int arrayIsSorted[length] = { 8, 5, 4, 3, 2 };
+	cout << "is Array_2 is sorted by Ascending? -> " << isSorted(arrayIsSorted, length, SortingDirection::Ascending);
+	cout << "\nis Array_2 is sorted by Descending? -> " << std::boolalpha << isSorted(arrayIsSorted, length, SortingDirection::Descending);
 
-
+	cout << "\n\nTask 3:\n ";
+	traverseTopDownRightLeftByColumns(arr_2d);
+	cout << "\n\nTask 4: \n";
+	traverseLeftRightDownTopSwitchingByRows(arr_2d);
+	cout << "\n" << arr_2d[2][5]; //36
+	cout << "\n" << arr_2d[3][5]; //46
 }
 
