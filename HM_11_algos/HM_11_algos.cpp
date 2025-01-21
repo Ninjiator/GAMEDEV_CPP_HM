@@ -69,13 +69,24 @@ void traverseTopDownRightLeftByColumns(int arr_2d[ROWS][COLUMNS])
 //#3_2
 void traverseLeftRightDownTopSwitchingByRows(int arr_2d[ROWS][COLUMNS])
 {
-	for (int x = ROWS-1; x >= 0; x--)
+	
+	for (int x = ROWS - 1; x >= 0; x--)
 	{
-		for (int y = 0; y < COLUMNS; y++)
+		if (x != 0 && x != 2)
 		{
-			cout << arr_2d[x][y] << " ";
+			for (int y = 0; y < COLUMNS; y++)
+			{
+				cout << arr_2d[x][y] << " ";
+			}
 		}
-		cout << "\n";
+		else
+		{
+			for (int y_reverse = COLUMNS - 1; y_reverse >= 0; y_reverse--)
+			{
+				cout << arr_2d[x][y_reverse] << " ";
+			}
+		}
+	cout << "\n";
 	}
 }
 
@@ -97,11 +108,11 @@ int main()
 	cout << "is Array_2 is sorted by Ascending? -> " << isSorted(arrayIsSorted, length, SortingDirection::Ascending);
 	cout << "\nis Array_2 is sorted by Descending? -> " << std::boolalpha << isSorted(arrayIsSorted, length, SortingDirection::Descending);
 
-	cout << "\n\nTask 3:\n ";
+	cout << "\n\nTask 3: traverseTopDownRightLeftByColumns\n";
 	traverseTopDownRightLeftByColumns(arr_2d);
-	cout << "\n\nTask 4: \n";
+	cout << "\n\nTask 4: traverseLeftRightDownTopSwitchingByRows\n";
 	traverseLeftRightDownTopSwitchingByRows(arr_2d);
-	cout << "\n" << arr_2d[2][5]; //36
-	cout << "\n" << arr_2d[3][5]; //46
+	
+	
 }
 
