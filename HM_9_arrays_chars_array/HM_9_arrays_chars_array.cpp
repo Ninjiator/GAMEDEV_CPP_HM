@@ -25,22 +25,10 @@ void toUppercase(char str[])
     const int ASCIIshift = 32;
     while ((str[length]) != '\0')
     {
-        if (std::isalpha(str[length]))
+        if (std::isalpha(str[length]) && static_cast<int>(str[length]) >= 90)
         {
-            if (static_cast<int>(str[length]) >= 90)
-            {
-                int CharFromStr = static_cast<int>(str[length]);
-                str[length] = static_cast<char>(CharFromStr - ASCIIshift);
-                cout << static_cast<char>(str[length]) << "";
-            }
-            else
-            {
-                cout << str[length] << "";
-            }
-        }
-        else
-        {
-            cout << str[length] << "";
+            int CharFromStr = static_cast<int>(str[length]);
+            str[length] = static_cast<char>(CharFromStr - ASCIIshift);
         }
         length++;
     }
@@ -140,6 +128,10 @@ int main()
     char stringUserInput[100];
     cin >> stringUserInput;
     toUppercase(stringUserInput);
+    for (int t = 0; t < stringUserInput[t] != '\0'; t++)
+    {
+        cout << stringUserInput[t];
+    }
 
     //Task 3 
     cout << "\n\n\nTask 3\nWrite a word to analyse on :\n";
