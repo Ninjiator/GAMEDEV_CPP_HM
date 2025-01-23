@@ -10,11 +10,11 @@ void translateArray(int numbers[], int size)
     {
         if (numbers[j] > 0)
         {
-            cout << "Num-[" << j << "] is: " << numbers[j] * 2 << endl;
+            numbers[j] = numbers[j] * 2;
         }
         else
         {
-            cout << "Num-[" << j << "] is: " << numbers[j] * 0 << endl;
+            numbers[j] = numbers[j] * 0;
         }
     }
 }
@@ -121,13 +121,19 @@ int main()
     const int arraySizeUserInput = 10;
     cout << "Task 1\nEnter a nums for array[10] \n";
     int arrayTask_1[arraySizeUserInput];
-    for (int i = 0; i < arraySizeUserInput; i++)
+    for (int i = 0; i < arraySizeUserInput; i++) 
     {
         cout << "Num-[" << i << "] is: ";
         cin >> arrayTask_1[i];
     }
     translateArray(arrayTask_1, arraySizeUserInput);
     cout << "\n\nUsing a func translateArray: \n\n";
+
+    for (int j = 0; j < arraySizeUserInput; j++)
+    {
+        cout << "Num-[" << j << "] is: " << arrayTask_1[j] << endl;
+    }
+
 
     //Task 2 
     cout << "Task 2\nEnter a string using letters to uppercase low letters : \n";
