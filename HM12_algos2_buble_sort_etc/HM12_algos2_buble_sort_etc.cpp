@@ -53,14 +53,17 @@ enum class SortingDirection
 
 void sort(int arr[ROWS][COLUMNS])
 {
-    int arr1d[COLUMNS];
     for (int n = 0; n < ROWS; n++)
     {
-        for (int m = 0; m < COLUMNS; m++)
-        {
-            arr1d[m] = arr[n][m];
-        }
-        std::sort(arr1d[0], arr1d[COLUMNS]);
+        std::sort(arr[n], arr[n] + COLUMNS);
+    }
+}
+
+void sort2(int arr[ROWS][COLUMNS])
+{
+    for (int n = 0; n < COLUMNS; n++)
+    {
+        std::sort(arr[n], arr[n] + ROWS);
     }
 }
 
@@ -92,14 +95,16 @@ int main()
 
     cout << "Task 2: sorting by ROWS\n";
     int array[ROWS][COLUMNS] = {
-    {1, 2, 3, 4, 5, 6},
-    {7, 8, 9, 10, 11, 12},
-    {13, 14, 15, 16, 17, 18},
-    {19, 20, 21, 22, 23, 24},
-    {25, 26, 27, 28, 29, 30}
+        {70, 42, 89, 36, 67, 11},
+        {41, 10, 50, 76, 31, 89},
+        {94, 76, 6, 23, 100, 64},
+        {66, 86, 77, 92, 8, 42},
+        {59, 13, 70, 43, 34, 31}
     };
-    print_2d_arrays(array);
     sort(array);
     print_2d_arrays(array);
 
+    cout << "Task 2.1: Sorting by columns"
+
 }
+    
