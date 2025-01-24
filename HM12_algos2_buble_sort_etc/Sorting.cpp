@@ -17,7 +17,7 @@ void bubbleSort(int arr[], int size)
         {
             if (arr[i] > arr[i + 1])
             {
-                std::swap(arr, arr);
+                std::swap(arr[i], arr[i+1]);
             }
         }
     }
