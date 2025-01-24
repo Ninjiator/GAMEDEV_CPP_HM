@@ -11,7 +11,6 @@ using std::endl;
 		//func for random
 	//"Word of a day"
 		//TO DO
-
 constexpr int SIZE = 5;
 
 void randomWord(std::string database[SIZE], std::string mysteryWord[SIZE])
@@ -23,20 +22,14 @@ void playerGuess(std::string playerInput[SIZE], std::string mysteryWord[SIZE])
 {
 	//TO DO
 }
-
-
-
 int main()
 {
-	int gameMode = -1;
 	std::string database[10] = { "apple", "bread", "chair", "dream", "flute", "grape", "heart", "jelly", "knife", "plant" };
 	std::string playerInput;
-	//std::getline(std::cin, playerInput);
-	
 	//Intro "Hi it is my super game...." & Selection of game mode 
 			//"Random word" +-
 			//"Word of a day"
-			//Close Game
+			//Close Game +
 			// 
 	//Game Loop after GameMode Selected
 			//User trying to guess a Word
@@ -44,9 +37,11 @@ int main()
 			//Higlight a right letters
 				//small copy if letter present in a Word
 				//big letter if letter is located on a right position
+				
+	//std::getline(std::cin, playerInput);
+	int gameMode = -1;
 	while (gameMode != 0)
 	{
-		
 		cout << "1 - Word of the day" << endl;
 		cout << "2 - Random Word" << endl;
 		cout << "0 - Exit" << endl;
@@ -56,11 +51,9 @@ int main()
 		if (gameMode == 1)
 		{
 			//"Word of a day"
-			cout << "yes";
 		}
 		else
 		{
-			cout << "no";
 			//"Random word" 
 			//TO DO in a future
 		}
