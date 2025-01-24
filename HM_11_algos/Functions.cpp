@@ -26,7 +26,6 @@ bool isSorted(const int* arr, int size, SortingDirection SortingDirection)
 			if (arr[i - 1] > *(arr + i))
 			{
 				return false;
-				break;
 			}
 		}
 		return true;
@@ -36,13 +35,11 @@ bool isSorted(const int* arr, int size, SortingDirection SortingDirection)
 			if (arr[i - 1] < *(arr + i))
 			{
 				return false;
-				break;
 			}
 		}
 		return true;
 	default:
 		return false;
-		break;
 	}
 }
 //#3_1
@@ -63,7 +60,7 @@ void traverseLeftRightDownTopSwitchingByRows(int arr_2d[ROWS][COLUMNS])
 
 	for (int x = ROWS - 1; x >= 0; x--)
 	{
-		if (x != 0 && x != 2)
+		if (x % 2)
 		{
 			for (int y = 0; y < COLUMNS; y++)
 			{
