@@ -102,7 +102,7 @@ int main()
 			//Random word preparation
 			std::string mysteryPlaceholder = "*****";
 			//randomWord(database, dataBaseSIZE, mysteryWord);
-			cout << mysteryWord << endl;
+			cout << "DEBUG:TEST WORD : " << mysteryWord << endl;
 
 			//Random Word game loop
 			playerGuess(playerInput, mysteryWord, mysteryPlaceholder);
