@@ -1,66 +1,111 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <ctime>
+
 using std::cout;
 using std::cin;
 using std::endl;
 
 //init game params
-	//Player input
-	//"Random word" from database
-		//func for random
+	//Player input +
+	//"Random word" from database +
+		//func for random +
 	//"Word of a day"
 		//TO DO
-constexpr int SIZE = 5;
+constexpr int dataBaseSIZE = 10;
 
-void randomWord(std::string database[SIZE], std::string mysteryWord[SIZE])
+void randomWord(std::string database[], int SIZE, std::string& mysteryWord)
 {
-	//TO DO
+	std::srand(static_cast<unsigned int>(std::time(nullptr)));
+	std::random_shuffle(database, database + SIZE);
+	mysteryWord = database[0];
 }
 
-void playerGuess(std::string playerInput[SIZE], std::string mysteryWord[SIZE])
+void playerGuess(std::string& playerInput, std::string mysteryWord, std::string& mysteryPlaceholder)
 {
-	//TO DO
+	while (mysteryPlaceholder != playerInput)
+	{
+		cout << "RESULT : " << mysteryPlaceholder << endl;
+		cout << "ENTER  : ";
+		std::getline(std::cin, playerInput);
+
+		if (playerInput.length() != mysteryWord.length()) 
+		{
+			cout << "\n[ERROR] input length.\nPlease input Word with length [5]\n\n";
+			continue;
+		}
+
+		for (int i = 0; playerInput[i] != '\0'; i++)
+		{
+			char curentChar = playerInput[i];
+			for (int j = 0; mysteryWord[j] != '\0'; j++) // char search in mysteryWord
+			{
+				if (curentChar == mysteryWord[j])
+				{
+					mysteryPlaceholder[i] = curentChar; // if char present = add to placeholder
+				}
+				else
+				{
+					break;
+				}
+			}
+			if (playerInput[i] == mysteryWord[i]) // correct position of Letter = add to placeholder on correct pos
+			{
+				mysteryPlaceholder[i] = std::toupper(playerInput[i]);
+			}
+		}
+
+	}
 }
+
+void gameResults(int turnCount)
+{
+	//TODO
+}
+
 int main()
 {
-	std::string database[10] = { "apple", "bread", "chair", "dream", "flute", "grape", "heart", "jelly", "knife", "plant" };
-	std::string playerInput;
-	//Intro "Hi it is my super game...." & Selection of game mode 
+	std::string database[dataBaseSIZE] = { "apple", "bread", "chair", "dream", "flute", "grape", "heart", "jelly", "knife", "plant" };
+	std::string playerInput = "tests";
+	std::string mysteryWord = "cocon";
+	//Intro 
 			//"Random word" +-
 			//"Word of a day"
 			//Close Game +
 			// 
 	//Game Loop after GameMode Selected
-			//User trying to guess a Word
-			//Search for common letters in a generated Word
+			//User trying to guess a Word +
+			//Search for common letters in a generated Word 
 			//Higlight a right letters
 				//small copy if letter present in a Word
-				//big letter if letter is located on a right position
-				
-	//std::getline(std::cin, playerInput);
+				//big letter if letter is located on a right position +
+
+	;
 	int gameMode = -1;
 	while (gameMode != 0)
 	{
 		cout << "1 - Word of the day" << endl;
 		cout << "2 - Random Word" << endl;
 		cout << "0 - Exit" << endl;
-		cout << "Enter: ";
+		cout << "Choose GAMEMODE: ";
 		cin >> gameMode;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //Fix for double "Enter : " with .getline
 
 		if (gameMode == 1)
 		{
 			//"Word of a day"
-		}
-		else
-		{
-			//"Random word" 
 			//TO DO in a future
 		}
+		else if (gameMode == 2)
+		{
+			//Random word preparation
+			std::string mysteryPlaceholder = "*****";
+			//randomWord(database, dataBaseSIZE, mysteryWord);
+			cout << mysteryWord << endl;
+
+			//Random Word game loop
+			playerGuess(playerInput, mysteryWord, mysteryPlaceholder);
+		}
 	}
-
-
-
-
-
 }
