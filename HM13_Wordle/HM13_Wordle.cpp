@@ -24,7 +24,7 @@ void randomWord(std::string database[], int SIZE, std::string& mysteryWord)
 
 void playerGuess(std::string& playerInput, std::string mysteryWord, std::string& mysteryPlaceholder)
 {
-	while (mysteryPlaceholder != playerInput)
+	while (mysteryWord != playerInput)
 	{
 		cout << "RESULT : " << mysteryPlaceholder << endl;
 		cout << "ENTER  : ";
@@ -43,7 +43,7 @@ void playerGuess(std::string& playerInput, std::string mysteryWord, std::string&
 			{
 				if (curentChar == mysteryWord[j])
 				{
-					mysteryPlaceholder[i] = curentChar; // if char present = add to placeholder
+					mysteryPlaceholder[i] = curentChar; // if char present -> add to placeholder on match position 
 				}
 				else
 				{
@@ -69,6 +69,7 @@ int main()
 	std::string database[dataBaseSIZE] = { "apple", "bread", "chair", "dream", "flute", "grape", "heart", "jelly", "knife", "plant" };
 	std::string playerInput = "tests";
 	std::string mysteryWord = "cocon";
+	int turnCount = 0;
 	//Intro 
 			//"Random word" +-
 			//"Word of a day"
