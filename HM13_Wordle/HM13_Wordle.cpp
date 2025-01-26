@@ -95,6 +95,7 @@ int main()
 
 		if (gameMode == 1)
 		{
+
 			//"Word of a day"
 			//TO DO in a future
 		}
@@ -102,7 +103,7 @@ int main()
 		{
 			//Random word preparation
 			std::string mysteryPlaceholder = "*****";
-			//randomWord(database, dataBaseSIZE, mysteryWord);
+			randomWord(database, dataBaseSIZE, mysteryWord);
 			cout << "DEBUG:TEST WORD : " << mysteryWord << endl;
 
 			//Random Word game loop
