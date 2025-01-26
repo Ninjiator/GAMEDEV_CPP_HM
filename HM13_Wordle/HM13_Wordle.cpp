@@ -7,13 +7,8 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-//init game params
-	//Player input +
-	//"Random word" from database +
-		//func for random +
-	//"Word of a day"
-		//TO DO
 constexpr int dataBaseSIZE = 10;
+constexpr int usedSize = 5;
 
 void randomWord(std::string database[], int SIZE, std::string& mysteryWord)
 {
@@ -22,92 +17,94 @@ void randomWord(std::string database[], int SIZE, std::string& mysteryWord)
 	mysteryWord = database[0];
 }
 
-void playerGuess(std::string& playerInput, std::string mysteryWord, std::string& mysteryPlaceholder)
+void playerGuess(std::string& playerInput, std::string mysteryWord, std::string& mysteryPlaceholder, int& playerAttempts)
 {
-	while (mysteryWord != playerInput)
-	{
 		cout << "RESULT : " << mysteryPlaceholder << endl;
 		cout << "ENTER  : ";
 		std::getline(std::cin, playerInput);
 
-		if (playerInput.length() != mysteryWord.length()) 
+		if (playerInput.length() != mysteryWord.length())
 		{
-			cout << "\n[ERROR] input length.\nPlease input Word with length [5]\n\n";
+			cout << "\nPlease input Word with length = [" << mysteryWord.length() << "]" << endl << endl;
+			playerAttempts--;
+
+		}
+}
+void correctPos(std::string& playerInput, std::string mysteryWord, std::string& mysteryPlaceholder, bool* used)
+{
+	//STEP:1 processing correct position & adding to placeholder on correct pos, flag used - true
+	for (int i = 0; i < playerInput.length(); i++)
+	{
+		if (playerInput[i] == mysteryWord[i])
+		{
+			mysteryPlaceholder[i] = std::toupper(playerInput[i]);
+			used[i] = true;
+		}
+	}
+}
+void incorrectPos(std::string& playerInput, std::string mysteryWord, std::string& mysteryPlaceholder, bool* used)
+{
+	for (int i = 0; i < playerInput.length(); i++)
+	{
+		if (mysteryPlaceholder[i] != '*')	// skip != empty positions
 			continue;
-		}
 
-		for (int i = 0; playerInput[i] != '\0'; i++)
+		//STEP:2.2 processing inccorect position but correct letters
+		for (int j = 0; j < playerInput.length(); j++)
 		{
-			char curentChar = playerInput[i];
-			for (int j = 0; mysteryWord[j] != '\0'; j++) // char search in mysteryWord
+			if (playerInput[i] == mysteryWord[j] && !used[j]) 
 			{
-				if (curentChar == mysteryWord[j])
-				{
-					mysteryPlaceholder[i] = curentChar; // if char present -> add to placeholder on match position 
-				}
-				else
-				{
-					break;
-				}
-			}
-			if (playerInput[i] == mysteryWord[i]) // correct position of Letter = add to placeholder on correct pos
-			{
-				mysteryPlaceholder[i] = std::toupper(playerInput[i]);
+				mysteryPlaceholder[i] = playerInput[i];
+				used[j] = true;
+				break;
 			}
 		}
-
 	}
 }
 
-void gameResults(int turnCount)
+void attemptsCalculation(int playerAttempts)
 {
-	//TODO
+	cout << "\nCongratulations, YOU WIN !\nAttempts was needed [" << playerAttempts << "]\n" << endl;
 }
 
 int main()
 {
 	std::string database[dataBaseSIZE] = { "apple", "bread", "chair", "dream", "flute", "grape", "heart", "jelly", "knife", "plant" };
 	std::string playerInput = "tests";
-	std::string mysteryWord = "cocon";
+	std::string mysteryWord = "hello";
 	int turnCount = 0;
-	//Intro 
-			//"Random word" +-
-			//"Word of a day"
-			//Close Game +
-			// 
-	//Game Loop after GameMode Selected
-			//User trying to guess a Word +
-			//Search for common letters in a generated Word 
-			//Higlight a right letters
-				//small copy if letter present in a Word
-				//big letter if letter is located on a right position +
-
-	;
 	int gameMode = -1;
 	while (gameMode != 0)
 	{
-		cout << "1 - Word of the day" << endl;
+		cout << "1 - Word of the day [WIP]" << endl;
 		cout << "2 - Random Word" << endl;
 		cout << "0 - Exit" << endl;
 		cout << "Choose GAMEMODE: ";
 		cin >> gameMode;
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //Fix for double "Enter : " with .getline
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //Fix for double output "Enter : " from .getline
+		int playerAttempts = 0;
 
-		if (gameMode == 1)
+		if (gameMode == 1) //"Word of a day"
 		{
-
-			//"Word of a day"
-			//TO DO in a future
+			//TO DO
 		}
-		else if (gameMode == 2)
+		else if (gameMode == 2)  //Random word
 		{
-			//Random word preparation
 			std::string mysteryPlaceholder = "*****";
-			randomWord(database, dataBaseSIZE, mysteryWord);
+			bool used[usedSize] = { false }; // flag
+
+			//randomWord(database, dataBaseSIZE, mysteryWord);
 			cout << "DEBUG:TEST WORD : " << mysteryWord << endl;
 
 			//Random Word game loop
-			playerGuess(playerInput, mysteryWord, mysteryPlaceholder);
+			while (mysteryWord != playerInput)
+			{
+				playerAttempts++;
+				playerGuess(playerInput, mysteryWord, mysteryPlaceholder, playerAttempts);
+				correctPos(playerInput,  mysteryWord, mysteryPlaceholder, used);
+				incorrectPos(playerInput, mysteryWord, mysteryPlaceholder, used);
+			}
+			attemptsCalculation(playerAttempts);
 		}
 	}
 }
