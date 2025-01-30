@@ -1,28 +1,24 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
-#include <algorithm>
+#include <algorithm>	
 #include <string>
 #include <ctime>
+#include <fstream>
+
+#include "LetterPosition.h"
+#include "MysteryWordGen.h"
+#include "Time.h"
 
 using std::cout;
 using std::cin;
 using std::endl;
 
-constexpr int dataBaseSIZE = 10;
-constexpr int usedSize = 5;
-
-void randomWord(std::string database[], int SIZE, std::string& mysteryWord)
-{
-	std::srand(static_cast<unsigned int>(std::time(nullptr)));
-	std::random_shuffle(database, database + SIZE);
-	mysteryWord = database[0];
-}
-
-void playerGuess(std::string& playerInput, std::string mysteryWord, std::string& mysteryPlaceholder, int& playerAttempts)
+void playerGuess(std::string& playerInput, const std::string& mysteryWord, std::string& mysteryPlaceholder, int& playerAttempts)
 {
 		cout << "RESULT : " << mysteryPlaceholder << endl;
 		cout << "ENTER  : ";
 		std::getline(std::cin, playerInput);
-
 		if (playerInput.length() != mysteryWord.length())
 		{
 			cout << "\nPlease input Word with length = [" << mysteryWord.length() << "]" << endl << endl;
@@ -30,38 +26,6 @@ void playerGuess(std::string& playerInput, std::string mysteryWord, std::string&
 
 		}
 }
-void correctPos(std::string& playerInput, std::string mysteryWord, std::string& mysteryPlaceholder, bool* used)
-{
-	//STEP:1 processing correct position & adding to placeholder on correct pos, flag used - true
-	for (int i = 0; i < playerInput.length(); i++)
-	{
-		if (playerInput[i] == mysteryWord[i])
-		{
-			mysteryPlaceholder[i] = std::toupper(playerInput[i]);
-			used[i] = true;
-		}
-	}
-}
-void incorrectPos(std::string& playerInput, std::string mysteryWord, std::string& mysteryPlaceholder, bool* used)
-{
-	for (int i = 0; i < playerInput.length(); i++)
-	{
-		if (mysteryPlaceholder[i] != '*')	// skip != empty positions
-			continue;
-
-		//STEP:2.2 processing inccorect position but correct letters
-		for (int j = 0; j < playerInput.length(); j++)
-		{
-			if (playerInput[i] == mysteryWord[j] && !used[j]) 
-			{
-				mysteryPlaceholder[i] = playerInput[i];
-				used[j] = true;
-				break;
-			}
-		}
-	}
-}
-
 void attemptsCalculation(int playerAttempts)
 {
 	cout << "\nCongratulations, YOU WIN !\nAttempts was needed [" << playerAttempts << "]\n" << endl;
@@ -69,10 +33,8 @@ void attemptsCalculation(int playerAttempts)
 
 int main()
 {
-	std::string database[dataBaseSIZE] = { "apple", "bread", "chair", "dream", "flute", "grape", "heart", "jelly", "knife", "plant" };
-	std::string playerInput = "tests";
-	std::string mysteryWord = "hello";
-	int turnCount = 0;
+	std::string playerInput = "aaaaa";
+	std::string mysteryWord;
 	int gameMode = -1;
 	while (gameMode != 0)
 	{
@@ -82,29 +44,46 @@ int main()
 		cout << "Choose GAMEMODE: ";
 		cin >> gameMode;
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //Fix for double output "Enter : " from .getline
+		
 		int playerAttempts = 0;
+		std::string mysteryPlaceholder = "*****";
+		bool flagIsUsed[usedSize] = { false }; 
 
 		if (gameMode == 1) //"Word of a day"
 		{
-			//TO DO
+			if (true/* if date in "CrossStart.txt" < today date*/)
+			{
+				while (mysteryWord != playerInput)
+				{
+					//wordOfDay(mysteryWord);
+					playerAttempts++;
+					playerGuess(playerInput, mysteryWord, mysteryPlaceholder, playerAttempts);
+					correctPos(playerInput, mysteryWord, mysteryPlaceholder, flagIsUsed);
+					incorrectPos(playerInput, mysteryWord, mysteryPlaceholder, flagIsUsed);
+				}
+				attemptsCalculation(playerAttempts);
+			}
+			else
+			{
+				cout << "Already found! Come back tommorow!" << endl;
+			}
 		}
-		else if (gameMode == 2)  //Random word
+		else if (gameMode == 2)
 		{
-			std::string mysteryPlaceholder = "*****";
-			bool used[usedSize] = { false }; // flag
-
-			//randomWord(database, dataBaseSIZE, mysteryWord);
-			cout << "DEBUG:TEST WORD : " << mysteryWord << endl;
-
-			//Random Word game loop
+			//randomWord(mysteryWord);
+			mysteryWord = "hello";
 			while (mysteryWord != playerInput)
 			{
 				playerAttempts++;
 				playerGuess(playerInput, mysteryWord, mysteryPlaceholder, playerAttempts);
-				correctPos(playerInput,  mysteryWord, mysteryPlaceholder, used);
-				incorrectPos(playerInput, mysteryWord, mysteryPlaceholder, used);
+				correctPos(playerInput,  mysteryWord, mysteryPlaceholder, flagIsUsed);
+				incorrectPos(playerInput, mysteryWord, mysteryPlaceholder, flagIsUsed);
 			}
 			attemptsCalculation(playerAttempts);
+		}
+		else
+		{
+			continue;
 		}
 	}
 }
