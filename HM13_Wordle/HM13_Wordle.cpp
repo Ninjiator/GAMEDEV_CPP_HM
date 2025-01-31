@@ -39,7 +39,7 @@ int main()
 	int gameMode = -1;
 	while (gameMode != 0)
 	{
-		cout << "1 - Word of the day [WIP]" << endl;
+		cout << "1 - Word of the day" << endl;
 		cout << "2 - Random Word" << endl;
 		cout << "0 - Exit" << endl;
 		cout << "Choose GAMEMODE: ";
@@ -60,7 +60,6 @@ int main()
 			if (IsWordGuessToday(crossStart, day, month, year))
 			{
 				wordOfDay(mysteryWord, dataBase_1);
-				cout << mysteryWord << endl;
 				while (mysteryWord != playerInput)
 				{
 					playerAttempts++;
@@ -75,7 +74,6 @@ int main()
 		{
 			const char* dataBase_2 = "RandomWordDataBase.txt";
 			randomWord(mysteryWord, dataBase_2);
-			cout << mysteryWord << endl;
 			while (mysteryWord != playerInput)
 			{
 				playerAttempts++;
