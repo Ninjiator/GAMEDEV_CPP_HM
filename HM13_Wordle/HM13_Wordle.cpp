@@ -4,7 +4,6 @@
 #include <algorithm>	
 #include <string>
 #include <ctime>
-#include <fstream>
 
 #include "LetterPosition.h"
 #include "MysteryWordGen.h"
@@ -33,7 +32,9 @@ void attemptsCalculation(int playerAttempts)
 
 int main()
 {
-	std::string playerInput = "aaaaa";
+	std::time_t t = std::time(nullptr);
+	std::tm* now = std::localtime(&t);
+	std::string playerInput;
 	std::string mysteryWord;
 	int gameMode = -1;
 	while (gameMode != 0)
@@ -43,7 +44,7 @@ int main()
 		cout << "0 - Exit" << endl;
 		cout << "Choose GAMEMODE: ";
 		cin >> gameMode;
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //Fix for double output "Enter : " from .getline
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
 		
 		int playerAttempts = 0;
 		std::string mysteryPlaceholder = "*****";
@@ -51,11 +52,17 @@ int main()
 
 		if (gameMode == 1) //"Word of a day"
 		{
-			if (true/* if date in "CrossStart.txt" < today date*/)
+			int day = getDay(now);
+			int month = getMonth(now);
+			int year = getYear(now);
+			const char* crossStart = "CrossStart.txt";
+			const char* dataBase_1 = "WordOfDay.txt";
+			if (IsWordGuessToday(crossStart, day, month, year))
 			{
+				wordOfDay(mysteryWord, dataBase_1);
+				cout << mysteryWord << endl;
 				while (mysteryWord != playerInput)
 				{
-					//wordOfDay(mysteryWord);
 					playerAttempts++;
 					playerGuess(playerInput, mysteryWord, mysteryPlaceholder, playerAttempts);
 					correctPos(playerInput, mysteryWord, mysteryPlaceholder, flagIsUsed);
@@ -63,15 +70,12 @@ int main()
 				}
 				attemptsCalculation(playerAttempts);
 			}
-			else
-			{
-				cout << "Already found! Come back tommorow!" << endl;
-			}
 		}
 		else if (gameMode == 2)
 		{
-			//randomWord(mysteryWord);
-			mysteryWord = "hello";
+			const char* dataBase_2 = "RandomWordDataBase.txt";
+			randomWord(mysteryWord, dataBase_2);
+			cout << mysteryWord << endl;
 			while (mysteryWord != playerInput)
 			{
 				playerAttempts++;
