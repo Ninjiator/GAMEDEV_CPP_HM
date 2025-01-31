@@ -68,6 +68,12 @@ bool IsWordGuessToday(const char* fileName, const int& day, const int& month, co
 ```
 
 - This function **compares the current date** with the one stored in `CrossStart` via
+  func from <ctime>
+   ```cpp
+   int getDay(const std::tm* tmObj);
+   int getMonth(const std::tm* tmObj);
+   int getYear(const std::tm* tmObj);
+   ```
 - By default, the file contains:
   ```
   0 
