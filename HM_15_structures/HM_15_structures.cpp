@@ -2,147 +2,11 @@
 #include <string>
 #include <algorithm>
 
-
-struct Student
-{
-    std::string name;
-    int marks[4] = {0};
-};
+#include "StudentGet.h"
 
 
-//task 1
- double getAverageMark(const Student& student) 
-{
-    int size = sizeof(student.marks) / sizeof(student.marks[0]);
-    int total = 0;
-    for (int i = 0; i < size; i++)
-    {
-        total += student.marks[i];
-    }
-    return total / size;
-};
-
-void printStudentInfo(const Student* student, int studentGroupIndex)
-{
-    std::cout << student[studentGroupIndex].name << " average mark - " << getAverageMark(student[studentGroupIndex]) << std::endl;
-};
-
-//Task 3
-const Student* getStudentWithHighScore(const Student* studentPtr, unsigned size)
-{
-    int* total = new int[size](); 
-
-    for (unsigned int i = 0; i < size; i++)
-    {
-        int markAmount = sizeof(studentPtr[i].marks) / sizeof(studentPtr[i].marks[0]);
-        for (int j = 0; j < markAmount; j++)
-        {
-            total[i] += studentPtr[i].marks[j];
-        }
-        total[i] = total[i] / markAmount;
-    }
-    int bestIndex = 0;
-    for (unsigned int i = 0; i < size; i++)
-    {
-        if (total[i] > total[bestIndex])
-        {
-            bestIndex = i;
-        }
-    }
-    delete[] total;
-    return &studentPtr[bestIndex];
-};
-
-//Task 4
-int getStudentsWithMark(const Student* studentsPtr, unsigned size, int& markPredicate)
-{
-    int count = 0;
-    for (unsigned int i = 0; i < size; i++)
-    {
-        int markAmount = sizeof(studentsPtr[i].marks) / sizeof(studentsPtr[i].marks[0]);
-        int total = 0;
-        for (int j = 0; j < markAmount; j++)
-        {
-            total += studentsPtr[i].marks[j];
-        }
-        int avrMark = total / markAmount;
-        if (avrMark > markPredicate)
-        {
-            count++;
-        }
-    }
-    return count;
-};
-
-//Task 5 
-void getOutSize(unsigned int& outSize, const unsigned inSize, unsigned int percent)
-{
-    outSize = (percent * inSize) / 100;
-    if (outSize < 1)
-    {
-        outSize = 1;
-    }
-};
-
-void getBestStudents(Student* inStudents, unsigned inSize, Student* outStudents, unsigned& outSize)
-{
-    if (outSize != 0)
-    {
-        double* averages = new double[inSize];
-        int* stud_index = new int[inSize];
-        for (unsigned int i = 0; i < inSize; i++)
-        {
-            averages[i] = getAverageMark(inStudents[i]);
-            stud_index[i] = i;
-        }
-
-        for (unsigned int i = 0; i < inSize; i++)
-        {
-            for (unsigned int j = 0; j < inSize - 1; j++)
-            {
-                if (averages[stud_index[j]] < averages[stud_index[j + 1]])
-                {
-                    std::swap(stud_index[j], stud_index[j + 1]);
-                }
-            }
-        }
-
-        for (unsigned int i = 0; i < outSize; i++)
-        {
-            outStudents[i] = inStudents[stud_index[i]];
-        }
-
-        delete[] averages;
-        delete[] stud_index;
-    }
-}
 
 
-//Task 6
-void sortStudentsByMark(Student* students, unsigned groupSize)
-{
-    int* avrMarks = new int[groupSize]();
-    for (unsigned int i = 0; i < groupSize; i++)
-    {
-        int markAmount = sizeof(students[i].marks[i]) / sizeof(students[i].marks[0]);
-        for (int j = 0; j < markAmount; j++)
-        {
-            avrMarks[i] += students[i].marks[j];
-        }
-        avrMarks[i] = avrMarks[i] / markAmount;
-    }
-
-    for (unsigned int k = 0; k < groupSize; k++) // sorting DOEST NOT WORK  !!!
-    {
-        int highest = 0;
-        if (avrMarks[k] > avrMarks[highest])
-        {
-            std::swap(students[k], students[highest]);
-            highest = k;
-        }
-    }
-    delete[] avrMarks;
-};
 
 int main()
 {
@@ -194,6 +58,7 @@ int main()
     getOutSize(outSize, inSize, percent);
     Student* outStudents = new Student[outSize];
     getBestStudents(inStudents, inSize, outStudents, outSize);
+    std::cout << "Best student accordingly to percent: " << percent << std::endl;
     for (unsigned int i = 0; i < outSize; i++)
     {
         printStudentInfo(outStudents, i);
@@ -201,10 +66,11 @@ int main()
     delete[] outStudents;
 
     //Task 6
-    std::cout << "Task 6:" << std::endl;
- /*   for (unsigned int i = 0; i < inSize; i++)
+    std::cout << "\nTask 6:" << std::endl;
+    sortStudentsByMark(inStudents, inSize);
+    for (unsigned int i = 0; i < inSize; i++)
     {
-        PrintStudentInfo(inStudents, i);
-    }*/
+        printStudentInfo(inStudents, i);
+    }
 }   
 
