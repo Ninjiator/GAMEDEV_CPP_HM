@@ -5,11 +5,11 @@ class MilkReservoir
     //TODO HW: Need to implement MilkReservoir logic to be able to prepare Cappuccino
     //See WaterReservoir for reference, the logic here will be very similar
 public:
-    void showOperations() {}
-    void receiveInput() {}
+    void showOperations();
+    void receiveInput();
     void update();
 
-    void fill(float volume) {};
+    void fill(float volume);
     void useMilk(float volume) { m_volume -= volume; }; //== useWater
 
     void empty() { float m_volume = 0.0f; };
