@@ -4,7 +4,7 @@
 
 #include "WaterReservoir.h"
 #include "MilkReservoir.h"
-#include "﻿DrinkProgram.h"
+#include "DrinkProgram.h"
 
 class CoffeeGrainsContainer
 {
@@ -20,6 +20,7 @@ enum class CoffeeMachineState
     MainMenu,
 
     WaterReservoir,
+    MilkReservoir,
     CoffeeGrain,    //Not implemented yet
 
     DrinkSelection,
