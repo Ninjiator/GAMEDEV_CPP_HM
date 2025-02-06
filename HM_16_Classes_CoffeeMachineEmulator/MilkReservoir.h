@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 class MilkReservoir
 {
     //TODO HW: Need to implement MilkReservoir logic to be able to prepare Cappuccino
@@ -9,7 +9,7 @@ public:
     void receiveInput();
     void update();
 
-    void fill(float volume);
+    void fill(float volume) { m_volume = std::min(volume, MaxVolume); };
     void useMilk(float volume) { m_volume -= volume; }; //== useWater
 
     void empty() { float m_volume = 0.0f; };
