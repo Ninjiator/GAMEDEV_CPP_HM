@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "WaterReservoir.h"
+#include "MilkReservoir.h"
 #include "﻿DrinkProgram.h"
 
 class CoffeeGrainsContainer
@@ -57,6 +58,7 @@ private:
     DrinkProgram* m_SelectedDrink = nullptr;
 
     WaterReservoir m_waterReservoir;
+    MilkReservoir m_milkReservoir;
 
     int m_currentChoice = -1;
     CoffeeMachineState m_currentState = CoffeeMachineState::Sleep;

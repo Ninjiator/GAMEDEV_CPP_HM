@@ -7,12 +7,13 @@ class MilkReservoir
 public:
     void showOperations() {}
     void receiveInput() {}
+    void update();
 
     void fill(float volume) {};
-    void getMilk(float volume) {};
+    void useMilk(float volume) { m_volume -= volume; }; //== useWater
 
-    void empty() {};
-    float getVolume() { return 0.0f; }
+    void empty() { float m_volume = 0.0f; };
+    float getVolume() { return m_volume; }
 
 
     //TODO HW ADDITIONAL: implement milk freshness logic
@@ -21,5 +22,8 @@ public:
     //until the MilkReservoir is emptied and filled once again
 
 private:
+    int m_operation = -1;
 
+    float m_volume = 0.0f;
+    const float MaxVolume = 1.5f;
 };

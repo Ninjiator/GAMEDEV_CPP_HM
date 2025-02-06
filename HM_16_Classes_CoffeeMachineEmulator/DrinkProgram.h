@@ -28,6 +28,7 @@ private:
     DrinkType m_drinkType;
 
     const float EsspressoVolume = 0.05f;
+    const float CappuccinoVolume = 0.15f;
 
     class CoffeeMachine& m_context;
 };

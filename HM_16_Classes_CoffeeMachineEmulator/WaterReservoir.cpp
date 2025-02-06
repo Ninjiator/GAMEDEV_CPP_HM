@@ -20,10 +20,10 @@ void WaterReservoir::update()
 {
     switch (m_Operation)
     {
-    case 1:
-        m_Volume = 0.0f;
+    case 1: // [empty in milk]
+        m_Volume = 0.0f; 
         break;
-    case 2:
+    case 2: // [fill in milk]
     {
         float newVolume = 0.0f;
         std::cout << "Filling...";
