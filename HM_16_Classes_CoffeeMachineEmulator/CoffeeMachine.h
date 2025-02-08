@@ -28,6 +28,7 @@ enum class CoffeeMachineState
 
     LowWaterError,
     LowMilkError,
+    LowWaterAndMilkError,
 };
 
 
@@ -55,7 +56,7 @@ private:
 
     void showLowWaterError();
     void showLowMilkError();
-
+    void showLowMilkAndWaterError();
 private:
     std::vector<DrinkProgram*> m_recipes;
     DrinkProgram* m_SelectedDrink = nullptr;

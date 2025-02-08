@@ -83,12 +83,16 @@ DrinkProgramStatus DrinkProgram::prepareCappuccino()
             //Milk... Rturn appropriate error if smth goes wrong +-
                 //Note: Some coffeeMachineі don't check milk strictly, that is they try
                 //to prepare the drink even if there's not enough milk present, up to you to decide exact logic 
-    if (m_context.m_waterReservoir.getVolume() < CappuccinoVolume)
+    
+    if ((m_context.m_waterReservoir.getVolume() < CappuccinoVolume) && (m_context.m_milkReservoir.getVolume() < MilkVolumeCappuccino))
+    {
+        return DrinkProgramStatus::LowWaterAndMilk;
+    }
+    else if (m_context.m_waterReservoir.getVolume() < CappuccinoVolume)
     {
         return DrinkProgramStatus::LowWater;
     }
-
-    if (m_context.m_milkReservoir.getVolume() < MilkVolumeCappuccino)
+    else if (m_context.m_milkReservoir.getVolume() < MilkVolumeCappuccino)
     {
         return DrinkProgramStatus::LowMilk;
     }

@@ -105,6 +105,11 @@ void CoffeeMachine::update()
         showLowMilkError();
         break;
     }
+    case CoffeeMachineState::LowWaterAndMilkError:
+    {
+        showLowMilkAndWaterError();
+        break;
+    }
     case CoffeeMachineState::CoffeeGrain:
         break;
     default:
@@ -117,8 +122,15 @@ void CoffeeMachine::powerOn()
     if (m_currentChoice == 1)
     {
         std::cout << "\nGrrrr... Self diagnostics... Checking water level...\n";
-
-        if (m_waterReservoir.getVolume() <= 0.0f)
+        if ((m_waterReservoir.getVolume() <= 0.0f) && (m_milkReservoir.getVolume() <= 0.0f))
+        {
+            m_currentState = CoffeeMachineState::LowWaterAndMilkError;
+        }
+        else if (m_milkReservoir.getVolume() <= 0.0f)
+        {
+            m_currentState = CoffeeMachineState::LowMilkError;
+        }
+        else if (m_waterReservoir.getVolume() <= 0.0f)
         {
             m_currentState = CoffeeMachineState::LowWaterError;
         }
@@ -198,6 +210,13 @@ void CoffeeMachine::showLowMilkError()
     m_currentState = CoffeeMachineState::MainMenu;
 }
 
+void CoffeeMachine::showLowMilkAndWaterError()
+{
+    std::cout << "MILK and WATER containers are empty, please refill them!\n";
+    m_currentState = CoffeeMachineState::MainMenu;
+}
+
+
 void CoffeeMachine::prepareDrink()
 {
     if (m_SelectedDrink == nullptr)
@@ -219,5 +238,9 @@ void CoffeeMachine::prepareDrink()
     else if (status == DrinkProgramStatus::LowMilk)
     {
         m_currentState = CoffeeMachineState::LowMilkError;
+    }
+    else if (status == DrinkProgramStatus::LowWaterAndMilk)
+    {
+        m_currentState = CoffeeMachineState::LowWaterAndMilkError;
     }
 }
