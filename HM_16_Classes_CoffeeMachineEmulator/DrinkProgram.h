@@ -11,7 +11,7 @@ enum class DrinkProgramStatus
     Success = 0,
     LowWater,
     CleanNeeded, //not implemented yeat
-    LowMilk,//TODO HW, added new status for Cappuccino
+    LowMilk,     //added new status for Cappuccino
 
     Count
 };
