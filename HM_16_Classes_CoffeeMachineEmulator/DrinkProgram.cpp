@@ -82,28 +82,21 @@ DrinkProgramStatus DrinkProgram::prepareEspresso()
 
 DrinkProgramStatus DrinkProgram::prepareCappuccino()
 {
-    //TODO HW: Implement Cappuccino logic +
-        //to Check 
-            //Water +
-            //Milk... Return appropriate error if smth goes wrong +-
+            //Milk... Rturn appropriate error if smth goes wrong +-
                 //Note: Some coffeeMachineі don't check milk strictly, that is they try
                 //to prepare the drink even if there's not enough milk present, up to you to decide exact logic 
-
-        //print "Preparing msgs with proper steps ideally"
-
-        //TODO: method prepareCappuccino()
     if (m_context.m_waterReservoir.getVolume() < CappuccinoVolume)
     {
         return DrinkProgramStatus::LowWater;
     }
 
-    if (m_context.m_milkReservoir.getVolume() < CappuccinoMilkVolume)
-    {
-        //return DrinkProgramStatus::LowMilk;
-    }
+    //if (m_context.m_milkReservoir.getVolume() < CappuccinoMilkVolume)
+    //{
+    //    return DrinkProgramStatus::LowMilk;
+    //}
 
     m_context.m_waterReservoir.useWater(CappuccinoVolume);
-    m_context.m_milkReservoir.useMilk(CappuccinoMilkVolume);
+    m_context.m_milkReservoir.useMilk(MilkVolumeCappuccino);
 
     std::cout << "\n\nGrrr ";
 
@@ -123,11 +116,11 @@ DrinkProgramStatus DrinkProgram::prepareCappuccino()
     std::this_thread::sleep_for(std::chrono::seconds(1));
     std::cout << ".";
     std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << "\nAdding...a Milk... ";
+    std::cout << "Adding...a Milk... ";
     std::this_thread::sleep_for(std::chrono::seconds(1));
     std::cout << ".";
     std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << "\nPff....pfff.... ";
+    std::cout << "Pff....pfff.... ";
     std::cout << ".";
     std::this_thread::sleep_for(std::chrono::seconds(1));
     std::cout << ".";

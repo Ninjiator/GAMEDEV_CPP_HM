@@ -11,9 +11,13 @@ void WaterReservoir::showOperations()
 
 void WaterReservoir::receiveInput()
 {
-    //TODO, general: Validate input
     std::cout << "Choice: ";
     std::cin >> m_Operation;
+    if (!(m_Operation >= 1) || !(m_Operation <= 3))
+    {
+        std::cout << "Unknown request, please select from list [1-3]:" << std::endl;
+        WaterReservoir::receiveInput();
+    }
 }
 
 void WaterReservoir::update()

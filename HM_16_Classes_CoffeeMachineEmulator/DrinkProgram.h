@@ -31,7 +31,7 @@ private:
 
     const float EsspressoVolume = 0.05f;
     const float CappuccinoVolume = 0.05f;
-    const float CappuccinoMilkVolume = 0.12f;
+    const float MilkVolumeCappuccino = 0.12f;
 
     class CoffeeMachine& m_context;
 };
