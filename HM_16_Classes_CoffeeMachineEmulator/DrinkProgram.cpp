@@ -28,13 +28,11 @@ DrinkProgramStatus DrinkProgram::prepare()
     {
     case DrinkType::Espresso:
     {
-        prepareEspresso();
-        break;
+        return prepareEspresso();
     }
     case DrinkType::Cappuccino:
     {
-        prepareCappuccino();
-        break;
+        return prepareCappuccino(); 
     }
     default:
         break;
@@ -90,10 +88,10 @@ DrinkProgramStatus DrinkProgram::prepareCappuccino()
         return DrinkProgramStatus::LowWater;
     }
 
-    //if (m_context.m_milkReservoir.getVolume() < CappuccinoMilkVolume)
-    //{
-    //    return DrinkProgramStatus::LowMilk;
-    //}
+    if (m_context.m_milkReservoir.getVolume() < MilkVolumeCappuccino)
+    {
+        return DrinkProgramStatus::LowMilk;
+    }
 
     m_context.m_waterReservoir.useWater(CappuccinoVolume);
     m_context.m_milkReservoir.useMilk(MilkVolumeCappuccino);

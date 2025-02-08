@@ -100,6 +100,11 @@ void CoffeeMachine::update()
         showLowWaterError();
         break;
     }
+    case CoffeeMachineState::LowMilkError:
+    {
+        showLowMilkError();
+        break;
+    }
     case CoffeeMachineState::CoffeeGrain:
         break;
     default:
@@ -187,6 +192,12 @@ void CoffeeMachine::showLowWaterError()
     m_currentState = CoffeeMachineState::MainMenu;
 }
 
+void CoffeeMachine::showLowMilkError()
+{
+    std::cout << "LOW MILK, please refill the milk container!\n";
+    m_currentState = CoffeeMachineState::MainMenu;
+}
+
 void CoffeeMachine::prepareDrink()
 {
     if (m_SelectedDrink == nullptr)
@@ -204,5 +215,9 @@ void CoffeeMachine::prepareDrink()
     else if (status == DrinkProgramStatus::LowWater)
     {
         m_currentState = CoffeeMachineState::LowWaterError;
+    }
+    else if (status == DrinkProgramStatus::LowMilk)
+    {
+        m_currentState = CoffeeMachineState::LowMilkError;
     }
 }

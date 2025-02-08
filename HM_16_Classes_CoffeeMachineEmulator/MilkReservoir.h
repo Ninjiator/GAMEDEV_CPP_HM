@@ -9,7 +9,7 @@ public:
     void receiveInput();
     void update();
 
-    void fill(float volume) { m_volume = std::min(volume, MaxVolume); };
+    void fill(float newVolume) { m_volume = std::min(newVolume, MaxVolume); };
     void useMilk(float volume) { m_volume -= volume; }; //== useWater
 
     void empty() { m_volume = 0.0f; };
