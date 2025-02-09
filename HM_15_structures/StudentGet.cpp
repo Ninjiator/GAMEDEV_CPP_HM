@@ -14,7 +14,7 @@ double getAverageMark(const Student& student)
         total += student.marks[i];
     }
     return total / size;
-};
+}
 
 void printStudentInfo(const Student* student, int studentGroupIndex)
 {
@@ -24,31 +24,26 @@ void printStudentInfo(const Student* student, int studentGroupIndex)
 //Task 3
 const Student* getStudentWithHighScore(const Student* studentPtr, unsigned size)
 {
-    int* total = new int[size]();
+    if (size == 0) return nullptr;  
 
-    for (unsigned int i = 0; i < size; i++)
+    const Student* bestStudent = &studentPtr[0];
+    int highestAverage = getAverageMark(studentPtr[0]);
+
+    for (unsigned int i = 1; i < size; i++)  
     {
-        int markAmount = sizeof(studentPtr[i].marks) / sizeof(studentPtr[i].marks[0]);
-        for (int j = 0; j < markAmount; j++)
+        double currentAverage = getAverageMark(studentPtr[i]);
+        if (currentAverage > highestAverage)
         {
-            total[i] += studentPtr[i].marks[j];
-        }
-        total[i] = total[i] / markAmount;
-    }
-    int bestIndex = 0;
-    for (unsigned int i = 0; i < size; i++)
-    {
-        if (total[i] > total[bestIndex])
-        {
-            bestIndex = i;
+            highestAverage = currentAverage;
+            bestStudent = &studentPtr[i];
         }
     }
-    delete[] total;
-    return &studentPtr[bestIndex];
-};
+
+    return bestStudent;
+}
 
 //Task 4
-int getStudentsWithMark(const Student* studentsPtr, unsigned size, int& markPredicate)
+int getStudentsWithMark(const Student* studentsPtr, unsigned size, int markPredicate)
 {
     int count = 0;
     for (unsigned int i = 0; i < size; i++)
@@ -80,59 +75,31 @@ void getOutSize(unsigned int& outSize, const unsigned inSize, unsigned int perce
 
 void getBestStudents(Student* inStudents, unsigned inSize, Student* outStudents, unsigned& outSize)
 {
-    if (outSize != 0)
+    for (unsigned int i = 0; i < inSize - 1; i++)
     {
-        double* averages = new double[inSize];
-        int* stud_index = new int[inSize];
-        for (unsigned int i = 0; i < inSize; i++)
+        for (unsigned int j = 0; j < inSize - i - 1; j++)
         {
-            averages[i] = getAverageMark(inStudents[i]);
-            stud_index[i] = i;
-        }
-
-        for (unsigned int i = 0; i < inSize; i++)
-        {
-            for (unsigned int j = 0; j < inSize - 1; j++)
+            if (getAverageMark(inStudents[j]) < getAverageMark(inStudents[j + 1]))
             {
-                if (averages[stud_index[j]] < averages[stud_index[j + 1]])
-                {
-                    std::swap(stud_index[j], stud_index[j + 1]);
-                }
+                std::swap(inStudents[j], inStudents[j + 1]);
             }
         }
-
-        for (unsigned int i = 0; i < outSize; i++)
-        {
-            outStudents[i] = inStudents[stud_index[i]];
-        }
-
-        delete[] averages;
-        delete[] stud_index;
+    }
+    for (unsigned int i = 0; i < outSize && i < inSize; i++)
+    {
+        outStudents[i] = inStudents[i];
     }
 }
 
 //Task 6
 void sortStudentsByMark(Student* students, unsigned groupSize)
 {
-    int* avrMarks = new int[groupSize];
-
-    for (unsigned int i = 0; i < groupSize; i++)
-    {
-        int markAmount = sizeof(students[i].marks) / sizeof(students[i].marks[0]);
-        int sum = 0;
-        for (int j = 0; j < markAmount; j++)
-        {
-            sum += students[i].marks[j];
-        }
-        avrMarks[i] = sum / markAmount;
-    }
-
     for (unsigned int i = 0; i < groupSize - 1; i++)
     {
         unsigned int maxIndex = i;
         for (unsigned int j = i + 1; j < groupSize; j++)
         {
-            if (avrMarks[j] > avrMarks[maxIndex])
+            if (getAverageMark(students[j]) > getAverageMark(students[maxIndex]))
             {
                 maxIndex = j;
             }
@@ -140,9 +107,6 @@ void sortStudentsByMark(Student* students, unsigned groupSize)
         if (maxIndex != i)
         {
             std::swap(students[i], students[maxIndex]);
-            std::swap(avrMarks[i], avrMarks[maxIndex]);
         }
     }
-
-    delete[] avrMarks;
 }
