@@ -43,7 +43,8 @@ public:
     void showMenu();
     void receiveInput();
     void update();
-
+    WaterReservoir& getWaterReservoir()  { return m_waterReservoir; }
+    MilkReservoir& getMilkReservoir()  { return m_milkReservoir; }
 private:
     void powerOn();
     void powerOff();

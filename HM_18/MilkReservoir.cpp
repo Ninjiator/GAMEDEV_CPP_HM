@@ -4,8 +4,8 @@
 void MilkReservoir::showOperations()
 {
     std::cout << "\n--- Current milk level: " << getVolume() << "l out of " << MaxVolume << "l max ---\n";
-    std::cout << "1. Empty reservoir - [to do]\n";
-    std::cout << "2. Fill up with milk [wip] \n";
+    std::cout << "1. Empty reservoir\n";
+    std::cout << "2. Fill up with milk\n";
     std::cout << "3. Back to main\n";
 };
 

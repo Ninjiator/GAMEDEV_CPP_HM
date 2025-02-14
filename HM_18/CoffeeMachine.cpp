@@ -2,8 +2,10 @@
 
 void CoffeeMachine::initDefaultDrinks()
 {
-    m_recipes.push_back(new DrinkProgram(DrinkType::Espresso, *this));
-    m_recipes.push_back(new DrinkProgram(DrinkType::Cappuccino, *this));
+    m_recipes.push_back(new Espresso(*this));
+    m_recipes.push_back(new Cappuccino(*this));
+    m_recipes.push_back(new HotTea(*this));
+    m_recipes.push_back(new ColdTea(*this));
 }
 
 void CoffeeMachine::showMenu()
@@ -36,7 +38,6 @@ void CoffeeMachine::showMenu()
     default:
         break;
     }
-
 }
 
 void CoffeeMachine::receiveInput()

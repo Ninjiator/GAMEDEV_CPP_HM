@@ -3,52 +3,20 @@
 #include <chrono>
 #include <thread>
 
-DrinkProgram::DrinkProgram(DrinkType type, CoffeeMachine& context) :
-    m_drinkType(type),
-    m_context(context) {}
-
-void DrinkProgram::showInfo()
+void Espresso::showInfo()
 {
-    switch (m_drinkType)
-    {
-    case DrinkType::Espresso:
-        std::cout << "Espresso!";
-        break;
-    case DrinkType::Cappuccino:
-        std::cout << "Cappuccino!";
-        break;
-    default:
-        break;
-    }
+  std::cout << "Espresso!";
 }
 
-DrinkProgramStatus DrinkProgram::prepare()
-{
-    switch (m_drinkType)
-    {
-    case DrinkType::Espresso:
-    {
-        return prepareEspresso();
-    }
-    case DrinkType::Cappuccino:
-    {
-        return prepareCappuccino(); 
-    }
-    default:
-        break;
-    };
 
-    return DrinkProgramStatus::Success;
-}
-
-DrinkProgramStatus DrinkProgram::prepareEspresso()
+DrinkProgramStatus Espresso::prepare()
 {
-    if (m_context.m_waterReservoir.getVolume() < EsspressoVolume)
+    if (m_context.getWaterReservoir().getVolume() < EsspressoVolume)
     {
         return DrinkProgramStatus::LowWater;
     }
 
-    m_context.m_waterReservoir.useWater(EsspressoVolume);
+    m_context.getWaterReservoir().useWater(EsspressoVolume);
 
     std::cout << "\n\nGrrr ";
 
@@ -78,27 +46,28 @@ DrinkProgramStatus DrinkProgram::prepareEspresso()
     return DrinkProgramStatus::Success;
 };
 
-DrinkProgramStatus DrinkProgram::prepareCappuccino()
+void Cappuccino::showInfo()
 {
-            //Milk... Rturn appropriate error if smth goes wrong +-
-                //Note: Some coffeeMachineі don't check milk strictly, that is they try
-                //to prepare the drink even if there's not enough milk present, up to you to decide exact logic 
-    
-    if ((m_context.m_waterReservoir.getVolume() < CappuccinoVolume) && (m_context.m_milkReservoir.getVolume() < MilkVolumeCappuccino))
+    std::cout << "Cappuccino!";
+}
+
+DrinkProgramStatus Cappuccino::prepare()
+{
+    if ((m_context.getWaterReservoir().getVolume() < CappuccinoVolume) && (m_context.getMilkReservoir().getVolume() < MilkVolumeCappuccino))
     {
         return DrinkProgramStatus::LowWaterAndMilk;
     }
-    else if (m_context.m_waterReservoir.getVolume() < CappuccinoVolume)
+    else if (m_context.getWaterReservoir().getVolume() < CappuccinoVolume)
     {
         return DrinkProgramStatus::LowWater;
     }
-    else if (m_context.m_milkReservoir.getVolume() < MilkVolumeCappuccino)
+    else if (m_context.getMilkReservoir().getVolume() < MilkVolumeCappuccino)
     {
         return DrinkProgramStatus::LowMilk;
     }
 
-    m_context.m_waterReservoir.useWater(CappuccinoVolume);
-    m_context.m_milkReservoir.useMilk(MilkVolumeCappuccino);
+    m_context.getWaterReservoir().useWater(CappuccinoVolume);
+    m_context.getMilkReservoir().useMilk(MilkVolumeCappuccino);
 
     std::cout << "\n\nGrrr ";
 
@@ -144,3 +113,42 @@ DrinkProgramStatus DrinkProgram::prepareCappuccino()
 
     return DrinkProgramStatus::Success;
 };
+
+void HotTea::showInfo()
+{
+    std::cout << "Hot Tea";
+}
+
+DrinkProgramStatus HotTea::prepare()
+{
+    if (m_context.getWaterReservoir().getVolume() < WaterHotTeaVolume)
+    {
+        return DrinkProgramStatus::LowWater;
+    }
+    return DrinkProgramStatus::Success;
+}
+
+void ColdTea::showInfo()
+{
+    std::cout << "Refreshing cold Tea with Milk";
+}
+
+DrinkProgramStatus ColdTea::prepare()
+{
+    if ((m_context.getWaterReservoir().getVolume() < WaterColdTeaVolume) && (m_context.getMilkReservoir().getVolume() < MilkColdTeaVolume))
+    {
+        return DrinkProgramStatus::LowWaterAndMilk;
+    }
+
+    if (m_context.getWaterReservoir().getVolume() < WaterColdTeaVolume)
+    {
+        return DrinkProgramStatus::LowWater;
+    }
+
+    if (m_context.getMilkReservoir().getVolume() < MilkColdTeaVolume)
+    {
+        return DrinkProgramStatus::LowMilk;
+    }
+
+    return DrinkProgramStatus::Success;
+}

@@ -13,7 +13,7 @@ public:
     void useMilk(float volume) { m_volume -= volume; }; //== useWater
 
     void empty() { m_volume = 0.0f; };
-    float getVolume() { return m_volume; }
+    float getVolume() const { return m_volume; }
 
 
     //TODO HW ADDITIONAL: implement milk freshness logic
