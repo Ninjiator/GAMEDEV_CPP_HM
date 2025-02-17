@@ -15,9 +15,17 @@ DrinkProgramStatus Espresso::prepare()
     {
         return DrinkProgramStatus::LowWater;
     }
-
+    else if (m_context.getCoffeContainer().getUsedVolume() == m_context.getCoffeContainer().getUsedLimit())
+    {
+        return DrinkProgramStatus::CleanNeeded;
+    }
+    else if (m_context.getCoffeContainer().getGroundedVolume() < CoffeeEsspresso)
+    {
+        return DrinkProgramStatus::LowCoffeeGrounded;
+    }
     m_context.getWaterReservoir().useWater(EsspressoVolume);
-
+    m_context.getCoffeContainer().useGroundedCoffee(CoffeeEsspresso);
+    m_context.getCoffeContainer().fillUsedCoffeeContainer(CoffeeEsspresso);
     std::cout << "\n\nGrrr ";
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -61,14 +69,25 @@ DrinkProgramStatus Cappuccino::prepare()
     {
         return DrinkProgramStatus::LowWater;
     }
+    else if (m_context.getCoffeContainer().getUsedVolume() == m_context.getCoffeContainer().getUsedLimit())
+    {
+        return DrinkProgramStatus::CleanNeeded;
+    }
+    else if (m_context.getCoffeContainer().getGroundedVolume() < CoffeeCappuccino)
+    {
+        return DrinkProgramStatus::LowCoffeeGrounded;
+    }
     else if (m_context.getMilkReservoir().getVolume() < MilkVolumeCappuccino)
     {
         return DrinkProgramStatus::LowMilk;
     }
 
+    m_context.getCoffeContainer().useGroundedCoffee(CoffeeCappuccino);
+    m_context.getCoffeContainer().fillUsedCoffeeContainer(CoffeeCappuccino);
+
     m_context.getWaterReservoir().useWater(CappuccinoVolume);
     m_context.getMilkReservoir().useMilk(MilkVolumeCappuccino);
-
+    
     std::cout << "\n\nGrrr ";
 
     std::this_thread::sleep_for(std::chrono::seconds(1));

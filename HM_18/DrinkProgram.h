@@ -4,9 +4,10 @@ enum class DrinkProgramStatus
 {
     Success = 0,
     LowWater,
-    CleanNeeded, //not implemented yeat
-    LowMilk, //added  for Cappuccino
-    LowWaterAndMilk, //added  for Cappuccino
+    CleanNeeded, 
+    LowMilk, 
+    LowWaterAndMilk, 
+    LowCoffeeGrounded,
 
     Count
 };
@@ -42,6 +43,7 @@ public:
     DrinkProgramStatus prepare() override;
 private:
     const float EsspressoVolume = 0.05f;
+    const float CoffeeEsspresso = 0.15f;
 };
 
 
@@ -55,6 +57,7 @@ public:
 private:
     const float CappuccinoVolume = 0.05f;
     const float MilkVolumeCappuccino = 0.12f;
+    const float CoffeeCappuccino = 0.05f;
 };
 
 

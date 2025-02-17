@@ -35,6 +35,9 @@ void CoffeeMachine::showMenu()
     case CoffeeMachineState::MilkReservoir:
         m_milkReservoir.showOperations();
         break;
+    case CoffeeMachineState::CoffeeContainer:
+        m_coffeeContainer.showOperations();
+        break;
     default:
         break;
     }
@@ -57,6 +60,9 @@ void CoffeeMachine::receiveInput()
         break;
     case CoffeeMachineState::MilkReservoir:
         m_milkReservoir.receiveInput();
+        break;
+    case CoffeeMachineState::CoffeeContainer:
+        m_coffeeContainer.receiveInput();
         break;
     default:
         break;
@@ -91,6 +97,10 @@ void CoffeeMachine::update()
         m_milkReservoir.update();
         m_currentState = CoffeeMachineState::MainMenu;
         break;
+    case CoffeeMachineState::CoffeeContainer:
+        m_coffeeContainer.update();
+        m_currentState = CoffeeMachineState::MainMenu;
+        break;
     case CoffeeMachineState::PowerOffRequest:
     {
         powerOff();
@@ -111,7 +121,11 @@ void CoffeeMachine::update()
         showLowMilkAndWaterError();
         break;
     }
-    case CoffeeMachineState::CoffeeGrain:
+    case CoffeeMachineState::LowCoffeeGroundedError:
+        showLowCoffeeGroundedError();
+        break;
+    case CoffeeMachineState::MaxUsedCoffeeError:
+        showMaxUsedCoffeeError();
         break;
     default:
         break;
@@ -160,6 +174,9 @@ void CoffeeMachine::selectNewMenuFromMain()
         break;
     case 3:
         m_currentState = CoffeeMachineState::MilkReservoir;
+        break;
+    case 4:
+        m_currentState = CoffeeMachineState::CoffeeContainer;
         break;
     case 5:
         m_currentState = CoffeeMachineState::PowerOffRequest;
@@ -217,6 +234,18 @@ void CoffeeMachine::showLowMilkAndWaterError()
     m_currentState = CoffeeMachineState::MainMenu;
 }
 
+void CoffeeMachine::showLowCoffeeGroundedError()
+{
+    std::cout << "Grounded Coffee container is empty, please refill !\n";
+    m_currentState = CoffeeMachineState::MainMenu;
+}
+
+void CoffeeMachine::showMaxUsedCoffeeError()
+{
+    std::cout << "Clean up used Coffee!\n";
+    m_currentState = CoffeeMachineState::MainMenu;
+}
+
 
 void CoffeeMachine::prepareDrink()
 {
@@ -243,5 +272,13 @@ void CoffeeMachine::prepareDrink()
     else if (status == DrinkProgramStatus::LowWaterAndMilk)
     {
         m_currentState = CoffeeMachineState::LowWaterAndMilkError;
+    }
+    else if (status == DrinkProgramStatus::LowCoffeeGrounded)
+    {
+        m_currentState = CoffeeMachineState::LowCoffeeGroundedError;
+    }
+    else if (status == DrinkProgramStatus::CleanNeeded)
+    {
+        m_currentState = CoffeeMachineState::MaxUsedCoffeeError;
     }
 }

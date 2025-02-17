@@ -5,12 +5,7 @@
 #include "WaterReservoir.h"
 #include "MilkReservoir.h"
 #include "DrinkProgram.h"
-
-class CoffeeGrainsContainer
-{
-    //not used yet
-};
-
+#include "CoffeeGrainsContainer.h"
 
 enum class CoffeeMachineState
 {
@@ -21,7 +16,7 @@ enum class CoffeeMachineState
 
     WaterReservoir,
     MilkReservoir,
-    CoffeeGrain,    //Not implemented yet
+    CoffeeContainer,    
 
     DrinkSelection,
     DrinkPreparation,
@@ -29,6 +24,9 @@ enum class CoffeeMachineState
     LowWaterError,
     LowMilkError,
     LowWaterAndMilkError,
+
+    LowCoffeeGroundedError,
+    MaxUsedCoffeeError,
 };
 
 
@@ -45,6 +43,7 @@ public:
     void update();
     WaterReservoir& getWaterReservoir()  { return m_waterReservoir; }
     MilkReservoir& getMilkReservoir()  { return m_milkReservoir; }
+    CoffeGrainsContainer& getCoffeContainer() { return m_coffeeContainer; }
 private:
     void powerOn();
     void powerOff();
@@ -58,12 +57,16 @@ private:
     void showLowWaterError();
     void showLowMilkError();
     void showLowMilkAndWaterError();
+
+    void showLowCoffeeGroundedError();
+    void showMaxUsedCoffeeError();
 private:
     std::vector<DrinkProgram*> m_recipes;
     DrinkProgram* m_SelectedDrink = nullptr;
 
     WaterReservoir m_waterReservoir;
     MilkReservoir m_milkReservoir;
+    CoffeGrainsContainer m_coffeeContainer;
 
     int m_currentChoice = -1;
     CoffeeMachineState m_currentState = CoffeeMachineState::Sleep;
