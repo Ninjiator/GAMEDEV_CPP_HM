@@ -2,6 +2,7 @@
 #include "Tribe.h"
 #include <string>
 
+
 class Item
 {
 public:
@@ -11,6 +12,8 @@ public:
 	void setName(const std::string& name) { m_name = name; }
 	const std::string getName() const { return m_name; }
 	virtual std::string getFullInfo() const = 0;
+
+	virtual Tribe getAdvantage() const { return Tribe::Count; }
 
 protected:
 	std::string m_name;
@@ -91,4 +94,50 @@ public:
 	}
 };
 
+
 //TODO: Add new Item type with unique properties
+class HollyWeapon : public Weapon
+{
+public:
+	HollyWeapon(const std::string& name, int power, Tribe advantage) : Weapon(name, power), m_advantage(advantage){}
+
+	Tribe getAdvantage() const override { return m_advantage; }
+
+	virtual std::string getFullInfo() const override
+	{
+		return "\"" + getName() + "\"" + ", power:" + std::to_string(getBasePower()) + ", skills: Instantly destroy a Zombie !\n";
+	}
+
+private:
+	Tribe m_advantage;
+};
+
+class BrutalWeapon : public Weapon
+{
+public:
+	BrutalWeapon(const std::string& name, int power) : Weapon(name, power) {}
+
+	virtual int getPower(Tribe monsterTribeModifier) const override
+	{
+		switch (monsterTribeModifier)
+		{
+		case Tribe::Human:
+			return m_power * 0.3;
+		case Tribe::Undead:
+			return m_power * 0.3;
+		case Tribe::Zombie:
+			return m_power * 0.3;
+		case Tribe::God:
+			return m_power * 2;
+		default:
+			return m_power;
+		}
+	}
+
+	virtual std::string getFullInfo() const override
+	{
+		return "\"" + getName() + "\"" + ", power:" + std::to_string(getBasePower()) + ", skills: x2 vs GODS and x0.3 vs OTHERS!\n";
+	}
+};
+
+

@@ -13,6 +13,7 @@
 
 namespace UI
 {
+
 	void printDelayWithText(int count, std::string text)
 	{
 		std::cout << text;
@@ -55,6 +56,10 @@ namespace UI
 	{
 		std::cout << "-------YOU'VE LOST to \"" << monster->getName() << "\"Monster!---------\n";
 		//#TODO: Print runaway policy monster dealt to Munchkin
+		if (monster->getRunawayPolicy() != nullptr)
+		{
+			std::cout << monster->getRunawayPolicy()->getFullInfo() << std::endl << std::endl;
+		}
 	}
 
 	std::string getTribeString(Tribe tribe)
@@ -167,8 +172,12 @@ namespace UI
 	void printMonsterInfo(Monster* monster)
 	{
 		std::cout << "\n--------Monster \"" << monster->getName() << "\"" << ", of " <<
-			UI::getTribeString(monster->getTribe()) << ", level " << monster->getLevel() << " --------" << std::endl << std::endl;
+			UI::getTribeString(monster->getTribe()) << ", level " << monster->getLevel() << " --------" << std::endl;
 		//#TODO: Print RUNAWAY POLICIES info similar to items print in printPlayerDeck()
+		if (monster->getRunawayPolicy() != nullptr)
+		{
+			std::cout << monster->getRunawayPolicy()->getFullInfo() << std::endl << std::endl;
+		} 
 	}
 
 } //namespace UI
@@ -192,6 +201,7 @@ void Game::run()
 		Monster* monster = generateMonster();
 		UI::printMonsterInfo(monster);
 
+
 		Fight fight;
 		fight.setMonster(monster);
 		fight.setMunchkin(&m_munchkin);
@@ -202,7 +212,12 @@ void Game::run()
 		//Every case may be its own state with transition rules, e.g.
 		//Start->InProgress->Win/Runaway/ApplyModifiers, Runaway->Lost, ApplyModifiers->InProgress
 		//https://refactoring.guru/uk/design-patterns/state
-
+		if (fight.getFinish())
+		{
+			fight.victoryFlow();
+			UI::printMunchkinWon();
+			UI::pressAnyKeyToContinue();
+		}
 		//Fight loop
 		while (!fight.getFinish())
 		{

@@ -13,4 +13,4 @@ public:
 
 private:
 	std::vector<Monster*> m_monstersDatabase;
-};
+}; 

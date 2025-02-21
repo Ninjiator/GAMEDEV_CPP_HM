@@ -41,3 +41,15 @@ Modifier* Munchkin::popModifier(int idx)
     m_modifiers.erase(m_modifiers.begin() + idx);
     return modifier;
 }
+
+Item* Munchkin::popItem(int idx)
+{
+    if (idx >= m_items.size() || idx < 0)
+    {
+        return nullptr;
+    }
+    
+    Item* item = m_items[idx];
+    m_items.erase(m_items.begin() + idx);
+    return item;
+}

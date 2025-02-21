@@ -11,10 +11,12 @@ ItemDeck::ItemDeck()
 
 	//TODO: Setup more items of diferent types
 	m_itemsDataBase =
-	{ new Weapon{"The Sword of DOOM", 5},
-	new UndeadWeapon{"Stinky knife", 2},
+	{ new Weapon{"The Sword of DOOM", 1},
+	new UndeadWeapon{"Stinky knife", 10},
 	new UndeadWeapon{"Holy grenade", 4},
-	new MagicWeapon{"HOLLY MOLLY", 4} };
+	new MagicWeapon{"HOLLY MOLLY", 1},
+	new HollyWeapon{"Angel Sword", 1, Tribe::Zombie},
+	new BrutalWeapon{"Ronin's Fear", 1} };
 }
 
 ItemDeck::~ItemDeck()

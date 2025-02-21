@@ -24,6 +24,7 @@ public:
 	const std::vector<Item*>& getItems() const;
 
 	Modifier* popModifier(int idx);
+	Item* popItem(int idx);
 	const std::vector<Modifier*>& getModifiers() const { return m_modifiers; }	//FOR UI ONLY
 	void addModifiers(const std::vector<Modifier*>& modifiers) { m_modifiers = modifiers; }
 

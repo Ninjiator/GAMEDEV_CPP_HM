@@ -6,6 +6,7 @@
 #include "Monster.h"
 #include "Runaway.h"
 
+
 void Fight::start()
 {
 	m_result = FightResult::InProgress;
@@ -64,5 +65,14 @@ void Fight::calculateMonsterPower()
 {
 	m_monsterPower = m_monster->getLevel();
 
-	//EXTEND if needed
+	//Advvantages
+	for (Item* item : m_munchkin->getItems())
+	{
+		if (m_monster->getTribe() == item->getAdvantage())
+		{
+			 m_result = FightResult::MunchkinWon;
+			 
+		}
+	}
+	
 }
