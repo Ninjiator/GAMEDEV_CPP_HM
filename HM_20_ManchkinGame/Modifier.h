@@ -52,7 +52,7 @@ public:
 class HalvesMonsterLevel : public Modifier
 {
 public:
-	//#TODO: cut monster's power in 2 if he is of type tribe
+	//#DONE: cut monster's power in 2 if he is of type tribe
 
 	HalvesMonsterLevel(Tribe tribe) { m_tribeLevelHalfDowngrade = tribe; } //implement
 	Tribe getTribe() const { return m_tribeLevelHalfDowngrade; }
@@ -84,7 +84,7 @@ private:
 	Tribe m_tribeLevelHalfDowngrade;
 };
 
-//#TODO: Add unique modifier munchkin/monster specific
+//#DONE: Add unique modifier munchkin/monster specific
 
 class RaceModifier : public Modifier
 {

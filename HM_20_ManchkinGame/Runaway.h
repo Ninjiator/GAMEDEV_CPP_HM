@@ -85,12 +85,11 @@ private:
 	int m_itemRemove;
 };
 
-//Remove equiped item from Outfit with biggest base power
+//DONE Remove equiped item from Outfit with biggest base power
 class Runaway_BiggestBonusCardRemoval : public Runaway
 {
 public:
 	Runaway_BiggestBonusCardRemoval(int remove) : m_removeAmount(remove) {}
-	//#TODO
 	void apply(Munchkin* munchkin) override;
 	virtual std::string getFullInfo() const override
 	{

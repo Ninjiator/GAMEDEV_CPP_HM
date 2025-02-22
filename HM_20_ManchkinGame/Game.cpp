@@ -85,7 +85,7 @@ namespace UI
 		munchkin->setName(name);
 
 		std::cout << "Choose your Race:\n";
-		std::cout << "1.-----Elph-----\n2.-----Human-----\n3.-----Ork-----\nEnter: ";
+		std::cout << "1.-----[Elph]-----\n2.-----[Human]-----\n3.-----[Ork]-----\nEnter: ";
 		int choise;
 		std::cin >> choise;
 		while (choise > 3 || choise < 0)
@@ -185,7 +185,7 @@ namespace UI
 	{
 		std::cout << "\n--------Monster \"" << monster->getName() << "\"" << ", of " <<
 			UI::getTribeString(monster->getTribe()) << ", level " << monster->getLevel() << " --------" << std::endl;
-		//#TODO: Print RUNAWAY POLICIES info similar to items print in printPlayerDeck()
+		//DONE: Print RUNAWAY POLICIES info similar to items print in printPlayerDeck()
 		if (monster->getRunawayPolicy() != nullptr)
 		{
 			std::cout << monster->getRunawayPolicy()->getFullInfo() << std::endl << std::endl;

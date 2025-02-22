@@ -41,7 +41,7 @@ void ItemDeck::shuffleItems()
 
 Item* ItemDeck::generateItem() 
 {
-	//TODO: PICK AT RANDOM SEVERAL ITEMS FROM DATABASE AS A PLAYER HAND
+	//DONE: PICK AT RANDOM SEVERAL ITEMS FROM DATABASE AS A PLAYER HAND
 	if (m_avaliableItemsDataBase.empty())
 	{
 		m_avaliableItemsDataBase = m_itemsDataBase;

@@ -65,7 +65,6 @@ void Fight::calculateMonsterPower()
 {
 	m_monsterPower = m_monster->getLevel();
 
-	//Advvantages
 	for (Item* item : m_munchkin->getItems())
 	{
 		if (m_monster->getTribe() == item->getAdvantage())
