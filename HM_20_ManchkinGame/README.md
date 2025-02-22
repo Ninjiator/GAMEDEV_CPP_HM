@@ -8,8 +8,7 @@
 ![image](https://github.com/user-attachments/assets/da418c72-c6de-41d7-8acb-6fbec6f10692)
 
 ### b. New Items with Special Parameters
-- 🟩 Added **Holy Sword** that destroys **Zombie** instantly
-- 🟩 Implemented class `HollyWeapon`
+- 🟩 Implemented class `HollyWeapon` that destroys **Zombie** instantly
 - 🟩 Implemented class `BrutalWeapon`
 
 ### c. Unique Generation Methods for Items, Modifiers, and Monsters
