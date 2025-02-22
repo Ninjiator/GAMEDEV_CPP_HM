@@ -3,7 +3,7 @@
 ## Completed task
 
 ### a. Extend UI to Output Monster Information
-- **[Done]** Extended UI for RunAwayPolicy `std::string RunawayPolicy::getFullInfo()`
+- 🟩 Extended UI for RunAwayPolicy `std::string RunawayPolicy::getFullInfo()`
 ![image](https://github.com/user-attachments/assets/8e8d159c-1e6a-4e6b-809a-b6ea309f678d)
 ![image](https://github.com/user-attachments/assets/da418c72-c6de-41d7-8acb-6fbec6f10692)
 
