@@ -74,7 +74,22 @@ private:
 class Runaway_ItemEquipedRemoval : public Runaway
 {
 public:
-	Runaway_ItemEquipedRemoval(int remove) : m_removeAmount(remove) {}
+	//#TODO
+	Runaway_ItemEquipedRemoval(int remove) : m_itemRemove(remove) {}
+	void apply(Munchkin* munchkin) override;
+	virtual std::string getFullInfo() const override
+	{
+		return "[RUNAWAY]: Monster discard " + std::to_string(m_itemRemove) + " random equiped items \n";
+	}
+private:
+	int m_itemRemove;
+};
+
+//Remove equiped item from Outfit with biggest base power
+class Runaway_BiggestBonusCardRemoval : public Runaway
+{
+public:
+	Runaway_BiggestBonusCardRemoval(int remove) : m_removeAmount(remove) {}
 	//#TODO
 	void apply(Munchkin* munchkin) override;
 	virtual std::string getFullInfo() const override
@@ -83,12 +98,4 @@ public:
 	}
 private:
 	int m_removeAmount = 0;
-};
-
-//Remove equiped item from Outfit with biggest base power
-class Runaway_BiggestBonusCardRemoval : public Runaway
-{
-public:
-	//#TODO
-	void apply(Munchkin* munchkin) override {}
 };

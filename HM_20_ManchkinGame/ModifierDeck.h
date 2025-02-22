@@ -10,10 +10,13 @@ public:
 	ModifierDeck();
 	~ModifierDeck();
 
-	Modifier* generateModifier() const;
+	Modifier* generateModifier();
 
-	std::vector<Modifier*> generateModifiers() const { return m_modifiersDatabase; }
-
+	std::vector<Modifier*> generateModifiers();
+	void shuffleModifier();
 private:
+	const int m_modifiersAmount = 4;
 	std::vector<Modifier*> m_modifiersDatabase;
+	std::vector<Modifier*> m_avaliableModifies;
+
 };

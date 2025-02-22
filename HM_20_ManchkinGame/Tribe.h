@@ -8,3 +8,4 @@ enum class Tribe
 	God,
 	Count
 };
+

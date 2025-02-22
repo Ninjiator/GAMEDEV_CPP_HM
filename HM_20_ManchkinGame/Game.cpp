@@ -84,6 +84,18 @@ namespace UI
 		std::cin >> name;
 		munchkin->setName(name);
 
+		std::cout << "Choose your Race:\n";
+		std::cout << "1.-----Elph-----\n2.-----Human-----\n3.-----Ork-----\nEnter: ";
+		int choise;
+		std::cin >> choise;
+		while (choise > 3 || choise < 0)
+		{
+			std::cout << "\nSelect the race from [1] to [3]\nEnter: ";
+			std::cin >> choise;
+		}
+		munchkin->setRace(choise);
+		
+
 		UI::printTossing();
 	}
 

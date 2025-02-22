@@ -9,8 +9,12 @@ public:
 	ItemDeck();
 	~ItemDeck();
 
-	std::vector<Item*> generateItems() const;
+	Item* generateItem();
 
+	std::vector<Item*> generateItems();
+	void shuffleItems();
 private:
+	const int m_itemsAmount = 3;
 	std::vector<Item*> m_itemsDataBase;
+	std::vector<Item*> m_avaliableItemsDataBase;
 };

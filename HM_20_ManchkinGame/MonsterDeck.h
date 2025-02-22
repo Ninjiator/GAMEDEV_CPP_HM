@@ -9,8 +9,9 @@ public:
 	MonsterDeck();
 	~MonsterDeck();
 
-	Monster* generateMonster() const;
-
+	Monster* generateMonster();
+	void shuffleMonsters();
 private:
 	std::vector<Monster*> m_monstersDatabase;
+	std::vector<Monster*> m_availableMonsters;
 }; 

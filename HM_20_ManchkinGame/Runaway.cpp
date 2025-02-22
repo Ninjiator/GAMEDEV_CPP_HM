@@ -23,10 +23,9 @@ void Runaway_ModifierFromHandRemoval::apply(Munchkin* munchkin)
 		unsigned int idx = std::rand() % munchkin->getModifiers().size();
 		munchkin->popModifier(idx);
 	}
-	
 }
 
-void Runaway_ItemEquipedRemoval::apply(Munchkin* munchkin)
+void Runaway_BiggestBonusCardRemoval::apply(Munchkin* munchkin)
 {
     for (int i = 0; i < m_removeAmount; i++)  
     {
@@ -51,5 +50,14 @@ void Runaway_ItemEquipedRemoval::apply(Munchkin* munchkin)
             Item* removedItem = munchkin->popItem(bestItemIndex);
             delete removedItem; 
         }
+    }
+}
+
+void Runaway_ItemEquipedRemoval::apply(Munchkin* munchkin)
+{
+    for (int i = 1; i <= m_itemRemove; i++)
+    {
+        unsigned int idx = std::rand() % munchkin->getItems().size();
+        munchkin->popItem(idx);
     }
 }

@@ -2,6 +2,9 @@
 
 #include "Item.h"
 
+#include <algorithm>  
+#include <random>
+
 ItemDeck::ItemDeck()
 {
 	//TODO: Move item's database to file in format:
@@ -11,21 +14,60 @@ ItemDeck::ItemDeck()
 
 	//TODO: Setup more items of diferent types
 	m_itemsDataBase =
-	{ new Weapon{"The Sword of DOOM", 1},
-	new UndeadWeapon{"Stinky knife", 10},
-	new UndeadWeapon{"Holy grenade", 4},
-	new MagicWeapon{"HOLLY MOLLY", 1},
-	new HollyWeapon{"Angel Sword", 1, Tribe::Zombie},
-	new BrutalWeapon{"Ronin's Fear", 1} };
+	{ new Weapon{"The Sword of DOOM", 5},
+	new UndeadWeapon{"Stinky knife", 4},
+	new UndeadWeapon{"Holy grenade", 6},
+	new MagicWeapon{"HOLLY MOLLY", 7},
+	new HollyWeapon{"Angel Sword", 4, Tribe::Zombie},
+	new BrutalWeapon{"Ronin's Fear", 8} };
+
+	m_avaliableItemsDataBase = m_itemsDataBase;
 }
 
 ItemDeck::~ItemDeck()
 {
 	//TODO: FREE MEMORY
+	for (Item* item : m_itemsDataBase)
+	{
+		delete item;
+	}
+}
+void ItemDeck::shuffleItems()
+{
+	static std::random_device rd;
+	static std::mt19937 g(rd());
+	std::shuffle(m_avaliableItemsDataBase.begin(), m_avaliableItemsDataBase.end(), g);
 }
 
-std::vector<Item*> ItemDeck::generateItems() const
+Item* ItemDeck::generateItem() 
 {
 	//TODO: PICK AT RANDOM SEVERAL ITEMS FROM DATABASE AS A PLAYER HAND
-	return m_itemsDataBase;
+	if (m_avaliableItemsDataBase.empty())
+	{
+		m_avaliableItemsDataBase = m_itemsDataBase;
+		shuffleItems();
+	}
+	Item* choosenItem = m_avaliableItemsDataBase.back();
+	m_avaliableItemsDataBase.pop_back();
+
+	return choosenItem;
+}
+std::vector<Item*> ItemDeck::generateItems()
+{
+	std::vector<Item*> selectedModifiers;
+
+	if (m_avaliableItemsDataBase.empty())
+	{
+		m_avaliableItemsDataBase = m_itemsDataBase;
+		shuffleItems();
+	}
+
+	for (size_t i = 0; i < m_itemsAmount; i++)
+	{
+		Item* chosenModifier = m_avaliableItemsDataBase.back();
+		m_avaliableItemsDataBase.pop_back();
+		selectedModifiers.push_back(chosenModifier);
+	}
+
+	return selectedModifiers;
 }
