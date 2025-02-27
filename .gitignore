@@ -1,0 +1,32 @@
+# files for compile
+*.o
+*.obj
+*.so
+*.exe
+*.out
+*.a
+*.lib
+*.dll
+
+# dirs
+bin/
+build/
+Debug/
+Release/
+dist/
+
+# source - IDE
+.vscode/
+.idea/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+*.suo
+*.user
+*.userosscache
+*.sln
+*.vcxproj
+*.vcxproj.user
+
+# Макроси для CMake
+*.cmake
