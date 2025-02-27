@@ -35,13 +35,20 @@ DynamicIntArray::DynamicIntArray(const DynamicIntArray& other)
 
 DynamicIntArray& DynamicIntArray::operator=(const DynamicIntArray& other)
 {
+	if (this == &other)
+		return *this;
+
 	delete[] m_data;
+
 	m_data = new int[other.m_size];
-	this->m_size = other.m_size;
-	for (int i = 0; i < other.m_size; i++)
+
+	// Копіюємо дані
+	m_size = other.m_size;
+	for (int i = 0; i < other.m_size; i++) 
 	{
 		m_data[i] = other.m_data[i];
 	}
+
 	return *this;
 }
 
@@ -53,23 +60,16 @@ void DynamicIntArray::setSize(std::size_t newSize)
 	}
 
 	int* copy = new int[newSize];
-	if (newSize > m_size)
+	int copySize = std::min(static_cast<int>(m_size), static_cast<int>(newSize));
+
+	for (int i = 0; i < copySize; i++) 
 	{
-		for (int i = 0; i < m_size; i++)
-		{
-			copy[i] = m_data[i];
-		}
-		for (int j = m_size; j < newSize; j++)
-		{
-			copy[j] = 0;
-		}
+		copy[i] = m_data[i];  
 	}
-	else if (newSize < m_size)
+
+	for (int j = copySize; j < newSize; j++) 
 	{
-		for (int i = 0; i < newSize; i++)
-		{
-			copy[i] = m_data[i];
-		}
+		copy[j] = 0;  
 	}
 
 	delete[] m_data;
