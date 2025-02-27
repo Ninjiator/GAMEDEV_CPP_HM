@@ -11,10 +11,11 @@ int main()
 	{
 		array2[i] = 13;
 	}
+	array1 = array2;
 	std::cout << "Second element of array 2 is : " << array2[2] << std::endl;
 	array2.clear();
 	std::cout << "Array 2 size after .clear() : " << array2.getSize() << std::endl;
-
+	
 	if (array1 == array2)
 	{
 		std::cout << "true\n";

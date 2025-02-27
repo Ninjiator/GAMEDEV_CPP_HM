@@ -103,18 +103,18 @@ void DynamicIntArray::clear()
 
 bool DynamicIntArray::operator==(const DynamicIntArray& other)
 {
-	if (this->m_size == other.m_size)
+	if (this->m_size != other.m_size)
+		return false;
+
+	for (int i = 0; i < m_size; i++)
 	{
-		for (int i = 0; i < m_size; i++)
+		if (this->m_data[i] != other.m_data[i])
 		{
-			if (this->m_data[i] != other.m_data[i])
-			{
-				return false;
-			}
+			return false;
 		}
-		return true;
 	}
-	return false;
+
+	return true;
 }
 
 bool DynamicIntArray::operator!=(const DynamicIntArray& other)
