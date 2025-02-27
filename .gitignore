@@ -16,6 +16,7 @@ Release/
 dist/
 
 # source - IDE
+.vs
 .vscode/
 .idea/
 CMakeFiles/
