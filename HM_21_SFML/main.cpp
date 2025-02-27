@@ -23,7 +23,7 @@ bool handleCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2)
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode{ {1920, 1080} }, "Doodle Jump, pt.2");
+    sf::RenderWindow window(sf::VideoMode{ {1280, 720} }, "Doodle Jump, pt.2");
     window.setFramerateLimit(60);
 
     Background background(&window);

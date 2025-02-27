@@ -29,11 +29,12 @@ void Player::update(float dt)
 
 	//Physic step
 	updateGravity(dt);
+	outOfBoundsUpdate();
 	applyVelocity(dt);
 
 	updateOrientation();
 
-	outOfBoundsUpdate();
+	
 
 	m_sprite.setPosition(m_position);
 }
@@ -45,6 +46,7 @@ void Player::outOfBoundsUpdate()
 	sf::FloatRect spriteBounds = m_sprite.getGlobalBounds();
 
 	float spriteHalfWigth = spriteBounds.size.x / 2.0f;
+	float spriteHalfHeight = spriteBounds.size.y / 2.0f;
 
 	if (m_position.x - spriteHalfWigth < 0)
 	{
@@ -53,6 +55,16 @@ void Player::outOfBoundsUpdate()
 	if (m_position.x + spriteHalfWigth > windowSize.x)
 	{
 		m_position.x = windowSize.x - spriteHalfWigth;
+	}
+
+	if (m_position.y - spriteHalfWigth < 0)
+	{
+		m_position.y = spriteHalfHeight;
+
+	}
+	if (m_position.y + spriteHalfHeight > windowSize.y)
+	{
+		m_position.y = windowSize.y - spriteHalfHeight;
 	}
 	m_sprite.setPosition(m_position);
 }
@@ -82,21 +94,6 @@ void Player::handleInput(float dt)
 	}
 
 	m_position.x += deltaX;
-
-	/*sf::Vector2u windowSize = m_window->getSize();
-
-	sf::FloatRect spriteBounds = m_sprite.getGlobalBounds();
-
-	float spriteHalfWigth = spriteBounds.size.x / 2.0f;
-
-	if (m_position.x - spriteHalfWigth < 0)
-	{
-		m_position.x = spriteHalfWigth;
-	}
-	if (m_position.x + spriteHalfWigth > windowSize.x)
-	{
-		m_position.x = windowSize.x - spriteHalfWigth;
-	}*/
 	m_sprite.setPosition(m_position);
 }
 
