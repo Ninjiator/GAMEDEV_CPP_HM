@@ -1,6 +1,5 @@
 #include "DynamicIntArray.h"
 #include <iostream>
-//Implementations go here
 
 DynamicIntArray::DynamicIntArray() : m_size(0)
 {
@@ -42,7 +41,6 @@ DynamicIntArray& DynamicIntArray::operator=(const DynamicIntArray& other)
 
 	m_data = new int[other.m_size];
 
-	// Копіюємо дані
 	m_size = other.m_size;
 	for (int i = 0; i < other.m_size; i++) 
 	{
