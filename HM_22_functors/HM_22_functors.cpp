@@ -19,6 +19,17 @@ void printVec(std::vector<std::string> vec)
 	}
 }
 
+unsigned int countDivisibleBy(const std::vector<int>& vec, int number)
+{
+	unsigned int amount = 0;
+	amount = static_cast<unsigned int>(std::count_if(vec.begin(), vec.end(), [number](const int& a) 
+	{
+		return a % number == 0;
+	}
+	));
+	return amount;
+}
+
 int main()
 {
 	//Task 1
@@ -28,7 +39,7 @@ int main()
 	printVec(stringContainer);
 
 	std::sort(stringContainer.begin(), stringContainer.end(), compareByLength);
-	std::cout << "\nVector after sorting str1 > str2:\n";
+	std::cout << "\nVector after sorting str1 > str2 via func:\n";
 
 	printVec(stringContainer);
 
@@ -39,10 +50,16 @@ int main()
 			return str1.length() > str2.length();
 	}
 	);
-	std::cout << "\nVector after sorting str1 < str2:\n";
+	std::cout << "\nVector after sorting str1 < str2 via lamda:\n";
 	printVec(stringContainer);
-	std::cout << "\nVector after sorting str1 > str2:\n";
+
+	//Task 3
+	std::cout << "\nVector after sorting str1 > str2 via func obj:\n";
 	std::sort(stringContainer.begin(), stringContainer.end(), LengthComparator());
 	printVec(stringContainer);
+
+	//Task 4
+	std::vector<int> intVec = {10, 26, 30, 41, 75, 100 };
+	std::cout << "\n" << countDivisibleBy(intVec, 1);
 }
 
