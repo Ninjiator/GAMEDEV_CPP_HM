@@ -119,18 +119,7 @@ bool DynamicIntArray::operator==(const DynamicIntArray& other)
 
 bool DynamicIntArray::operator!=(const DynamicIntArray& other)
 {
-	if (this->m_size == other.m_size)
-	{
-		for (int i = 0; i < m_size; i++)
-		{
-			if (this->m_data[i] != other.m_data[i])
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	return true;
+	return !(*this == other);
 }
 
 std::size_t DynamicIntArray::getSize() const
