@@ -26,10 +26,17 @@ public:
     void setSize(std::size_t newSize);
 
     void push_back(T element);
+	void reserve(std::size_t reservedSpace);
+	std::size_t getCapacity() const { return m_capacity; }
+	void shrinkToFit();
+	void pop_back();
+	T back() const;
+	bool operator==(const DynamicArray<T>& other) const;
 
 private:
     T* m_data = nullptr;
     int m_size = 0;
+	std::size_t m_capacity = 0;
 };
 
 
@@ -85,27 +92,10 @@ DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray<T>& other)
 template<typename T>
 void DynamicArray<T>::setSize(std::size_t newSize)
 {
-	if (newSize == m_size)
-	{
-		return;
+	if (newSize > m_capacity) {
+		reserve(newSize);
 	}
-
-	T* copy = new T[newSize];
-	int copySize = std::min(static_cast<int>(m_size), static_cast<int>(newSize));
-
-	for (int i = 0; i < copySize; i++)
-	{
-		copy[i] = m_data[i];
-	}
-
-	for (int j = copySize; j < newSize; j++)
-	{
-		copy[j] = T{};
-	}
-
-	delete[] m_data;
 	m_size = newSize;
-	m_data = copy;
 }
 
 template<typename T>
@@ -163,4 +153,69 @@ template<typename T>
 std::size_t DynamicArray<T>::getSize() const
 {
 	return m_size;
+}
+
+template<typename T>
+void DynamicArray<T>::reserve(std::size_t reservedSpace)
+{
+	if (reservedSpace <= m_capacity) {
+		return;  
+	}
+
+	T* newData = new T[reservedSpace];  
+	if (m_data) {
+		std::copy(m_data, m_data + m_size, newData); 
+		delete[] m_data;  
+	}
+	m_data = newData;
+	m_capacity = reservedSpace;  
+}
+
+template<typename T>
+void DynamicArray<T>::shrinkToFit()
+{
+	if (m_capacity > m_size)
+	{
+		T* newData = new T[m_size]; 
+		std::copy(m_data, m_data + m_size, newData); 
+		delete[] m_data; 
+		m_data = newData;
+		m_capacity = m_size; 
+	}
+}
+
+template<typename T>
+void DynamicArray<T>::pop_back()
+{
+	if (m_size > 0)
+	{
+		--m_size; 
+	}
+}
+
+template<typename T>
+T DynamicArray<T>::back() const
+{
+	if (m_size == 0)
+	{
+		std::cerr << "size 0";
+	}
+	return m_data[m_size - 1]; 
+}
+
+template<typename T>
+bool DynamicArray<T>::operator==(const DynamicArray& other) const
+{
+	if (m_size != other.m_size)
+	{
+		return false;
+	}
+	for (std::size_t i = 0; i < m_size; ++i)
+	{
+		if (m_data[i] != other.m_data[i])
+		{
+			return false;
+		}
+	}
+	return true;
 }

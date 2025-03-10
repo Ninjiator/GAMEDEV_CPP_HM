@@ -54,7 +54,7 @@ int main()
 	std::cout << "Array 4 size after .setSize(3) : " << array4.getSize() << std::endl;
 	array4.push_back(6);
 	std::cout << "Array 4 size after .push_back(5) : [" << array4.getSize() << "] 5th element is: [" << array4[6] << "]" << std::endl;
-
+	std::cout << "\nLast element of Array 4" << array4.back();
 	// HM23
 	DynamicArray<std::string> str1;
 	DynamicArray<std::string> str2(5);
@@ -64,4 +64,16 @@ int main()
 	str1.push_back("abc");
 	std::cout << "zero element of str1 after push_back: " << str1[0];
 	str1 = str2;
+
+	bool isEqual = str1 == str2;
+	std::cout << "\n" << isEqual;
+
+	
+	str1.reserve(100);
+	std::cout << "\nCapacity of str1 after increasing : " << str1.getCapacity();
+	str1.shrinkToFit();
+	std::cout << "\nCapacity of str1 after shrinkToFit " << str1.getCapacity();
+	str1.back();
+	
 }
+
