@@ -123,6 +123,28 @@ int main()
     Node* head1 = new Node(10);
     head1->next = new Node(20);
     head1->next->next = head1;
-    std::cout << "\nList 2 with cycle: " << (has_cycle(head1) ? "Cycle is present" : "no Cycle") << std::endl;
+    std::cout << "\nList 2 with cycle: " << (has_cycle(head1) ? "Cycle is present" : "no Cycle") << std::endl; 
+     
+    //large list with cycle
+    Node* head3 = new Node(5);
+    head3->next = new Node(2);
+    head3->next->next = new Node(7);
+    head3->next->next->next = new Node(13);
+    head3->next->next->next->next = new Node(77);
+    head3->next->next->next->next->next = new Node(0);
+    head3->next->next->next->next->next->next = new Node(-1);
+    head3->next->next->next->next->next->next->next = new Node(100);
+    head3->next->next->next->next->next->next->next->next = new Node(1050);
+    head3->next->next->next->next->next->next->next->next->next = new Node(-7);
+    head3->next->next->next->next->next->next->next->next->next->next = head3->next->next->next;
+    std::cout << "\nList 3 with cycle: " << (has_cycle(head3) ? "Cycle is present" : "no Cycle") << std::endl; 
+
+    //short list with cycle 
+    Node* head4 = new Node(0);
+    head4->next = head4;
+    std::cout << "\nList 4 with cycle: " << (has_cycle(head4) ? "Cycle is present" : "no Cycle") << std::endl; 
+
+
+
 }
 
