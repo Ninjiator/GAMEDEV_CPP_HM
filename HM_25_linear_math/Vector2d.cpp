@@ -9,7 +9,15 @@ Vector2d::Vector2d(float x, float y)
 	this->m_x = x;
 	this->m_y = y;
 	CalledVectorConstructors++;
-	std::cout << "\n[C-tor called]" << std::endl;
+	//std::cout << "\n[C-tor called]" << std::endl;
+}
+
+Vector2d::Vector2d(float x0, float y0, float x1, float y1)
+{
+	this->m_x = x1 - x0;
+	this->m_y = y1 - y0;
+	CalledVectorConstructors++;
+	//std::cout << "\n[C-tor called]" << std::endl;
 }
 
 float Vector2d::getLength() const
@@ -19,7 +27,15 @@ float Vector2d::getLength() const
 
 float Vector2d::getAngle(const Vector2d& other) const
 {
-	return static_cast<float>(std::pow(std::cos((this->dotProduct(other)) / (this->getLength() * other.getLength())), -1));
+	return ((this->dotProduct(other)) / (this->getLength() * other.getLength()));
+}
+
+Vector2d Vector2d::operator=(const Vector2d secondVector)
+{
+	this->m_x = secondVector.m_x;
+	this->m_y = secondVector.m_y; 
+
+	return *this;
 }
 
 bool Vector2d::equal(const Vector2d& other) const
@@ -33,42 +49,36 @@ bool Vector2d::equal(const Vector2d& other) const
 
 VectorRelativeState Vector2d::getRelativeState(const Vector2d& other) const
 {
-	float angleBeetween = this->getAngle(other);
-
-	if (angleBeetween == 0.0f && this->equal(other))
+	float cosAngle = this->getAngle(other);
+	float dotProduct = this->dotProduct(other);
+	
+	if (this->equal(other))
 	{
 		return VectorRelativeState::Identical;
 	}
-	if (angleBeetween == 0.0f && !(this->equal(other)))
+	if (dotProduct > 0)
 	{
 		return VectorRelativeState::coDirected;
 	}
-	if (angleBeetween == 180.0f)
+	if (dotProduct < 0)
 	{
 		return VectorRelativeState::OppositeDirected;
 	}
-	if (angleBeetween < 90.0f)
+	if (cosAngle > 0)
 	{
 		return VectorRelativeState::AcuteAngle;
 	}
-	if (angleBeetween > 90.0f && angleBeetween < 180.0f)
+	else if (cosAngle < 0)
 	{
 		return VectorRelativeState::ObtuseAngle;
 	}
-	if (this->dotProduct(other) == 0.0f)
+	else
 	{
 		return VectorRelativeState::RightAngle;
 	}
-	return VectorRelativeState::Error;
+	
 }
 
-Vector2d::Vector2d(float x0, float y0, float x1, float y1)
-{
-	this->m_x = x1 - x0;
-	this->m_y = y1 - y0;
-	CalledVectorConstructors++;
-	std::cout << "\n[C-tor called]" << std::endl;
-}
 
 float Vector2d::dotProduct(const Vector2d& other) const
 {
