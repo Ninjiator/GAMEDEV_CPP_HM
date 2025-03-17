@@ -47,6 +47,7 @@ bool Vector2d::equal(const Vector2d& other) const
 	}
 	return false;
 }
+
 VectorRelativeState Vector2d::getRelativeState(const Vector2d& other) const
 {
     float dotProduct = this->dotProduct(other);
@@ -55,19 +56,24 @@ VectorRelativeState Vector2d::getRelativeState(const Vector2d& other) const
 
     const float epsilon = 1e-5;
 
-    if (this->equal(other)) {
+    if (this->equal(other)) 
+	{
         return VectorRelativeState::Identical;
     }
-    if (dotProduct > 0 && std::abs(dotProduct - (length1 * length2)) < epsilon) {
+    if (dotProduct > 0 && std::abs(dotProduct - (length1 * length2)) < epsilon) 
+	{
         return VectorRelativeState::coDirected;
     }
-    if (dotProduct < 0 && std::abs(dotProduct + (length1 * length2)) < epsilon) {
+    if (dotProduct < 0 && std::abs(dotProduct + (length1 * length2)) < epsilon) 
+	{
         return VectorRelativeState::OppositeDirected;
     }
-    if (std::abs(dotProduct) < epsilon) {
+    if (std::abs(dotProduct) < epsilon) 
+	{
         return VectorRelativeState::RightAngle;
     }
-    if (dotProduct > 0) {
+    if (dotProduct > 0) 
+	{
         return VectorRelativeState::AcuteAngle;
     }
 
