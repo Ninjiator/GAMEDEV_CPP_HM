@@ -110,4 +110,10 @@ int main()
 	vector1 = vector2;
 	std::cout << "\nVector 1 == Vector 2: " << vector2;
 	printRelativeStateResults(vector2.getRelativeState(vector1));
+
+	Vector2d vector11 = { -10.0f, 0.0f };
+	Vector2d vector12 = { 6.0f, 6.0f };
+	std::cout << "\nVector 11 : " << vector11;
+	std::cout << "\nVector 12 : " << vector12;
+	printRelativeStateResults(vector11.getRelativeState(vector12));
 }

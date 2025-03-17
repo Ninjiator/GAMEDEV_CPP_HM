@@ -2,6 +2,7 @@
 #include "Vector2d.h"
 #include <cmath>
 
+
 int Vector2d::CalledVectorConstructors = 0;
 
 Vector2d::Vector2d(float x, float y)
@@ -46,37 +47,31 @@ bool Vector2d::equal(const Vector2d& other) const
 	}
 	return false;
 }
-
 VectorRelativeState Vector2d::getRelativeState(const Vector2d& other) const
 {
-	float cosAngle = this->getAngle(other);
-	float dotProduct = this->dotProduct(other);
-	
-	if (this->equal(other))
-	{
-		return VectorRelativeState::Identical;
-	}
-	if (dotProduct > 0)
-	{
-		return VectorRelativeState::coDirected;
-	}
-	if (dotProduct < 0)
-	{
-		return VectorRelativeState::OppositeDirected;
-	}
-	if (cosAngle > 0)
-	{
-		return VectorRelativeState::AcuteAngle;
-	}
-	else if (cosAngle < 0)
-	{
-		return VectorRelativeState::ObtuseAngle;
-	}
-	else
-	{
-		return VectorRelativeState::RightAngle;
-	}
-	
+    float dotProduct = this->dotProduct(other);
+    float length1 = this->getLength();
+    float length2 = other.getLength();
+
+    const float epsilon = 1e-5;
+
+    if (this->equal(other)) {
+        return VectorRelativeState::Identical;
+    }
+    if (dotProduct > 0 && std::abs(dotProduct - (length1 * length2)) < epsilon) {
+        return VectorRelativeState::coDirected;
+    }
+    if (dotProduct < 0 && std::abs(dotProduct + (length1 * length2)) < epsilon) {
+        return VectorRelativeState::OppositeDirected;
+    }
+    if (std::abs(dotProduct) < epsilon) {
+        return VectorRelativeState::RightAngle;
+    }
+    if (dotProduct > 0) {
+        return VectorRelativeState::AcuteAngle;
+    }
+
+    return VectorRelativeState::ObtuseAngle;
 }
 
 
