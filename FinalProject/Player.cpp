@@ -47,15 +47,19 @@ void Player::handleArenaBounds()
 	{
 		m_sprite.setPosition(m_position);
 	}
-	else
+	
+	//TODO:
+	//during colision with wall, position.y should be updated
+
+	/*else
 	{
 		m_sprite.setPosition(m_position.x);
-	}
+	}*/
 }
 
 void Player::updateGravity(float dt)
 {
-	const float acceleration = 2000.0f; //
+	const float acceleration = 2000.0f;
 
 	m_velocity.y += acceleration * dt;
 }
@@ -111,7 +115,8 @@ void Player::handleInput(float dt)
 	{
 		deltaAir = 450.0f * dt;
 	}
-	
+	//
+
 	float deltaX = 0.0f;
 	float deltaY = 0.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
@@ -125,10 +130,12 @@ void Player::handleInput(float dt)
 		m_newOrientationRequest = PlayerOrientation::Right;
 	}
 
+	//TO DO:
+	//sprite manipulation's for duck, jump, dash
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
-			//m_texture.loadFromFile("resources/cuphead_duck_shoot_0001.png");
-			//m_sprite.setTexture(m_texture);
+		//m_texture.loadFromFile("resources/cuphead_duck_shoot_0001.png");
+		//m_sprite.setTexture(m_texture);
 		//m_sprite.setScale({1.2f, 0.3f});
 	}
 

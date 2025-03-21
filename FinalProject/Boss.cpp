@@ -8,6 +8,7 @@ Boss::Boss(sf::RenderWindow* window)
 	, m_sprite(m_texture)
 {
 	m_sprite.setScale({ 0.3f, 0.3f });
+	
 	//m_sprite.setPosition({ 1200.f, 450.f });
 }
 

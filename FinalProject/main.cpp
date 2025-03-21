@@ -36,7 +36,7 @@ int main()
 		window.clear(sf::Color::White);
 		background.draw();
 		player.draw();
-		//boss.draw();
+		boss.draw();
 
 		//Step:4 vizualize
 		window.display();
