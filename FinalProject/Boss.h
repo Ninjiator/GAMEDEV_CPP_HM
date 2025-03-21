@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <string>
 
 class Boss
 {
@@ -7,10 +8,12 @@ public:
 	Boss(sf::RenderWindow* window);
 
 	void update(float dt);
+	void animation(float dt);
 	void draw();
 private:
 	sf::RenderWindow* m_window = nullptr;
-
+	
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
+	sf::IntRect m_spriteIntRect;
 };

@@ -7,7 +7,6 @@
 
 int main()
 {
-
     sf::RenderWindow window(sf::VideoMode( {1280, 720}), "CupHead" );
     window.setFramerateLimit(60);
 	Background background(&window);
@@ -30,7 +29,7 @@ int main()
 		}
 		//Step:2 update all game obj
 		player.update(deltaTimeSec);
-
+		boss.update(deltaTimeSec);
 
 		//Step:3 draw all game obj
 		window.clear(sf::Color::White);

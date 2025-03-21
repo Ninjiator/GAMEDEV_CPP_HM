@@ -3,12 +3,14 @@
 
 Player::Player(sf::RenderWindow* window)
 	: m_window(window)
-	, m_texture("resources/cuphead_idle_0001.png")
+	, m_texture("resources/cuphead_spritesheet.png")
 	, m_sprite(m_texture)
 	, m_orientation(PlayerOrientation::Right)
 	, m_newOrientationRequest(PlayerOrientation::Right)
 	
 {
+	m_spriteIntRect = sf::IntRect({0, 0}, {100, 150}); // x + 100
+	m_sprite.setTextureRect(m_spriteIntRect);
 	m_sprite.scale({ 1.0f, 1.0f });
 
 	sf::FloatRect spriteLocalBounds = m_sprite.getLocalBounds();
@@ -33,28 +35,34 @@ void Player::update(float dt)
 	
 	handleArenaBounds();
 	handlePlayerOrientation();
+
 }
 
 void Player::handleArenaBounds()
 {
 	float spriteWidth = m_sprite.getGlobalBounds().size.x;
 	float spriteHeight= m_sprite.getGlobalBounds().size.y;
+
+	//Handling floor colision
 	if (m_position.y + spriteHeight/ 2.0f >= m_window->getSize().y)
 	{
 		m_onGround = true;
+		m_velocity.y = 0.0f;
+		m_position.y = m_window->getSize().y - spriteHeight / 2.0f;
+
 	}
-	if (!((m_position.x + spriteWidth / 2.0f) > m_window->getSize().x || (m_position.x - spriteWidth / 2.0f) < 0.0f))
+
+	//Handling wall's colision and updating X coordinate, if collision present
+	if (m_position.x + spriteWidth / 2.0f > m_window->getSize().x)
 	{
-		m_sprite.setPosition(m_position);
+		m_position.x = m_window->getSize().x - spriteWidth / 2.0f;
+	}
+	else if (m_position.x - spriteWidth / 2.0f < 0.0f)
+	{
+		m_position.x = spriteWidth / 2.0f;
 	}
 	
-	//TODO:
-	//during colision with wall, position.y should be updated
-
-	/*else
-	{
-		m_sprite.setPosition(m_position.x);
-	}*/
+	m_sprite.setPosition(m_position);
 }
 
 void Player::updateGravity(float dt)
@@ -108,14 +116,13 @@ void Player::draw()
 void Player::handleInput(float dt)
 {
 	const float SPEED_X = 800.0f * dt;
+	float deltaAir = 0.f;
 
-	//reducing deltaX during jump action
-	float deltaAir = 1;
-	if (!m_onGround)
+	//Reducing deltaX during jump action
+	if (!m_onGround) 				
 	{
 		deltaAir = 450.0f * dt;
 	}
-	//
 
 	float deltaX = 0.0f;
 	float deltaY = 0.0f;
@@ -129,7 +136,6 @@ void Player::handleInput(float dt)
 		deltaX = +(SPEED_X - deltaAir);
 		m_newOrientationRequest = PlayerOrientation::Right;
 	}
-
 	//TO DO:
 	//sprite manipulation's for duck, jump, dash
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
