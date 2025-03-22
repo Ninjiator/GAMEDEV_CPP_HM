@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "Background.h"
 #include "Boss.h"
+#include "Projectile.h"
+#include "Weapon.h"
 
 
 int main()
@@ -12,7 +14,7 @@ int main()
 	Background background(&window);
 	Player player(&window);
 	Boss boss(&window);
-
+	Weapon weapon(&window, &player);
 	sf::Clock frameRateClock;
 
 	while (window.isOpen())
@@ -30,13 +32,14 @@ int main()
 		//Step:2 update all game obj
 		player.update(deltaTimeSec);
 		boss.update(deltaTimeSec);
+		weapon.update(deltaTimeSec);
 
 		//Step:3 draw all game obj
 		window.clear(sf::Color::White);
 		background.draw();
 		player.draw();
 		boss.draw();
-
+		weapon.draw();
 		//Step:4 vizualize
 		window.display();
 	}

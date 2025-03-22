@@ -7,7 +7,6 @@ Player::Player(sf::RenderWindow* window)
 	, m_sprite(m_texture)
 	, m_orientation(PlayerOrientation::Right)
 	, m_newOrientationRequest(PlayerOrientation::Right)
-	
 {
 	m_spriteIntRect = sf::IntRect({0, 0}, {100, 150}); // x + 100
 	m_sprite.setTextureRect(m_spriteIntRect);
@@ -16,12 +15,10 @@ Player::Player(sf::RenderWindow* window)
 	sf::FloatRect spriteLocalBounds = m_sprite.getLocalBounds();
 	m_sprite.setOrigin({ spriteLocalBounds.size.x / 2.0f, spriteLocalBounds.size.y / 2.0f });
 
-	const sf::Vector2u windowSize = m_window->getSize(); // Vector2u - save wight and height in unsigned type
+	const sf::Vector2u windowSize = m_window->getSize(); // Vector2u - save w and h in unsigned type
 	const sf::FloatRect spriteSize = m_sprite.getGlobalBounds(); //returns a resctangle sizes
 	
-
-	sf::Vector2f newPosition = sf::Vector2f{ static_cast<float>(windowSize.x) / 3.0f,
-								static_cast<float>(windowSize.y) - spriteSize.size.y / 2.0f};
+	sf::Vector2f newPosition = sf::Vector2f{ static_cast<float>(windowSize.x) / 3.0f, static_cast<float>(windowSize.y) - spriteSize.size.y / 2.0f};
 	m_sprite.setPosition(newPosition);
 }
 
@@ -34,8 +31,9 @@ void Player::update(float dt)
 	applyVelocity(dt);
 	
 	handleArenaBounds();
+	
 	handlePlayerOrientation();
-
+	animation(dt);
 }
 
 void Player::handleArenaBounds()
@@ -49,7 +47,6 @@ void Player::handleArenaBounds()
 		m_onGround = true;
 		m_velocity.y = 0.0f;
 		m_position.y = m_window->getSize().y - spriteHeight / 2.0f;
-
 	}
 
 	//Handling wall's colision and updating X coordinate, if collision present
@@ -61,21 +58,18 @@ void Player::handleArenaBounds()
 	{
 		m_position.x = spriteWidth / 2.0f;
 	}
-	
 	m_sprite.setPosition(m_position);
 }
 
 void Player::updateGravity(float dt)
 {
 	const float acceleration = 2000.0f;
-
 	m_velocity.y += acceleration * dt;
 }
 
 void Player::applyVelocity(float dt)
 {
 	const sf::Vector2f displacement{ m_velocity.x * dt, m_velocity.y * dt }; //zmishenia
-	
 	if (!m_onGround)
 	{
 		m_position += displacement;
@@ -113,6 +107,25 @@ void Player::draw()
 	m_window->draw(m_sprite);
 }
 
+void Player::animation(float dt)
+{
+	m_timer += 0.1+dt;
+	
+	if (m_timer >= m_timerMax)
+	{
+		m_spriteIntRect.position.x += m_spriteWidth;
+		if (m_spriteIntRect.position.x >= m_texture.getSize().x)
+		{
+			m_spriteIntRect.position.x = 0;
+		}
+		if (m_spriteIntRect.position.x < m_texture.getSize().x)
+		{
+			m_sprite.setTextureRect(m_spriteIntRect);
+		}
+		m_timer = 0.0f;
+	}
+}
+
 void Player::handleInput(float dt)
 {
 	const float SPEED_X = 800.0f * dt;
@@ -136,6 +149,7 @@ void Player::handleInput(float dt)
 		deltaX = +(SPEED_X - deltaAir);
 		m_newOrientationRequest = PlayerOrientation::Right;
 	}
+
 	//TO DO:
 	//sprite manipulation's for duck, jump, dash
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
@@ -144,6 +158,5 @@ void Player::handleInput(float dt)
 		//m_sprite.setTexture(m_texture);
 		//m_sprite.setScale({1.2f, 0.3f});
 	}
-
 	m_position = m_sprite.getPosition() + sf::Vector2f{ deltaX, deltaY };
 }
