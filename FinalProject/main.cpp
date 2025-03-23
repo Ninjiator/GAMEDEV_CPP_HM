@@ -5,6 +5,7 @@
 #include "Boss.h"
 #include "Projectile.h"
 #include "Weapon.h"
+#include "BossWeapon.h"
 
 void handleSystemIvents(sf::RenderWindow& window)
 {
@@ -29,15 +30,16 @@ int main()
 	Player player(&window);
 	Boss boss(&window);
 	Weapon weapon(&window, &player);
+	BossWeapon bossWeapon(&window, &boss);
+
+
 	sf::Clock frameRateClock;
 
 	/*std::vector<GameObject*> gameObj;
-
 	gameObj.push_back(&player);
 	gameObj.push_back(&boss);
 	gameObj.push_back(&weapon);*/
 	
-
 	while (window.isOpen())
 	{
 		float deltaTimeSec = frameRateClock.restart().asSeconds(); //  dt
@@ -49,7 +51,7 @@ int main()
 		player.update(deltaTimeSec);
 		boss.update(deltaTimeSec);
 		weapon.update(deltaTimeSec);
-		
+		bossWeapon.update(deltaTimeSec);
 
 		//Step:3 draw all game obj
 		window.clear(sf::Color::White);
@@ -57,6 +59,7 @@ int main()
 		player.draw();
 		boss.draw();
 		weapon.draw();
+		bossWeapon.draw();
 
 		//Step:4 vizualize
 		window.display();

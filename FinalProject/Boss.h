@@ -11,6 +11,9 @@ public:
 	void update(float dt) override;
 	void draw() override;
 
+	sf::Vector2f getPosition() { return m_position; }
+	const float getBossWidth() { return m_bossWidth; }
+	
 	void animation(float dt);
 	
 private:
@@ -18,7 +21,11 @@ private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 
+	sf::Vector2f m_position;
+
 	sf::IntRect m_spriteIntRect;
+	float m_bossWidth = 556.f;
+
 	float m_timer = 0.0f;
 	const float m_timerMax = 0.45f;
 	const float m_spriteWidth = 566.0f;

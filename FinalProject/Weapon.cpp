@@ -24,7 +24,7 @@ void Weapon::draw()
 
 void Weapon::shoot(float dt)
 {
-	float SPEED_X = 900.f;
+	float SPEED_X = 1000.f;
 	float delta_X = 0.f;
 	sf::Vector2f spawnPosition;
 	const float shootTimerMax = 0.1f; 
@@ -37,13 +37,13 @@ void Weapon::shoot(float dt)
 		{
 			delta_X = -SPEED_X;
 
-			spawnPosition = m_player->getPosition() + sf::Vector2f{ -50.f, 0.f };
+			spawnPosition = m_player->getPosition() + sf::Vector2f{ -(m_player->getPlayerWidth())/2.f, 0.f };
 		}
 		if (m_player->getPlayerOrientation() == PlayerOrientation::Right)
 		{
 			delta_X = SPEED_X;
 
-			spawnPosition = m_player->getPosition() + sf::Vector2f{ 50.f, 0.f };
+			spawnPosition = m_player->getPosition() + sf::Vector2f{ m_player->getPlayerWidth()/2.f, 0.f };
 		}
 		
 		m_projectiles.push_back(new Projectile{ m_window, spawnPosition, delta_X });

@@ -19,6 +19,7 @@ public:
 
 	sf::Vector2f getPosition() { return m_position; }
 	const PlayerOrientation& getPlayerOrientation() { return m_orientation; }
+	float getPlayerWidth() { return m_spriteWidth; }
 
 	void animation(float dt);
 	
@@ -51,4 +52,5 @@ private:
 	float m_timer = 0.0f;
 	const float m_timerMax = 0.65f;
 	float m_spriteWidth = 100.0f;
+	
 };

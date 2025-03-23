@@ -1,26 +1,26 @@
 #pragma once
+#include "Weapon.h"
 #include "Projectile.h"
 #include <vector>
 #include "SFML/Graphics.hpp"
-#include "Player.h"
 #include "Boss.h"
-#include "GameObj.h"
 
-class Weapon : public GameObject
+class BossWeapon : public Weapon
 {
 public:
-	Weapon(sf::RenderWindow* window, Player* player);
-
+	BossWeapon(sf::RenderWindow* window, Boss* boss);
 	void update(float dt) override;
-	void draw() override;
+	//void draw();
 
-	virtual void shoot(float dt);
-	void deleteProjectile(float dt);
+	void shoot(float dt) override; //add boss logic
+	//void deleteProjectile(float dt);
+
+	
 private:
-	Player* m_player = nullptr;
+	Boss* m_boss = nullptr;
 
 	std::vector<Projectile*> m_projectiles;
 	sf::Vector2f m_position;
-
+	
 	float m_shootTimer = 0.f;
 };
