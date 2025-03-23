@@ -29,7 +29,7 @@ void Boss::update(float dt)
 
 void Boss::animation(float dt)
 {
-	m_timer += 0.1f+dt;
+	m_timer += 0.1f + dt;
 	if (m_timer >= m_timerMax)
 	{
 		m_spriteIntRect.position.x += m_spriteWidth;

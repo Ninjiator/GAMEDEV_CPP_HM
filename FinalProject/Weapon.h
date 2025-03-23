@@ -3,7 +3,6 @@
 #include <vector>
 #include "SFML/Graphics.hpp"
 #include "Player.h"
-#include "Boss.h"
 #include "GameObj.h"
 
 class Weapon : public GameObject
@@ -23,4 +22,5 @@ private:
 	sf::Vector2f m_position;
 
 	float m_shootTimer = 0.f;
+	
 };

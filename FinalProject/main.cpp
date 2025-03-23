@@ -51,7 +51,7 @@ int main()
 		player.update(deltaTimeSec);
 		boss.update(deltaTimeSec);
 		weapon.update(deltaTimeSec);
-		bossWeapon.update(deltaTimeSec);
+		//bossWeapon.update(deltaTimeSec);
 
 		//Step:3 draw all game obj
 		window.clear(sf::Color::White);
@@ -59,7 +59,7 @@ int main()
 		player.draw();
 		boss.draw();
 		weapon.draw();
-		bossWeapon.draw();
+		//bossWeapon.draw();
 
 		//Step:4 vizualize
 		window.display();

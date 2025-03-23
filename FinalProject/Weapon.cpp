@@ -4,8 +4,15 @@
 Weapon::Weapon(sf::RenderWindow* window, Player* player)
 	: GameObject(window)
 	, m_player(player)
-	, m_position(player->getPosition())
 {
+	if (m_player)
+	{
+		m_position = m_player->getPosition();
+	}
+	else
+	{
+		m_position = sf::Vector2f{ 0.f, 0.f };
+	}
 }
 
 void Weapon::update(float dt)
