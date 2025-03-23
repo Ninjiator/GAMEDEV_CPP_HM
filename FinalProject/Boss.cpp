@@ -3,7 +3,7 @@
 
 
 Boss::Boss(sf::RenderWindow* window)
-	: m_window(window)
+	: GameObject(window)
 	, m_texture("resources/snowflake_spritesheet_10frames.png")
 	, m_sprite(m_texture)
 {

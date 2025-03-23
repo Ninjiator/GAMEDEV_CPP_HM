@@ -1,17 +1,19 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "GameObj.h"
 
-class Boss
+class Boss : public GameObject
 {
 public:
 	Boss(sf::RenderWindow* window);
 
-	void update(float dt);
+	void update(float dt) override;
+	void draw() override;
+
 	void animation(float dt);
-	void draw();
+	
 private:
-	sf::RenderWindow* m_window = nullptr;
 	
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;

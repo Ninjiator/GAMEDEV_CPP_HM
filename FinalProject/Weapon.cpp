@@ -1,20 +1,17 @@
 #include "Weapon.h"
+#include <iostream>
 
 Weapon::Weapon(sf::RenderWindow* window, Player* player)
-	: m_window(window)
+	: GameObject(window)
 	, m_player(player)
 	, m_position(player->getPosition())
 {
-	m_projectiles.push_back(new Projectile{ m_window, m_position });
 }
 
 void Weapon::update(float dt)
 {
 	shoot(dt);
-	for (Projectile* projectile : m_projectiles)
-	{
-		projectile->update(dt);
-	}
+	deleteProjectile(dt);
 }
 
 void Weapon::draw()
@@ -27,14 +24,50 @@ void Weapon::draw()
 
 void Weapon::shoot(float dt)
 {
-	float SPEED_X = 1000.f * dt;
+	float SPEED_X = 900.f;
 	float delta_X = 0.f;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+	sf::Vector2f spawnPosition;
+	const float shootTimerMax = 0.1f; 
+	m_shootTimer += dt;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && m_shootTimer > shootTimerMax)
 	{
-		delta_X += SPEED_X;
+		m_shootTimer = 0.f;
+		if (m_player->getPlayerOrientation() == PlayerOrientation::Left)
+		{
+			delta_X = -SPEED_X;
+
+			spawnPosition = m_player->getPosition() + sf::Vector2f{ -50.f, 0.f };
+		}
+		if (m_player->getPlayerOrientation() == PlayerOrientation::Right)
+		{
+			delta_X = SPEED_X;
+
+			spawnPosition = m_player->getPosition() + sf::Vector2f{ 50.f, 0.f };
+		}
 		
-		m_position = m_player->getPosition() + sf::Vector2f{ delta_X, 0.0f };
-		m_projectiles[0]->setPosition(m_position);
+		m_projectiles.push_back(new Projectile{ m_window, spawnPosition, delta_X });
 	}
-	
+}
+
+void Weapon::deleteProjectile(float dt)
+{
+	for (auto it = m_projectiles.begin(); it != m_projectiles.end(); )
+	{
+		(*it)->update(dt); 
+		// check for out of bounds
+		if ((*it)->getPosition().x > m_window->getSize().x || (*it)->getPosition().x < 0.f)
+		{
+			delete* it; 
+			//DEBUG
+			std::cout << "Projectile deleted\n";  
+			it = m_projectiles.erase(it); 
+		}
+		else
+		{
+			++it; 
+		}
+	}
+	//DEBUG
+	std::cout << "Number of projectiles: " << m_projectiles.size() << std::endl;
 }

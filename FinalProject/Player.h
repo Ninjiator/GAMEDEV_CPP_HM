@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "GameObj.h"
 
 enum class PlayerOrientation
 {
@@ -9,15 +10,19 @@ enum class PlayerOrientation
 	Jump,
 };
 
-class Player
+class Player : public GameObject
 {
 public:
 	Player(sf::RenderWindow* window);
-	void update(float dt);
-	void draw();
+	void update(float dt) override;
+	void draw() override;
+
+	sf::Vector2f getPosition() { return m_position; }
+	const PlayerOrientation& getPlayerOrientation() { return m_orientation; }
+
 	void animation(float dt);
 	
-	sf::Vector2f getPosition() { return m_position; }
+	
 
 private:
 	void handleInput(float dt);
@@ -31,7 +36,6 @@ private:
 private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
-	sf::RenderWindow* m_window = nullptr;
 	
 	sf::Vector2f m_position;
 	PlayerOrientation m_orientation;

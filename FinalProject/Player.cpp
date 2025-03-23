@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 Player::Player(sf::RenderWindow* window)
-	: m_window(window)
+	: GameObject(window)
 	, m_texture("resources/cuphead_spritesheet.png")
 	, m_sprite(m_texture)
 	, m_orientation(PlayerOrientation::Right)
