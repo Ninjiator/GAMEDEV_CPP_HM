@@ -26,4 +26,10 @@ void Projectile::draw()
 
 void Projectile::onCollision(GameObject* colidable)
 {
+	if (colidable->getType() == Type::Boss)
+	{
+	}
+	if (colidable->getType() == Type::Player)
+	{
+	}
 }

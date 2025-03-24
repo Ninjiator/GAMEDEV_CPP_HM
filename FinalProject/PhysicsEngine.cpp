@@ -24,7 +24,6 @@ void PhysicsEngine::update(float dt)
 
 		if (std::optional intersectedBox = bossBox.findIntersection(playerProjectileBox))
 		{
-			std::cout << "[BOSS] HITTED" << std::endl;
 			playerProjectile->onCollision(m_boss);
 			m_boss->onCollision(playerProjectile);
 		}
@@ -39,7 +38,6 @@ void PhysicsEngine::update(float dt)
 
 		if (std::optional intersectedBox = playerBox.findIntersection(bossProjectileBox))
 		{
-			std::cout << "[PLAYER] HITTED" << std::endl;
 			bossProjectile->onCollision(m_player);
 			m_player->onCollision(bossProjectile);
 		}
@@ -50,7 +48,6 @@ void PhysicsEngine::update(float dt)
 	sf::FloatRect bossBox = m_boss->getBoundingBox();
 	if (std::optional intersectedBox = playerBox.findIntersection(bossBox))
 	{
-		std::cout << "[BOSS HIT'S PLAYER]" << std::endl;
 		m_player->onCollision(m_boss);
 		m_boss->onCollision(m_player);
 	}

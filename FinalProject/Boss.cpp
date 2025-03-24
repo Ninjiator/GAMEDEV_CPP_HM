@@ -1,6 +1,6 @@
 #include "Boss.h"
 #include <SFML/Graphics.hpp>
-
+#include <iostream>
 
 Boss::Boss(sf::RenderWindow* window)
 	: GameObject(window)
@@ -52,4 +52,9 @@ void Boss::draw()
 
 void Boss::onCollision(GameObject* colidable)
 {
+	if (colidable->getType() == Type::Projectile)
+	{
+		m_hp--;
+		std::cout << "[BOSS HITTED BY PLAYER]" << std::endl;
+	}
 }

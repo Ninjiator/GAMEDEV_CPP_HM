@@ -17,6 +17,8 @@ public:
 
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 
+	Type getType() override { return Type::Boss; }
+
 private:
 	void animation(float dt);
 	//TODO:
@@ -24,9 +26,10 @@ private:
 	void rainBombAbility() {}; //spawn falling bomb's
 
 private:
-	
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
+
+	int m_hp = 1000;
 
 	sf::Vector2f m_position;
 

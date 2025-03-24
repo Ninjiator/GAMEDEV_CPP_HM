@@ -44,7 +44,7 @@ int main()
 	gameObj.push_back(&boss);
 	gameObj.push_back(&weapon);*/
 	
-	while (window.isOpen())
+	while (window.isOpen()) // && player.IsPlayerAlive()
 	{
 		float deltaTimeSec = frameRateClock.restart().asSeconds(); //  dt
 

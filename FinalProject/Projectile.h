@@ -16,6 +16,7 @@ public:
 
 	sf::Vector2f getPosition() { return m_position; };
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
+	Type getType() override { return Type::Projectile; }
 
 	void setPosition(sf::Vector2f& position) { m_position = position; }
 private:

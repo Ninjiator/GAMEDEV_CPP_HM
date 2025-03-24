@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 Player::Player(sf::RenderWindow* window)
 	: GameObject(window)
@@ -109,6 +110,16 @@ void Player::draw()
 
 void Player::onCollision(GameObject* colidable)
 {
+	if (colidable->getType() == Type::Projectile)
+	{
+		m_hp--;
+		std::cout << "[PLAYER] HITTED by Projectile" << std::endl;
+	}
+	if (colidable->getType() == Type::Boss)
+	{
+		m_hp--;
+		std::cout << "--[BOSS HIT'S THE PLAYER by colision]--" << std::endl;
+	}
 }
 
 void Player::animation(float dt)
@@ -127,6 +138,18 @@ void Player::animation(float dt)
 			m_sprite.setTextureRect(m_spriteIntRect);
 		}
 		m_timer = 0.0f;
+	}
+}
+
+bool Player::IsPlayerAlive()
+{
+	if (m_hp > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 

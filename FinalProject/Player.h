@@ -23,6 +23,10 @@ public:
 	float getPlayerWidth() { return m_spriteWidth; }
 
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
+
+	Type getType() override{ return Type::Player; }
+
+	bool IsPlayerAlive();
 private:
 	void handleInput(float dt);
 	void handlePlayerOrientation();
@@ -36,6 +40,8 @@ private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	
+	int m_hp = 3;
+
 	sf::Vector2f m_position;
 	PlayerOrientation m_orientation;
 	PlayerOrientation m_newOrientationRequest;
