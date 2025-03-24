@@ -66,8 +66,8 @@ void Weapon::deleteProjectile(float dt)
 		if ((*it)->getPosition().x > m_window->getSize().x || (*it)->getPosition().x < 0.f)
 		{
 			delete* it; 
-			//DEBUG
-			std::cout << "Projectile deleted\n";  
+			//DEBUG TO DO: Delete 
+			std::cout << "PROJECTILE DELETED\n";  
 			it = m_projectiles.erase(it); 
 		}
 		else
@@ -75,6 +75,6 @@ void Weapon::deleteProjectile(float dt)
 			++it; 
 		}
 	}
-	//DEBUG
-	std::cout << "Number of projectiles: " << m_projectiles.size() << std::endl;
+	//DEBUG TO DO: Delete 
+	//std::cout << "Number of projectiles: " << m_projectiles.size() << std::endl;
 }

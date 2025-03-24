@@ -8,6 +8,7 @@ Projectile::Projectile(sf::RenderWindow* window, const sf::Vector2f& position, f
 	, m_speed_x(speed)
 {
 	m_sprite.setPosition(m_position);
+	m_sprite.setScale({ 5.0f, 5.0f });
 }
 
 

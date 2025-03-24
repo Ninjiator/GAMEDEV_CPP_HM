@@ -17,10 +17,10 @@ public:
 	void deleteProjectile(float dt);
 private:
 	Player* m_player = nullptr;
-
-	std::vector<Projectile*> m_projectiles;
 	sf::Vector2f m_position;
 
+protected:
+	std::vector<Projectile*> m_projectiles;
 	float m_shootTimer = 0.f;
 	
 };

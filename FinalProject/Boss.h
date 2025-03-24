@@ -11,7 +11,7 @@ public:
 	void update(float dt) override;
 	void draw() override;
 
-	sf::Vector2f getPosition() { return m_sprite.getPosition(); }
+	sf::Vector2f getPosition() { return m_position = m_sprite.getPosition(); }
 	const float getBossWidth() { return m_spriteWidth; }
 	
 	void animation(float dt);
