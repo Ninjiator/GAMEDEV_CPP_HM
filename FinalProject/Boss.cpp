@@ -4,7 +4,7 @@
 
 Boss::Boss(sf::RenderWindow* window)
 	: GameObject(window)
-	, m_texture("resources/snowflake_spritesheet_10frames.png")
+	, m_texture("resources/Boss/snowflake_spritesheet_10frames.png")
 	, m_sprite(m_texture)
 {
 	m_spriteIntRect = sf::IntRect({ 0, 0 }, { 566, 890 }); // õ + 558

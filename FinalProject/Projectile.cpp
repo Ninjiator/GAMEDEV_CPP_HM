@@ -1,14 +1,14 @@
 #include "Projectile.h"
 
-Projectile::Projectile(sf::RenderWindow* window, const sf::Vector2f& position, float speed)
+Projectile::Projectile(sf::RenderWindow* window, const std::string& fileName, const float& scale, const sf::Vector2f& position, float speed)
 	: GameObject(window)
-	, m_texture("resources/cuphead_projectile.png")
+	, m_texture(fileName)
 	, m_sprite(m_texture)
 	, m_position(position)
 	, m_speed_x(speed)
 {
 	m_sprite.setPosition(m_position);
-	m_sprite.setScale({ 5.0f, 5.0f });
+	m_sprite.setScale({ scale, scale });
 }
 
 

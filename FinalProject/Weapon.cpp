@@ -53,7 +53,7 @@ void Weapon::shoot(float dt)
 			spawnPosition = m_player->getPosition() + sf::Vector2f{ m_player->getPlayerWidth()/2.f, 0.f };
 		}
 		
-		m_projectiles.push_back(new Projectile{ m_window, spawnPosition, delta_X });
+		m_projectiles.push_back(new Projectile{ m_window, "resources/CupHead/cuphead_projectile_basic.png", 1.f, spawnPosition, delta_X});
 	}
 }
 

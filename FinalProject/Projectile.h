@@ -2,11 +2,12 @@
 #include "SFML/Graphics.hpp"
 #include "GameObj.h"
 #include <iostream>
+#include <string>
 
 class Projectile : public GameObject
 {
 public:
-	Projectile(sf::RenderWindow* window, const sf::Vector2f& position, float speed);
+	Projectile(sf::RenderWindow* window, const std::string& fileName, const float& scale, const sf::Vector2f& position, float speed);
 	~Projectile() { std::cout << "deleted\n"; };
 
 	void update(float dt) override;
