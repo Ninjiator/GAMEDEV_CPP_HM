@@ -9,6 +9,8 @@ public:
 	virtual void update(float dt) {}
 	virtual void draw() = 0;
 
+	virtual void onCollision(GameObject* gameObject) {}
+
 protected:
 	sf::RenderWindow* m_window = nullptr;
 };

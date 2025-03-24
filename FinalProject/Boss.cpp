@@ -49,3 +49,7 @@ void Boss::draw()
 {
 	m_window->draw(m_sprite);
 }
+
+void Boss::onCollision(GameObject* colidable)
+{
+}

@@ -16,15 +16,13 @@ public:
 	Player(sf::RenderWindow* window);
 	void update(float dt) override;
 	void draw() override;
+	void onCollision(GameObject* colidable) override;
 
 	sf::Vector2f getPosition() { return m_position; }
 	const PlayerOrientation& getPlayerOrientation() { return m_orientation; }
 	float getPlayerWidth() { return m_spriteWidth; }
 
-	void animation(float dt);
-	
-	
-
+	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 private:
 	void handleInput(float dt);
 	void handlePlayerOrientation();
@@ -33,7 +31,7 @@ private:
 	void applyVelocity(float dt);
 	void updateJumpInput(float dt);
 	void jumpImpulse(float dt);
-
+	void animation(float dt);
 private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;

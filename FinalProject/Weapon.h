@@ -15,6 +15,8 @@ public:
 
 	virtual void shoot(float dt);
 	void deleteProjectile(float dt);
+
+	std::vector<Projectile*>& getProjectile() { return m_projectiles; }
 private:
 	Player* m_player = nullptr;
 	sf::Vector2f m_position;

@@ -44,7 +44,7 @@ void Weapon::shoot(float dt)
 		{
 			delta_X = -SPEED_X;
 
-			spawnPosition = m_player->getPosition() + sf::Vector2f{ -(m_player->getPlayerWidth())/2.f, 0.f };
+			spawnPosition = m_player->getPosition() - sf::Vector2f{ (m_player->getPlayerWidth())/2.f, 0.f };
 		}
 		if (m_player->getPlayerOrientation() == PlayerOrientation::Right)
 		{

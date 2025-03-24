@@ -10,16 +10,19 @@ public:
 
 	void update(float dt) override;
 	void draw() override;
+	void onCollision(GameObject* colidable) override;
 
 	sf::Vector2f getPosition() { return m_position = m_sprite.getPosition(); }
 	const float getBossWidth() { return m_spriteWidth; }
-	
+
+	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
+
+private:
+	void animation(float dt);
 	//TODO:
 	void movement(float dt) {}; // boss moveset accordingly to the phase
 	void rainBombAbility() {}; //spawn falling bomb's
 
-	void animation(float dt);
-	
 private:
 	
 	sf::Texture m_texture;

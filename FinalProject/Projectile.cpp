@@ -23,3 +23,7 @@ void Projectile::draw()
 {
 	m_window->draw(m_sprite);
 }
+
+void Projectile::onCollision(GameObject* colidable)
+{
+}

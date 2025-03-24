@@ -107,6 +107,10 @@ void Player::draw()
 	m_window->draw(m_sprite);
 }
 
+void Player::onCollision(GameObject* colidable)
+{
+}
+
 void Player::animation(float dt)
 {
 	m_timer += 0.1+dt;

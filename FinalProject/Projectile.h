@@ -8,13 +8,16 @@ class Projectile : public GameObject
 {
 public:
 	Projectile(sf::RenderWindow* window, const std::string& fileName, const float& scale, const sf::Vector2f& position, float speed);
-	~Projectile() { std::cout << "deleted\n"; };
+	//~Projectile() { std::cout << "deleted\n"; };
 
 	void update(float dt) override;
 	void draw() override;
+	void onCollision(GameObject* colidable) override;
+
+	sf::Vector2f getPosition() { return m_position; };
+	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 
 	void setPosition(sf::Vector2f& position) { m_position = position; }
-	sf::Vector2f getPosition() { return m_position; };
 private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;

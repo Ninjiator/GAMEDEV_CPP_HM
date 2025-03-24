@@ -6,6 +6,7 @@
 #include "Projectile.h"
 #include "Weapon.h"
 #include "BossWeapon.h"
+#include "PhysicsEngine.h"
 
 void handleSystemIvents(sf::RenderWindow& window)
 {
@@ -34,6 +35,7 @@ int main()
 	Weapon weapon(&window, &player);
 	BossWeapon bossWeapon(&window, &boss);
 
+	PhysicsEngine physicsEngine(&player, weapon.getProjectile(), &boss, bossWeapon.getProjectile());
 
 	sf::Clock frameRateClock;
 
@@ -54,6 +56,8 @@ int main()
 		boss.update(deltaTimeSec);
 		weapon.update(deltaTimeSec);
 		bossWeapon.update(deltaTimeSec);
+
+		physicsEngine.update(deltaTimeSec);
 
 		//Step:3 draw all game obj
 		window.clear(sf::Color::White);
