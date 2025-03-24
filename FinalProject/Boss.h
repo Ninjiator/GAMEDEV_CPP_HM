@@ -14,6 +14,10 @@ public:
 	sf::Vector2f getPosition() { return m_position = m_sprite.getPosition(); }
 	const float getBossWidth() { return m_spriteWidth; }
 	
+	//TODO:
+	void movement(float dt) {}; // boss moveset accordingly to the phase
+	void rainBombAbility() {}; //spawn falling bomb's
+
 	void animation(float dt);
 	
 private:
