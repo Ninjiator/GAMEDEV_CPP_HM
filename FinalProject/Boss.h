@@ -13,7 +13,7 @@ public:
 	void onCollision(GameObject* colidable) override;
 
 	sf::Vector2f getPosition() { return m_position = m_sprite.getPosition(); }
-	const float getSpriteWidth() { return m_spriteWidth; }
+	const float getSpriteWidth() { return m_sprite.getGlobalBounds().size.x; }
 
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 
@@ -37,5 +37,5 @@ private:
 
 	float m_timer = 0.0f;
 	const float m_timerMax = 0.45f;
-	const float m_spriteWidth = 566.0f;
+	
 };

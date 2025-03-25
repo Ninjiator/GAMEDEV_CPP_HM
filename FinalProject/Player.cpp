@@ -39,8 +39,8 @@ void Player::update(float dt)
 
 void Player::handleArenaBounds()
 {
-	float spriteHeight= m_sprite.getGlobalBounds().size.y;
-
+	const float spriteHeight = m_sprite.getGlobalBounds().size.y;
+	const float spriteWidth = m_sprite.getGlobalBounds().size.x;
 	//Handling floor colision
 	if (m_position.y + spriteHeight/ 2.0f >= m_window->getSize().y)
 	{
@@ -50,13 +50,13 @@ void Player::handleArenaBounds()
 	}
 
 	//Handling wall's colision and updating X coordinate, if collision present
-	if (m_position.x + m_spriteWidth / 2.0f > m_window->getSize().x)
+	if (m_position.x + spriteWidth / 2.0f > m_window->getSize().x)
 	{
-		m_position.x = m_window->getSize().x - m_spriteWidth / 2.0f;
+		m_position.x = m_window->getSize().x - spriteWidth / 2.0f;
 	}
-	else if (m_position.x - m_spriteWidth / 2.0f < 0.0f)
+	else if (m_position.x - spriteWidth / 2.0f < 0.0f)
 	{
-		m_position.x = m_spriteWidth / 2.0f;
+		m_position.x = spriteWidth / 2.0f;
 	}
 	m_sprite.setPosition(m_position);
 }
@@ -116,18 +116,19 @@ void Player::onCollision(GameObject* colidable)
 	}
 	if (colidable->getType() == Type::Boss)
 	{
+		float spriteWidth = m_sprite.getGlobalBounds().size.x;
 		m_hp--;
 		std::cout << "--[BOSS HIT'S THE PLAYER by colision]--" << std::endl;
 		
 		////Right Boss side
-		if (m_position.x + m_spriteWidth / 2.0f > colidable->getPosition().x + colidable->getSpriteWidth() / 2.0f)
+		if (m_position.x + spriteWidth / 2.0f > colidable->getPosition().x + colidable->getSpriteWidth() / 2.0f)
 		{
-			m_position.x = colidable->getPosition().x + colidable->getSpriteWidth() / 2.0f + m_spriteWidth / 2.0f;
+			m_position.x = colidable->getPosition().x + colidable->getSpriteWidth() / 2.0f + spriteWidth / 2.0f;
 		}
 		//Left Boss side
-		if (m_position.x + m_spriteWidth / 2.0f > colidable->getPosition().x - colidable->getSpriteWidth() / 2.0f)
+		if (m_position.x + spriteWidth / 2.0f > colidable->getPosition().x - colidable->getSpriteWidth() / 2.0f)
 		{
-			m_position.x = colidable->getPosition().x - colidable->getSpriteWidth() / 2.0f - m_spriteWidth / 2.0f;
+			m_position.x = colidable->getPosition().x - colidable->getSpriteWidth() / 2.0f - spriteWidth / 2.0f;
 		}
 		m_sprite.setPosition(m_position);
 	}
@@ -144,7 +145,8 @@ void Player::animation(float dt)
 	
 	if (m_timer >= m_timerMax)
 	{
-		m_spriteIntRect.position.x += m_spriteWidth;
+		const float spriteLocalWidth = m_sprite.getGlobalBounds().size.x;
+		m_spriteIntRect.position.x += spriteLocalWidth;
 		if (m_spriteIntRect.position.x >= m_texture.getSize().x)
 		{
 			m_spriteIntRect.position.x = 0;

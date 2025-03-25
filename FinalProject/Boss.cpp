@@ -8,7 +8,7 @@ Boss::Boss(sf::RenderWindow* window)
 	, m_sprite(m_texture)
 {
 	m_spriteIntRect = sf::IntRect({ 0, 0 }, { 566, 890 }); // õ + 558
-	m_sprite.setScale({ 1.0f, 1.0f });
+	m_sprite.setScale({ 0.7f, 0.7f });
 	m_sprite.setTextureRect(m_spriteIntRect);
 	
 	sf::FloatRect spriteLocalBounds = m_sprite.getLocalBounds();
@@ -32,7 +32,8 @@ void Boss::animation(float dt)
 	m_timer += 0.1f + dt;
 	if (m_timer >= m_timerMax)
 	{
-		m_spriteIntRect.position.x += m_spriteWidth;
+		const float spriteLocalWidth = m_sprite.getLocalBounds().size.x;
+		m_spriteIntRect.position.x += spriteLocalWidth;
 		if (m_spriteIntRect.position.x >= m_texture.getSize().x)
 		{
 			m_spriteIntRect.position.x = 0;

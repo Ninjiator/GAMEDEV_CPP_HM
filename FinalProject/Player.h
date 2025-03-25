@@ -20,7 +20,7 @@ public:
 
 	sf::Vector2f getPosition() { return m_position; }
 	const PlayerOrientation& getPlayerOrientation() { return m_orientation; }
-	const float getSpriteWidth() override { return m_spriteWidth; }
+	const float getSpriteWidth() override { return m_sprite.getGlobalBounds().size.x; }
 
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 
@@ -55,6 +55,5 @@ private:
 	sf::IntRect m_spriteIntRect;
 	float m_timer = 0.0f;
 	const float m_timerMax = 0.65f;
-	float m_spriteWidth = 100.0f;
 	
 };
