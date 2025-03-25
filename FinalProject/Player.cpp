@@ -39,7 +39,6 @@ void Player::update(float dt)
 
 void Player::handleArenaBounds()
 {
-	float spriteWidth = m_sprite.getGlobalBounds().size.x;
 	float spriteHeight= m_sprite.getGlobalBounds().size.y;
 
 	//Handling floor colision
@@ -51,13 +50,13 @@ void Player::handleArenaBounds()
 	}
 
 	//Handling wall's colision and updating X coordinate, if collision present
-	if (m_position.x + spriteWidth / 2.0f > m_window->getSize().x)
+	if (m_position.x + m_spriteWidth / 2.0f > m_window->getSize().x)
 	{
-		m_position.x = m_window->getSize().x - spriteWidth / 2.0f;
+		m_position.x = m_window->getSize().x - m_spriteWidth / 2.0f;
 	}
-	else if (m_position.x - spriteWidth / 2.0f < 0.0f)
+	else if (m_position.x - m_spriteWidth / 2.0f < 0.0f)
 	{
-		m_position.x = spriteWidth / 2.0f;
+		m_position.x = m_spriteWidth / 2.0f;
 	}
 	m_sprite.setPosition(m_position);
 }
@@ -119,7 +118,24 @@ void Player::onCollision(GameObject* colidable)
 	{
 		m_hp--;
 		std::cout << "--[BOSS HIT'S THE PLAYER by colision]--" << std::endl;
+		
+		////Right Boss side
+		if (m_position.x + m_spriteWidth / 2.0f > colidable->getPosition().x + colidable->getSpriteWidth() / 2.0f)
+		{
+			m_position.x = colidable->getPosition().x + colidable->getSpriteWidth() / 2.0f + m_spriteWidth / 2.0f;
+		}
+		//Left Boss side
+		if (m_position.x + m_spriteWidth / 2.0f > colidable->getPosition().x - colidable->getSpriteWidth() / 2.0f)
+		{
+			m_position.x = colidable->getPosition().x - colidable->getSpriteWidth() / 2.0f - m_spriteWidth / 2.0f;
+		}
+		m_sprite.setPosition(m_position);
 	}
+	else if (colidable->getType() == Type::Unknown)
+	{
+		std::cerr << "Unknown type detected, check the code!" << std::endl;
+	}
+	
 }
 
 void Player::animation(float dt)

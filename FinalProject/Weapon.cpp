@@ -44,13 +44,13 @@ void Weapon::shoot(float dt)
 		{
 			delta_X = -SPEED_X;
 
-			spawnPosition = m_player->getPosition() - sf::Vector2f{ (m_player->getPlayerWidth())/2.f, 0.f };
+			spawnPosition = m_player->getPosition() - sf::Vector2f{ (m_player->getSpriteWidth())/2.f, 0.f };
 		}
 		if (m_player->getPlayerOrientation() == PlayerOrientation::Right)
 		{
 			delta_X = SPEED_X;
 
-			spawnPosition = m_player->getPosition() + sf::Vector2f{ m_player->getPlayerWidth()/2.f, 0.f };
+			spawnPosition = m_player->getPosition() + sf::Vector2f{ m_player->getSpriteWidth()/2.f, 0.f };
 		}
 		
 		m_projectiles.push_back(new Projectile{ m_window, "resources/CupHead/cuphead_projectile_basic.png", 1.f, spawnPosition, delta_X});

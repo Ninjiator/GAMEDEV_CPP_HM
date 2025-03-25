@@ -17,6 +17,8 @@ public:
 	void deleteProjectile(float dt);
 
 	std::vector<Projectile*>& getProjectile() { return m_projectiles; }
+	sf::Vector2f getPosition() override { return m_position; }
+
 private:
 	Player* m_player = nullptr;
 	sf::Vector2f m_position;

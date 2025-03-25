@@ -16,6 +16,8 @@ public:
 
 	void shoot(float dt) override; //add boss logic
 	void deleteProjectile(float dt);
+	
+
 private:
 	Boss* m_boss = nullptr;
 	

@@ -20,6 +20,8 @@ public:
 	virtual void onCollision(GameObject* gameObject) {}
 
 	virtual Type getType() { return Type::Unknown; }
+	virtual sf::Vector2f getPosition() = 0;
+	virtual const float getSpriteWidth() { return 0.0f; }
 
 protected:
 	sf::RenderWindow* m_window = nullptr;

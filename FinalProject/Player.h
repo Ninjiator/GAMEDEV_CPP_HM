@@ -20,7 +20,7 @@ public:
 
 	sf::Vector2f getPosition() { return m_position; }
 	const PlayerOrientation& getPlayerOrientation() { return m_orientation; }
-	float getPlayerWidth() { return m_spriteWidth; }
+	const float getSpriteWidth() override { return m_spriteWidth; }
 
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 

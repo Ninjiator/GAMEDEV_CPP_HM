@@ -13,12 +13,12 @@ public:
 	void onCollision(GameObject* colidable) override;
 
 	sf::Vector2f getPosition() { return m_position = m_sprite.getPosition(); }
-	const float getBossWidth() { return m_spriteWidth; }
+	const float getSpriteWidth() { return m_spriteWidth; }
 
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 
 	Type getType() override { return Type::Boss; }
-
+	
 private:
 	void animation(float dt);
 	//TODO:
