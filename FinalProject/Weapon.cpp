@@ -54,7 +54,7 @@ void Weapon::shoot(float dt)
 			spawnPosition = m_player->getPosition() + sf::Vector2f{ 0.f, 0.f };
 		}
 		
-		m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/CupHead/cuphead_projectile_basic.png", 1.f, spawnPosition, delta_X});
+		m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/CupHead/cuphead_projectile_basic.png", 1.f, spawnPosition, delta_X, 0.f});
 		SoundManager::getInstance().playPlayerShoot();
 	}
 }

@@ -1,12 +1,13 @@
 #include "Projectile.h"
 #include "SoundManager.h"
 
-Projectile::Projectile(sf::RenderWindow* window, const std::string& fileName, const float& scale, const sf::Vector2f& position, float speed)
+Projectile::Projectile(sf::RenderWindow* window, const std::string& fileName, const float& scale, const sf::Vector2f& position, float speed_x, float speed_y)
 	: GameObject(window)
 	, m_texture(fileName)
 	, m_sprite(m_texture)
 	, m_position(position)
-	, m_speed_x(speed)
+	, m_speed_x(speed_x)
+	, m_speed_y(speed_y)
 {
 	m_sprite.setPosition(m_position);
 	m_sprite.setScale({ scale, scale });
@@ -17,6 +18,10 @@ Projectile::Projectile(sf::RenderWindow* window, const std::string& fileName, co
 void Projectile::update(float dt)
 {
 	m_position.x += m_speed_x * dt; 
+	if (m_speed_y != 0.f)
+	{
+		m_position.y += m_speed_y * dt;
+	}
 	m_sprite.setPosition(m_position);
 }
 

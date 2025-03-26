@@ -7,7 +7,7 @@
 class Projectile : public GameObject
 {
 public:
-	Projectile(sf::RenderWindow* window, const std::string& fileName, const float& scale, const sf::Vector2f& position, float speed);
+	Projectile(sf::RenderWindow* window, const std::string& fileName, const float& scale, const sf::Vector2f& position, float speed_x, float speed_y);
 	//~Projectile() { std::cout << "deleted\n"; };
 
 	void update(float dt) override;
@@ -27,6 +27,7 @@ private:
 
 	sf::Vector2f m_position;
 	float m_speed_x;
+	float m_speed_y = 0.f;
 	
 	bool m_isDestroyed = false;
 };
