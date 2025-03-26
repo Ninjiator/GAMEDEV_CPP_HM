@@ -39,6 +39,7 @@ int main()
 	PhysicsEngine physicsEngine(&player, weapon.getProjectile(), &boss, bossWeapon.getProjectile());
 
 	sf::Clock frameRateClock;
+
 	SoundManager::getInstance().playInGameMusic();
 	SoundManager::getInstance().playComentatorStart();
 	while (window.isOpen()) //&& player.IsPlayerAlive()

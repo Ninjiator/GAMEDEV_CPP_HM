@@ -114,12 +114,14 @@ void Player::onCollision(GameObject* colidable)
 	if (colidable->getType() == Type::Projectile)
 	{
 		m_hp--;
+		SoundManager::getInstance().playPlayerHittedSound();
 		std::cout << "[PLAYER] HITTED by Projectile" << std::endl;
 	}
 	if (colidable->getType() == Type::Boss)
 	{
 		float spriteWidth = m_sprite.getGlobalBounds().size.x;
 		m_hp--;
+		SoundManager::getInstance().playPlayerHittedSound();
 		std::cout << "--[BOSS HIT'S THE PLAYER by colision]--" << std::endl;
 		
 		////Right Boss side

@@ -13,12 +13,17 @@ public:
 
 	//SFX Player
 	void playJumpSound();
+	void playPlayerGroundSound();
 	void playPlayerShoot();
-	void playBossShoot();
+	
+	void playPlayerHittedSound();
 	void playPlayerDeathSound();
 
 	//Commentator
 	void playComentatorStart();
+
+	//Boss
+	void playBossShootSound();
 
 	//Music
 	void playInGameMusic();
@@ -29,8 +34,14 @@ private:
 	sf::SoundBuffer m_playerJumpSoundBuffer;
 	sf::Sound m_playerJumpSound;
 
+	sf::SoundBuffer m_playerGroundSoundBuffer;
+	sf::Sound m_playerGroundSound;
+
 	sf::SoundBuffer m_playerShootSoundBuffer;
 	sf::Sound m_playerShootSound;
+
+	sf::SoundBuffer m_playerHittedSoundBuffer;
+	sf::Sound m_playerHittedSound;
 
 	sf::SoundBuffer m_playerDeathSoundBuffer;
 	sf::Sound m_playerDeathSound;
