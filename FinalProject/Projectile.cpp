@@ -34,4 +34,8 @@ void Projectile::onCollision(GameObject* colidable)
 	{
 		m_isDestroyed = true;
 	}
+	else if (colidable->getType() == Type::Unknown)
+	{
+		std::cerr << "Unknown TYPE" << std::endl;
+	}
 }

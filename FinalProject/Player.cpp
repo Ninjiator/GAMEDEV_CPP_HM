@@ -1,10 +1,11 @@
 #include "Player.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "SoundManager.h"
 
 Player::Player(sf::RenderWindow* window)
 	: GameObject(window)
-	, m_texture("resources/CupHead/cuphead_spritesheet.png")
+	, m_texture("resources/Sprites/CupHead/cuphead_spritesheet.png")
 	, m_sprite(m_texture)
 	, m_orientation(PlayerOrientation::Right)
 	, m_newOrientationRequest(PlayerOrientation::Right)
@@ -83,6 +84,7 @@ void Player::updateJumpInput(float dt)
 		jumpImpulse(dt);
 		m_onGround = false;
 		m_jumpCoolDownTimer.restart();
+		SoundManager::getInstance().playJumpSound();
 	}
 }
 
@@ -163,6 +165,7 @@ bool Player::IsPlayerAlive()
 {
 	if (m_hp > 0)
 	{
+		SoundManager::getInstance().playPlayerDeathSound();
 		return true;
 	}
 	else

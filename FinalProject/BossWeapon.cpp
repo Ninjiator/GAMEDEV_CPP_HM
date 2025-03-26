@@ -35,7 +35,7 @@ void BossWeapon::shoot(float dt)
 		
 		sf::Vector2f spawnPosition = m_boss->getPosition() + sf::Vector2f{ -(m_boss->getSpriteWidth() / 4.f), 70.f };
 		
-		m_projectiles.push_back(new Projectile{ m_window, "resources/Boss/boss_projectile_temp.png", 4.f, spawnPosition, delta_X });
+		m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/boss_projectile_temp.png", 4.f, spawnPosition, delta_X });
 		std::cout << "drawing boss projectiles" << std::endl;
 	}
 }

@@ -7,6 +7,7 @@
 #include "Weapon.h"
 #include "BossWeapon.h"
 #include "PhysicsEngine.h"
+#include "SoundManager.h"
 
 void handleSystemIvents(sf::RenderWindow& window)
 {
@@ -38,16 +39,12 @@ int main()
 	PhysicsEngine physicsEngine(&player, weapon.getProjectile(), &boss, bossWeapon.getProjectile());
 
 	sf::Clock frameRateClock;
-
-	/*std::vector<GameObject*> gameObj;
-	gameObj.push_back(&player);
-	gameObj.push_back(&boss);
-	gameObj.push_back(&weapon);*/
-	
-	while (window.isOpen()) // && player.IsPlayerAlive()
+	SoundManager::getInstance().playInGameMusic();
+	SoundManager::getInstance().playComentatorStart();
+	while (window.isOpen()) //&& player.IsPlayerAlive()
 	{
-		float deltaTimeSec = frameRateClock.restart().asSeconds(); //  dt
-
+		player.IsPlayerAlive();
+		float deltaTimeSec = frameRateClock.restart().asSeconds();
 		//Step:1 Handle System events
 		handleSystemIvents(window);
 

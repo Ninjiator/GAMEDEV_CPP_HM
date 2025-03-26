@@ -1,5 +1,6 @@
 #include "Weapon.h"
 #include <iostream>
+#include "SoundManager.h"
 
 Weapon::Weapon(sf::RenderWindow* window, Player* player)
 	: GameObject(window)
@@ -53,7 +54,8 @@ void Weapon::shoot(float dt)
 			spawnPosition = m_player->getPosition() + sf::Vector2f{ m_player->getSpriteWidth()/2.f, 0.f };
 		}
 		
-		m_projectiles.push_back(new Projectile{ m_window, "resources/CupHead/cuphead_projectile_basic.png", 1.f, spawnPosition, delta_X});
+		m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/CupHead/cuphead_projectile_basic.png", 1.f, spawnPosition, delta_X});
+		SoundManager::getInstance().playPlayerShoot();
 	}
 }
 
@@ -62,11 +64,9 @@ void Weapon::deleteProjectile(float dt)
 	for (auto it = m_projectiles.begin(); it != m_projectiles.end(); )
 	{
 		(*it)->update(dt); 
-		// check for out of bounds
 		if ((*it)->getPosition().x > m_window->getSize().x || (*it)->getPosition().x < 0.f || (*it)->getIsDestroyed())
 		{
 			delete* it; 
-			//DEBUG TO DO: Delete 
 			std::cout << "PROJECTILE DELETED\n";  
 			it = m_projectiles.erase(it); 
 		}
@@ -75,6 +75,4 @@ void Weapon::deleteProjectile(float dt)
 			++it; 
 		}
 	}
-	//DEBUG TO DO: Delete 
-	//std::cout << "Number of projectiles: " << m_projectiles.size() << std::endl;
 }

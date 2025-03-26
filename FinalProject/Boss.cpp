@@ -4,11 +4,11 @@
 
 Boss::Boss(sf::RenderWindow* window)
 	: GameObject(window)
-	, m_texture("resources/Boss/snowflake_spritesheet_10frames.png")
+	, m_texture("resources/Sprites/Boss/snowflake_spritesheet_10frames.png")
 	, m_sprite(m_texture)
 {
 	m_spriteIntRect = sf::IntRect({ 0, 0 }, { 566, 890 }); // õ + 558
-	m_sprite.setScale({ 0.7f, 0.7f });
+	m_sprite.setScale({ 0.6f, 0.6f });
 	m_sprite.setTextureRect(m_spriteIntRect);
 	
 	sf::FloatRect spriteLocalBounds = m_sprite.getLocalBounds();
