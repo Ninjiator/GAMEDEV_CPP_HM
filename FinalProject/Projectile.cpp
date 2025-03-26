@@ -28,8 +28,10 @@ void Projectile::onCollision(GameObject* colidable)
 {
 	if (colidable->getType() == Type::Boss)
 	{
+		m_isDestroyed = true;
 	}
 	if (colidable->getType() == Type::Player)
 	{
+		m_isDestroyed = true;
 	}
 }

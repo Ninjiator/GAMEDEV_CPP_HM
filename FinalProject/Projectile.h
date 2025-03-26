@@ -17,6 +17,7 @@ public:
 	sf::Vector2f getPosition() { return m_position; };
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 	Type getType() override { return Type::Projectile; }
+	bool getIsDestroyed() { return m_isDestroyed; }
 
 	void setPosition(sf::Vector2f& position) { m_position = position; }
 private:
@@ -26,5 +27,7 @@ private:
 
 	sf::Vector2f m_position;
 	float m_speed_x;
+	
+	bool m_isDestroyed = false;
 };
 

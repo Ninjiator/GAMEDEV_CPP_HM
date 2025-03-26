@@ -63,7 +63,7 @@ void Weapon::deleteProjectile(float dt)
 	{
 		(*it)->update(dt); 
 		// check for out of bounds
-		if ((*it)->getPosition().x > m_window->getSize().x || (*it)->getPosition().x < 0.f)
+		if ((*it)->getPosition().x > m_window->getSize().x || (*it)->getPosition().x < 0.f || (*it)->getIsDestroyed())
 		{
 			delete* it; 
 			//DEBUG TO DO: Delete 

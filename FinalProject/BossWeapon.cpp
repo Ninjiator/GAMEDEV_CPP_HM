@@ -28,7 +28,7 @@ void BossWeapon::shoot(float dt)
 	const float shootTimerMax = 0.6f;
 	m_shootTimer += dt;
 
-	if (false/*m_shootTimer > shootTimerMax*/)
+	if (m_shootTimer > shootTimerMax)
 	{
 		m_shootTimer = 0.f;
 		delta_X -= SPEED_X;

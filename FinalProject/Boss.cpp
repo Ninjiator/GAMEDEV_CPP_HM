@@ -58,4 +58,12 @@ void Boss::onCollision(GameObject* colidable)
 		m_hp--;
 		std::cout << "[BOSS HITTED BY PLAYER]" << std::endl;
 	}
+	if (colidable->getType() == Type::Player)
+	{
+//TODO: add some effect/SFX
+	}
+	if (colidable->getType() == Type::Unknown)
+	{
+		std::cerr << "UNKOWN TYPE!!!" << std::endl;
+	}
 }

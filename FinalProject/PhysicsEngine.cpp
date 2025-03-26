@@ -10,7 +10,6 @@ PhysicsEngine::PhysicsEngine(Player* player, std::vector<Projectile*>& playerPro
 	, m_boss(boss)
 	, m_bossProjectiles(bossProjectiles)
 {
-
 }
 
 void PhysicsEngine::update(float dt)
