@@ -45,13 +45,13 @@ void Weapon::shoot(float dt)
 		{
 			delta_X = -SPEED_X;
 
-			spawnPosition = m_player->getPosition() - sf::Vector2f{ (m_player->getSpriteWidth())/2.f, 0.f };
+			spawnPosition = m_player->getPosition() - sf::Vector2f{ m_player->getSpriteWidth() * 1.5f, 0.f };
 		}
 		if (m_player->getPlayerOrientation() == PlayerOrientation::Right)
 		{
 			delta_X = SPEED_X;
 
-			spawnPosition = m_player->getPosition() + sf::Vector2f{ m_player->getSpriteWidth()/2.f, 0.f };
+			spawnPosition = m_player->getPosition() + sf::Vector2f{ 0.f, 0.f };
 		}
 		
 		m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/CupHead/cuphead_projectile_basic.png", 1.f, spawnPosition, delta_X});
@@ -69,6 +69,7 @@ void Weapon::deleteProjectile(float dt)
 			delete* it; 
 			std::cout << "PROJECTILE DELETED\n";  
 			it = m_projectiles.erase(it); 
+
 		}
 		else
 		{

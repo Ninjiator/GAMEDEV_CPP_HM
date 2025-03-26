@@ -19,6 +19,9 @@ SoundManager::SoundManager()
 	, m_comentatorStartSoundBuffer("resources/Audio/SFX/a-good-day-for-a-swell-battle.mp3")
 	, m_comentatorStartSound(m_comentatorStartSoundBuffer)
 
+	, m_bossHittedSoundBuffer("resources/Audio/SFX/Boss_Hitted.mp3")
+	, m_bossHittedSound(m_bossHittedSoundBuffer)
+
 	, m_inGameMusic("resources/Audio/Music/Botanic_Panic.mp3")
 {
 }
@@ -43,6 +46,12 @@ void SoundManager::playPlayerShoot()
 
 void SoundManager::playBossShootSound()
 {
+}
+
+void SoundManager::playBossHittedSound()
+{
+	m_bossHittedSound.setVolume(60.f);
+	m_bossHittedSound.play();
 }
 
 void SoundManager::playPlayerHittedSound()

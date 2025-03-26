@@ -1,4 +1,5 @@
 #include "Projectile.h"
+#include "SoundManager.h"
 
 Projectile::Projectile(sf::RenderWindow* window, const std::string& fileName, const float& scale, const sf::Vector2f& position, float speed)
 	: GameObject(window)

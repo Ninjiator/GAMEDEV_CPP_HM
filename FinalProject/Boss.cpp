@@ -1,6 +1,7 @@
 #include "Boss.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "SoundManager.h"
 
 Boss::Boss(sf::RenderWindow* window)
 	: GameObject(window)
@@ -56,6 +57,7 @@ void Boss::onCollision(GameObject* colidable)
 	if (colidable->getType() == Type::Projectile)
 	{
 		m_hp--;
+		SoundManager::getInstance().playBossHittedSound();
 		std::cout << "[BOSS HITTED BY PLAYER]" << std::endl;
 	}
 	if (colidable->getType() == Type::Player)

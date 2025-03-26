@@ -24,7 +24,7 @@ public:
 
 	//Boss
 	void playBossShootSound();
-
+	void playBossHittedSound();
 	//Music
 	void playInGameMusic();
 
@@ -48,6 +48,9 @@ private:
 
 	sf::SoundBuffer m_comentatorStartSoundBuffer;
 	sf::Sound m_comentatorStartSound;
+
+	sf::SoundBuffer m_bossHittedSoundBuffer;
+	sf::Sound m_bossHittedSound;
 
 	sf::Music m_inGameMusic;
 };
