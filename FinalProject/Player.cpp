@@ -90,7 +90,7 @@ void Player::updateJumpInput(float dt)
 
 void Player::jumpImpulse(float dt)
 {
-	const float jumpImpulse = -65000.f * dt;
+	const float jumpImpulse = -70000.f * dt;
 
 	m_velocity.y = jumpImpulse;
 }
@@ -119,22 +119,39 @@ void Player::onCollision(GameObject* colidable)
 	}
 	if (colidable->getType() == Type::Boss)
 	{
-		float spriteWidth = m_sprite.getGlobalBounds().size.x;
 		m_hp--;
 		SoundManager::getInstance().playPlayerHittedSound();
 		std::cout << "--[BOSS HIT'S THE PLAYER by colision]--" << std::endl;
-		
-		////Right Boss side
-		if (m_position.x + spriteWidth / 2.0f > colidable->getPosition().x + colidable->getSpriteWidth() / 2.0f)
+
+		float spriteHeight = m_sprite.getGlobalBounds().size.y;
+		float spriteWidth = m_sprite.getGlobalBounds().size.x;
+		float playerLeft = m_position.x - spriteWidth / 2.0f;
+		float playerRight = m_position.x + spriteWidth / 2.0f;
+		float playerTop = m_position.y - spriteHeight / 2.0f;
+
+		float bossHeight = colidable->getSpriteHeight();
+		float bossBottom = colidable->getPosition().y + bossHeight / 2.0f;
+		float bossLeft = colidable->getPosition().x - colidable->getSpriteWidth() / 2.0f;
+		float bossRight = colidable->getPosition().x + colidable->getSpriteWidth() / 2.0f;
+
+		//Right side
+		if (playerLeft < bossRight && m_position.x > colidable->getPosition().x)
 		{
-			m_position.x = colidable->getPosition().x + colidable->getSpriteWidth() / 2.0f + spriteWidth / 2.0f;
+			m_position.x = bossRight + spriteWidth / 2.0f;
 		}
-		//Left Boss side
-		if (m_position.x + spriteWidth / 2.0f > colidable->getPosition().x - colidable->getSpriteWidth() / 2.0f)
+
+		//Left side
+		if (playerRight > bossLeft && m_position.x < colidable->getPosition().x)
 		{
-			m_position.x = colidable->getPosition().x - colidable->getSpriteWidth() / 2.0f - spriteWidth / 2.0f;
+			m_position.x = bossLeft - spriteWidth / 2.0f;
 		}
 		m_sprite.setPosition(m_position);
+
+		//Bottom TODO: doesn't work
+		if (m_position.y > colidable->getPosition().y && playerTop < bossBottom)
+		{
+			m_position.y = bossBottom + spriteHeight / 2.0f;
+		}
 	}
 	else if (colidable->getType() == Type::Unknown)
 	{
@@ -204,9 +221,18 @@ void Player::handleInput(float dt)
 	//sprite manipulation's for duck, jump, dash
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
-		//m_texture.loadFromFile("resources/cuphead_duck_shoot_0001.png");
+		//m_texture.loadFromFile("resources/Sprites/CupHead/player_spritesheet_duck.png");
 		//m_sprite.setTexture(m_texture);
-		//m_sprite.setScale({1.2f, 0.3f});
+		//m_sprite.setScale({1.0f, 1.0f});
+		//m_spriteIntRect = sf::IntRect({ 0, 0 }, { 163, 92 }); // x + 100
+		//m_sprite.setTextureRect(m_spriteIntRect);
+	}
+	else
+	{
+		//m_texture.loadFromFile("resources/Sprites/CupHead/cuphead_spritesheet.png");
+		//m_sprite.setTexture(m_texture);
+		////m_spriteIntRect = sf::IntRect({ 0, 0 }, { 100, 150 });
+		////m_sprite.setTextureRect(m_spriteIntRect);
 	}
 	m_position = m_sprite.getPosition() + sf::Vector2f{ deltaX, deltaY };
 }

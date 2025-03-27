@@ -38,7 +38,7 @@ void Weapon::shoot(float dt)
 	const float shootTimerMax = 0.1f; 
 	m_shootTimer += dt;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && m_shootTimer > shootTimerMax)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) && m_shootTimer > shootTimerMax)
 	{
 		m_shootTimer = 0.f;
 		if (m_player->getPlayerOrientation() == PlayerOrientation::Left)
@@ -64,7 +64,11 @@ void Weapon::deleteProjectile(float dt)
 	for (auto it = m_projectiles.begin(); it != m_projectiles.end(); )
 	{
 		(*it)->update(dt); 
-		if ((*it)->getPosition().x > m_window->getSize().x || (*it)->getPosition().x < 0.f || (*it)->getIsDestroyed())
+		if ((*it)->getPosition().x > m_window->getSize().x || 
+			(*it)->getPosition().x < 0.f || 
+			(*it)->getIsDestroyed() ||
+			(*it)->getPosition().y >= m_window->getSize().y ||
+			(*it)->getPosition().y < 0.f)
 		{
 			delete* it; 
 			std::cout << "PROJECTILE DELETED\n";  

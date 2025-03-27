@@ -3,6 +3,19 @@
 #include <string>
 #include "GameObj.h"
 
+enum class BossOrientation
+{
+	Left,
+	Right,
+};
+
+enum class BossMovementState {
+	MovingUp,
+	MovingLeft,
+	MoveingRight,
+	MovingDown,
+};
+
 class Boss : public GameObject
 {
 public:
@@ -12,24 +25,26 @@ public:
 	void draw() override;
 	void onCollision(GameObject* colidable) override;
 
-	sf::Vector2f getPosition() { return m_position = m_sprite.getPosition(); }
-	const float getSpriteWidth() { return m_sprite.getGlobalBounds().size.x; }
+	sf::Vector2f getPosition() override{ return m_position = m_sprite.getPosition(); }
+	const float getSpriteWidth() override  { return m_sprite.getGlobalBounds().size.x; }
+	const float getSpriteHeight() override { return m_sprite.getGlobalBounds().size.y; }
+	Type getType() override { return Type::Boss; }
 
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
-
-	Type getType() override { return Type::Boss; }
+	const BossOrientation& getBossOrientation() { return m_orientation; }
 	
 private:
 	void animation(float dt);
+	void handleBossOrientation();
 	//TODO:
-	void movement(float dt) {}; // boss moveset accordingly to the phase
-	void rainBombAbility() {}; //spawn falling bomb's
+	void move(float dt); // boss moveset accordingly to the phase
+	void rainBombAbility(); //spawn falling bomb's
 
 private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 
-	int m_hp = 1000;
+	int m_hp = 10;
 
 	sf::Vector2f m_position;
 
@@ -38,4 +53,11 @@ private:
 	float m_timer = 0.0f;
 	const float m_timerMax = 0.45f;
 	
+	std::vector<sf::Vector2f> m_waypoints;
+	size_t m_currentWaypoint = 0;
+	bool m_reverse = false;
+
+	BossOrientation m_newOrientationRequest;
+	BossOrientation m_orientation;
+	BossMovementState m_state = BossMovementState::MovingUp;
 };

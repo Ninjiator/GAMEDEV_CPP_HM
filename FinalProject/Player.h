@@ -18,9 +18,12 @@ public:
 	void draw() override;
 	void onCollision(GameObject* colidable) override;
 
-	sf::Vector2f getPosition() { return m_position; }
-	const PlayerOrientation& getPlayerOrientation() { return m_orientation; }
 	const float getSpriteWidth() override { return m_sprite.getGlobalBounds().size.x; }
+	const float getSpriteHeight() override { return m_sprite.getGlobalBounds().size.y; }
+	sf::Vector2f getPosition() override { return m_position; }
+
+	const PlayerOrientation& getPlayerOrientation() { return m_orientation; }
+	
 
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 
