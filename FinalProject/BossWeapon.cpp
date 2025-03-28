@@ -28,7 +28,7 @@ void BossWeapon::shoot(float dt)
 	const float shootTimerMax = 0.5f;
 	m_shootTimer += dt;
 
-	float arr[] = { 0.f, m_window->getSize().y / 5.f };
+	float arr[] = { 0.f, m_window->getSize().y / 6.f };
 	int size = sizeof(arr) / sizeof(arr[0]);
 	std::srand(std::time(nullptr)); 
 	int index = std::rand() % size;

@@ -28,19 +28,19 @@ SoundManager::SoundManager()
 
 void SoundManager::playJumpSound()
 {
-	m_playerJumpSound.setVolume(45.f);
+	m_playerJumpSound.setVolume(10.f);
 	m_playerJumpSound.play();
 }
 
 void SoundManager::playPlayerGroundSound()
 {
-	m_playerGroundSound.setVolume(50.f);
+	m_playerGroundSound.setVolume(10.f);
 	m_playerGroundSound.play();
 }
 
 void SoundManager::playPlayerShoot()
 {
-	m_playerShootSound.setVolume(50.f);
+	m_playerShootSound.setVolume(10.f);
 	m_playerShootSound.play();
 }
 
@@ -50,13 +50,13 @@ void SoundManager::playBossShootSound()
 
 void SoundManager::playBossHittedSound()
 {
-	m_bossHittedSound.setVolume(60.f);
+	m_bossHittedSound.setVolume(10.f);
 	m_bossHittedSound.play();
 }
 
 void SoundManager::playPlayerHittedSound()
 {
-	m_playerHittedSound.setVolume(50.f);
+	m_playerHittedSound.setVolume(10.f);
 	m_playerHittedSound.play();
 }
 
@@ -72,7 +72,8 @@ void SoundManager::playComentatorStart()
 
 void SoundManager::playInGameMusic()
 {
+	m_inGameMusic.setVolume(5.f);
 	m_inGameMusic.play();
 	m_inGameMusic.setLooping(true);
-	m_inGameMusic.setVolume(43.f);
+	
 }

@@ -120,6 +120,7 @@ void Boss::move(float dt)
         else
         {
             currentPos.y = bottomLimit;
+
  
         }
         break;
