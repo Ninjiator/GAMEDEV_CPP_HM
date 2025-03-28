@@ -62,13 +62,32 @@ void Boss::handleBossOrientation()
 
 void Boss::move(float dt)
 {
-   
-    const float SPEED = 200.f * dt;
-    sf::Vector2f currentPos = m_sprite.getPosition();
+    if (m_hp > 10)
+    {
+        return;
+    }
+    //TODO: need to be moved down
     sf::Vector2u winSize = m_window->getSize();
+    sf::Vector2f currentPos = m_sprite.getPosition();
+    float bottomLimit = static_cast<float>(winSize.y) - m_sprite.getGlobalBounds().size.y / 2.0f;
+    float leftCornerX = static_cast<float>(winSize.x) / 7.f;
+    float rightCornerX = static_cast<float>(winSize.x) - leftCornerX;
+    if (m_hp < 5)
+    {
+        m_reverse = true;
+        if (currentPos.y == bottomLimit && rightCornerX == currentPos.x)
+        {
+            m_reverse = false;
+        }
+    }
+
+    const float SPEED = 200.f * dt;
+    
+    
 
     float targetY = static_cast<float>(winSize.y) / 3.f;  
-    float targetX = static_cast<float>(winSize.x) / 7.f;  
+    
+    
 
     switch (m_state)
     {
@@ -86,28 +105,54 @@ void Boss::move(float dt)
         {
             currentPos.y = targetY;
             m_state = BossMovementState::MovingLeft;
+            if (m_reverse)
+            {
+                m_state = BossMovementState::MovingRight;
+            }
         }
         break;
     }
     case BossMovementState::MovingLeft:
     {
         // –ух вл≥во, поки pos.x > targetX
-        if (currentPos.x > targetX + 1.f)
+        if (currentPos.x > leftCornerX + 1.f)
         {
             currentPos.x -= SPEED;
-            if (currentPos.x < targetX)
+            if (currentPos.x < leftCornerX)
             {
-                currentPos.x = targetX;
+                currentPos.x = leftCornerX;
             }
         }
         else
         {
-            currentPos.x = targetX;
+            currentPos.x = leftCornerX;
             m_state = BossMovementState::MovingDown;
             m_newOrientationRequest = BossOrientation::Right;
         }
         break;
     }
+    case BossMovementState::MovingRight:
+    {
+        if (currentPos.x < rightCornerX)
+        {
+            currentPos.x += SPEED;
+            if (currentPos.x > rightCornerX)
+            {
+                currentPos.x = rightCornerX;
+            }
+        }
+        else
+        {
+            currentPos.x = rightCornerX;
+            m_newOrientationRequest = BossOrientation::Left;
+            if (m_reverse)
+            {
+                m_state = BossMovementState::MovingDown;
+                m_newOrientationRequest = BossOrientation::Left;
+            }
+        }
+    }
+    break;
     case BossMovementState::MovingDown:
     {
         float bottomLimit = static_cast<float>(winSize.y) - m_sprite.getGlobalBounds().size.y / 2.0f;
@@ -120,7 +165,10 @@ void Boss::move(float dt)
         else
         {
             currentPos.y = bottomLimit;
-
+            if (m_reverse)
+            {
+                m_state = BossMovementState::MovingUp;
+            }
  
         }
         break;

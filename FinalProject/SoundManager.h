@@ -21,6 +21,7 @@ public:
 
 	//Commentator
 	void playComentatorStart();
+	void playComentatorPause();
 
 	//Boss
 	void playBossShootSound();
@@ -31,6 +32,7 @@ public:
 	void stopTitleMusic();
 
 	void playInGameMusic();
+	void pauseInGameMusic();
 
 private:
 	SoundManager();
@@ -52,6 +54,9 @@ private:
 	//Comentator
 	sf::SoundBuffer m_comentatorStartSoundBuffer;
 	sf::Sound m_comentatorStartSound;
+
+	sf::SoundBuffer m_comentatorPauseSoundBuffer;
+	sf::Sound m_comentatorPauseSound;
 	//Boss
 	sf::SoundBuffer m_bossHittedSoundBuffer;
 	sf::Sound m_bossHittedSound;

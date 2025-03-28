@@ -12,7 +12,7 @@ enum class BossOrientation
 enum class BossMovementState {
 	MovingUp,
 	MovingLeft,
-	MoveingRight,
+	MovingRight,
 	MovingDown,
 };
 
@@ -44,7 +44,7 @@ private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 
-	int m_hp = 10;
+	int m_hp = 12;
 
 	sf::Vector2f m_position;
 
@@ -53,8 +53,6 @@ private:
 	float m_timer = 0.0f;
 	const float m_timerMax = 0.45f;
 	
-	std::vector<sf::Vector2f> m_waypoints;
-	size_t m_currentWaypoint = 0;
 	bool m_reverse = false;
 
 	BossOrientation m_newOrientationRequest;

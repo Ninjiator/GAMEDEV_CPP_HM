@@ -24,6 +24,7 @@ void GameState_TitleScreen::onEnter()
 void GameState_TitleScreen::onExit()
 {
 	SoundManager::getInstance().stopTitleMusic();
+	SoundManager::getInstance().playComentatorStart();
 }
 
 void GameState_TitleScreen::updateState()
@@ -148,12 +149,12 @@ void GameState_Pause::onEnter()
 	m_textLoopClock.restart();
 	m_GameWorld->blur();
 
-	//SoundManager::getInstance().playPause();
+	SoundManager::getInstance().pauseInGameMusic();
+	SoundManager::getInstance().playComentatorPause();
 }
 
 void GameState_Pause::onExit()
 {
 	m_GameWorld->unblur();
-
-	//SoundManager::getInstance().playUnpause();
+	SoundManager::getInstance().playInGameMusic();
 }

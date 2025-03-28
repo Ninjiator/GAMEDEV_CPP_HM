@@ -19,6 +19,9 @@ SoundManager::SoundManager()
 	, m_comentatorStartSoundBuffer("resources/Audio/SFX/a-good-day-for-a-swell-battle.mp3")
 	, m_comentatorStartSound(m_comentatorStartSoundBuffer)
 
+	, m_comentatorPauseSoundBuffer("resources/Audio/SFX/king-dice-well-be-right-back.mp3")
+	, m_comentatorPauseSound(m_comentatorPauseSoundBuffer)
+
 	, m_bossHittedSoundBuffer("resources/Audio/SFX/Boss_Hitted.mp3")
 	, m_bossHittedSound(m_bossHittedSoundBuffer)
 
@@ -71,6 +74,11 @@ void SoundManager::playComentatorStart()
 	m_comentatorStartSound.play();
 }
 
+void SoundManager::playComentatorPause()
+{
+	m_comentatorPauseSound.play();
+}
+
 void SoundManager::playTitleMusic()
 {
 	m_titleMusic.play();
@@ -87,4 +95,9 @@ void SoundManager::playInGameMusic()
 	m_inGameMusic.play();
 	m_inGameMusic.setLooping(true);
 	
+}
+
+void SoundManager::pauseInGameMusic()
+{
+	m_inGameMusic.pause();
 }

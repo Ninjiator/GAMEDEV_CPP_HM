@@ -77,6 +77,9 @@ private:
 
 	bool m_pressedLastFrame = true;
 
+	sf::Texture m_pauseTexture;
+	sf::Sprite m_pauseSprite;
+
 	sf::Text m_pauseText;
 	sf::Clock m_textLoopClock;
 	bool m_isVisible = true;
