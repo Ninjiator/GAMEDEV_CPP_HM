@@ -25,12 +25,16 @@ public:
 	//Boss
 	void playBossShootSound();
 	void playBossHittedSound();
+
 	//Music
+	void playTitleMusic();
+	void stopTitleMusic();
+
 	void playInGameMusic();
 
 private:
 	SoundManager();
-
+	//Player
 	sf::SoundBuffer m_playerJumpSoundBuffer;
 	sf::Sound m_playerJumpSound;
 
@@ -45,12 +49,14 @@ private:
 
 	sf::SoundBuffer m_playerDeathSoundBuffer;
 	sf::Sound m_playerDeathSound;
-
+	//Comentator
 	sf::SoundBuffer m_comentatorStartSoundBuffer;
 	sf::Sound m_comentatorStartSound;
-
+	//Boss
 	sf::SoundBuffer m_bossHittedSoundBuffer;
 	sf::Sound m_bossHittedSound;
 
+	//InGame
 	sf::Music m_inGameMusic;
+	sf::Music m_titleMusic;
 };

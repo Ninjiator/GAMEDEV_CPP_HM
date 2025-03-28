@@ -23,6 +23,7 @@ SoundManager::SoundManager()
 	, m_bossHittedSound(m_bossHittedSoundBuffer)
 
 	, m_inGameMusic("resources/Audio/Music/Botanic_Panic.mp3")
+	, m_titleMusic("resources/Audio/Music/cuphead-dont-deal-with-the-devil-2.mp3")
 {
 }
 
@@ -68,6 +69,16 @@ void SoundManager::playPlayerDeathSound()
 void SoundManager::playComentatorStart()
 {
 	m_comentatorStartSound.play();
+}
+
+void SoundManager::playTitleMusic()
+{
+	m_titleMusic.play();
+}
+
+void SoundManager::stopTitleMusic()
+{
+	m_titleMusic.stop();
 }
 
 void SoundManager::playInGameMusic()
