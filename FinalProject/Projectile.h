@@ -26,8 +26,8 @@ private:
 	float m_width = 50.f;
 
 	sf::Vector2f m_position;
-	float m_speed_x;
-	float m_speed_y = 0.f;
+	float m_deltaX;
+	float m_deltaY = 0.f;
 	
 	bool m_isDestroyed = false;
 };
