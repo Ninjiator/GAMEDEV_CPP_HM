@@ -20,7 +20,7 @@ Boss::Boss(sf::RenderWindow* window)
 	const sf::Vector2u windowSize = m_window->getSize(); 
 	const sf::FloatRect spriteSize = m_sprite.getGlobalBounds(); 
 
-	sf::Vector2f newPosition = sf::Vector2f{ static_cast<float>(windowSize.x) - static_cast<float>(windowSize.x) / 7.0f,
+	sf::Vector2f newPosition = sf::Vector2f{ static_cast<float>(windowSize.x) - spriteSize.size.x / 2.0f,
 								static_cast<float>(windowSize.y) - spriteSize.size.y / 2.0f };
 	m_sprite.setPosition(newPosition);
 }
@@ -62,121 +62,83 @@ void Boss::handleBossOrientation()
 
 void Boss::move(float dt)
 {
-    if (m_hp > 10)
-    {
-        return;
-    }
-    //TODO: need to be moved down
-    sf::Vector2u winSize = m_window->getSize();
-    sf::Vector2f currentPos = m_sprite.getPosition();
-    float bottomLimit = static_cast<float>(winSize.y) - m_sprite.getGlobalBounds().size.y / 2.0f;
-    float leftCornerX = static_cast<float>(winSize.x) / 7.f;
-    float rightCornerX = static_cast<float>(winSize.x) - leftCornerX;
-    if (m_hp < 5)
-    {
-        m_reverse = true;
-        if (currentPos.y == bottomLimit && rightCornerX == currentPos.x)
-        {
-            m_reverse = false;
-        }
-    }
+	// якщо у боса високий р≥вень здоровТ€, рух не активуЇтьс€
+	if (m_hp > 15)
+		return;
+	else if (m_hp < 10 && m_hp > 5)
+	{
+		m_reverse = true;
+	}
+	else if (m_hp < 5)
+	{
+		m_reverse = false;
+	}
+	if (m_waypoints.empty())
+	{
+		sf::Vector2u winSize = m_window->getSize();
+		float halfWidth = m_sprite.getGlobalBounds().size.x / 2.0f;
+		float halfHeight = m_sprite.getGlobalBounds().size.y / 2.0f;
+		
+		// ¬изначаЇмо координати дл€ чотирьох кут≥в:
+		sf::Vector2f bottomRight(winSize.x - halfWidth, winSize.y - halfHeight); // 0 Ц стартова позиц≥€
+		sf::Vector2f topRight(winSize.x - halfWidth, halfHeight);                // 1
+		sf::Vector2f topLeft(halfWidth, halfHeight);                             // 2
+		sf::Vector2f bottomLeft(halfWidth, winSize.y - halfHeight);              // 3
 
-    const float SPEED = 200.f * dt;
-    
-    
+		m_waypoints.push_back(bottomRight); // index 0
+		m_waypoints.push_back(topRight);    // index 1
+		m_waypoints.push_back(topLeft);     // index 2
+		m_waypoints.push_back(bottomLeft);  // index 3
+	}
+	
+	sf::Vector2f target = m_waypoints[m_currentWaypoint];
+	sf::Vector2f currentPos = m_sprite.getPosition();
+	sf::Vector2f direction = target - currentPos;
+	float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+	if (distance > 0.001f)
+	{
+		direction /= distance;
+	}
 
-    float targetY = static_cast<float>(winSize.y) / 3.f;  
-    
-    
+	float speed = 200.f;
+	if (currentPos.x > m_window->getSize().x / 2.f)
+	{
+		m_newOrientationRequest = BossOrientation::Left;
+	}
+	else 
+	{
+		m_newOrientationRequest = BossOrientation::Right;
+	}
 
-    switch (m_state)
-    {
-    case BossMovementState::MovingUp:
-    {
-        if (currentPos.y > targetY + 1.f)
-        {
-            currentPos.y -= SPEED;
-            if (currentPos.y < targetY)
-            {
-                currentPos.y = targetY;
-            }
-        }
-        else
-        {
-            currentPos.y = targetY;
-            m_state = BossMovementState::MovingLeft;
-            if (m_reverse)
-            {
-                m_state = BossMovementState::MovingRight;
-            }
-        }
-        break;
-    }
-    case BossMovementState::MovingLeft:
-    {
-        // –ух вл≥во, поки pos.x > targetX
-        if (currentPos.x > leftCornerX + 1.f)
-        {
-            currentPos.x -= SPEED;
-            if (currentPos.x < leftCornerX)
-            {
-                currentPos.x = leftCornerX;
-            }
-        }
-        else
-        {
-            currentPos.x = leftCornerX;
-            m_state = BossMovementState::MovingDown;
-            m_newOrientationRequest = BossOrientation::Right;
-        }
-        break;
-    }
-    case BossMovementState::MovingRight:
-    {
-        if (currentPos.x < rightCornerX)
-        {
-            currentPos.x += SPEED;
-            if (currentPos.x > rightCornerX)
-            {
-                currentPos.x = rightCornerX;
-            }
-        }
-        else
-        {
-            currentPos.x = rightCornerX;
-            m_newOrientationRequest = BossOrientation::Left;
-            if (m_reverse)
-            {
-                m_state = BossMovementState::MovingDown;
-                m_newOrientationRequest = BossOrientation::Left;
-            }
-        }
-    }
-    break;
-    case BossMovementState::MovingDown:
-    {
-        float bottomLimit = static_cast<float>(winSize.y) - m_sprite.getGlobalBounds().size.y / 2.0f;
-        if (currentPos.y < bottomLimit - 1.f)
-        {
-            currentPos.y += SPEED;
-            if (currentPos.y > bottomLimit)
-                currentPos.y = bottomLimit;
-        }
-        else
-        {
-            currentPos.y = bottomLimit;
-            if (m_reverse)
-            {
-                m_state = BossMovementState::MovingUp;
-            }
- 
-        }
-        break;
-    }
-    }
-    m_sprite.setPosition(currentPos);
-    m_position = currentPos;
+	sf::Vector2f movement = direction * speed * dt;
+	if (std::sqrt(movement.x * movement.x + movement.y * movement.y) > distance)
+	{
+		currentPos = target;
+	}
+	else
+	{
+		currentPos += movement;
+	}
+
+	m_sprite.setPosition(currentPos);
+	m_position = currentPos;
+
+	if (distance < 5.f)
+	{
+		if (!m_reverse)
+		{
+			if (m_currentWaypoint < m_waypoints.size() - 1)
+				m_currentWaypoint++;
+		}
+		else 
+		{
+			if (m_currentWaypoint > 0)
+				m_currentWaypoint--;
+		}
+	}
 }
+
+
 
 
 void Boss::draw()

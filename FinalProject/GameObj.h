@@ -23,6 +23,7 @@ public:
 	virtual sf::Vector2f getPosition() = 0;
 	virtual const float getSpriteWidth() { return 0.0f; }
 	virtual const float getSpriteHeight() { return 0.0f; }
+	virtual int getHealthPoints() { return 0; }
 
 protected:
 	sf::RenderWindow* m_window = nullptr;

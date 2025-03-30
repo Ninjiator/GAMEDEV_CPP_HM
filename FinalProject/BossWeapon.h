@@ -14,13 +14,19 @@ public:
 	void update(float dt) override;
 	void draw();
 
-	void shoot(float dt) override; //add boss logic
+	void shoot(float dt) override;
+	float generateRandomYForProjectile();
 	void deleteProjectile(float dt);
 	
+	void fallingBombsAbility(float dt);
+
 
 private:
 	Boss* m_boss = nullptr;
 	
 	sf::Vector2f m_position;
 	
+	const float m_shootTimerMax = 0.45f;
+	const float m_boombTimerMax = 2.0f;
+	float m_bombTimer = 0.f;
 };

@@ -28,8 +28,9 @@ public:
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 
 	Type getType() override{ return Type::Player; }
-
+	int getHealthPoints() override { return m_hp; }
 	bool IsPlayerAlive();
+
 private:
 	void handleInput(float dt);
 	void handlePlayerOrientation();

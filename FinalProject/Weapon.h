@@ -26,5 +26,5 @@ private:
 protected:
 	std::vector<Projectile*> m_projectiles;
 	float m_shootTimer = 0.f;
-	
+	const float m_shootTimerMax = 0.1f;
 };
