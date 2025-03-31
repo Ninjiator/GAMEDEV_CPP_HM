@@ -62,7 +62,6 @@ void Boss::handleBossOrientation()
 
 void Boss::move(float dt)
 {
-	// якщо у боса високий р≥вень здоровТ€, рух не активуЇтьс€
 	if (m_hp > 15)
 		return;
 	else if (m_hp < 10 && m_hp > 5)
@@ -73,14 +72,15 @@ void Boss::move(float dt)
 	{
 		m_reverse = false;
 	}
+
 	if (m_waypoints.empty())
 	{
 		sf::Vector2u winSize = m_window->getSize();
 		float halfWidth = m_sprite.getGlobalBounds().size.x / 2.0f;
 		float halfHeight = m_sprite.getGlobalBounds().size.y / 2.0f;
 		
-		// ¬изначаЇмо координати дл€ чотирьох кут≥в:
-		sf::Vector2f bottomRight(winSize.x - halfWidth, winSize.y - halfHeight); // 0 Ц стартова позиц≥€
+		
+		sf::Vector2f bottomRight(winSize.x - halfWidth, winSize.y - halfHeight); // 0 Ц start
 		sf::Vector2f topRight(winSize.x - halfWidth, halfHeight);                // 1
 		sf::Vector2f topLeft(halfWidth, halfHeight);                             // 2
 		sf::Vector2f bottomLeft(halfWidth, winSize.y - halfHeight);              // 3

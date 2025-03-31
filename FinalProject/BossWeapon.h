@@ -15,7 +15,7 @@ public:
 	void draw();
 
 	void shoot(float dt) override;
-	float generateRandomYForProjectile();
+	float generateRandomFromArray(float arr[]);
 	void deleteProjectile(float dt);
 	
 	void fallingBombsAbility(float dt);
