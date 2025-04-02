@@ -84,3 +84,38 @@ private:
 	sf::Clock m_textLoopClock;
 	bool m_isVisible = true;
 };
+
+class GameState_Victory : public GameState
+{
+public:
+	GameState_Victory(GameStateManager& context, sf::RenderWindow* window);
+
+	virtual void updateState() override;
+	virtual void update(float DeltaTime) override;
+	virtual void draw() override;
+
+	virtual void onEnter();
+	virtual void onExit();
+private:
+	sf::Texture m_victoryTexture;
+	sf::Sprite m_victorySprite;
+	sf::Text m_text;
+};
+
+class GameState_GameOver : public GameState
+{
+public:
+	GameState_GameOver(GameStateManager& context, sf::RenderWindow* window);
+
+	virtual void updateState() override;
+	virtual void update(float DeltaTime) override;
+	virtual void draw() override;
+
+	virtual void onEnter();
+	virtual void onExit();
+private:
+	sf::Texture m_gameOverTexture;
+	sf::Sprite m_gameOverSprite;
+	sf::Text m_text;
+};
+

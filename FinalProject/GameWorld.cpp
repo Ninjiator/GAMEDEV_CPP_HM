@@ -2,20 +2,25 @@
 
 GameWorld::GameWorld(sf::RenderWindow* window)
     : m_window(window)
-    , m_player(window)
-    , m_boss(window)
-    , m_background(window)
-    , m_playerProjectiles(window, &m_player)
-    , m_bossProjectiles(window, &m_boss)
-    , m_physicsEngine(&m_player, m_playerProjectiles.getProjectile(), &m_boss, m_bossProjectiles.getProjectile())
 {
+    m_background = new Background(window);
+    m_player = new Player(window);
+    m_boss = new Boss(window);
+    m_playerProjectiles = new Weapon(window, m_player);
+    m_bossProjectiles = new BossWeapon(window, m_boss);
+    m_physicsEngine = new PhysicsEngine(m_player, m_playerProjectiles->getProjectile(), m_boss, m_bossProjectiles->getProjectile());
+
     m_rectangle.setFillColor(sf::Color{ 255, 255, 255, 150 });
     m_rectangle.setSize({ static_cast<float>(m_window->getSize().x), static_cast<float>(m_window->getSize().y) });
 }
 
 GameWorld::~GameWorld()
 {
-    //TODO: Delete memory used
+    delete m_player;
+    delete m_boss;
+    delete m_playerProjectiles;
+    delete m_bossProjectiles;
+    delete m_physicsEngine;
 }
 
 void GameWorld::blur()
@@ -30,22 +35,22 @@ void GameWorld::unblur()
 
 void GameWorld::update(float dt)
 {
-    m_player.update(dt);
-    m_boss.update(dt);
-    m_playerProjectiles.update(dt);
-    m_bossProjectiles.update(dt);
-    m_physicsEngine.update(dt);
+    m_player->update(dt);
+    m_boss->update(dt);
+    m_playerProjectiles->update(dt);
+    m_bossProjectiles->update(dt);
+    m_physicsEngine->update(dt);
 }
 
 void GameWorld::draw()
 {
     m_window->clear(sf::Color{ 0, 255, 0 });
 
-    m_background.draw();
-    m_player.draw();
-    m_boss.draw();
-    m_playerProjectiles.draw();
-    m_bossProjectiles.draw();
+    m_background->draw();
+    m_player->draw();
+    m_boss->draw();
+    m_playerProjectiles->draw();
+    m_bossProjectiles->draw();
 
     if (m_blurred)
     {

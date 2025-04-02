@@ -30,8 +30,8 @@ int main()
 
 	sf::Clock frameRateClock;
 
-	GameWorld gameWorld(&window);
-	GameStateManager gameStateManager(&gameWorld, GameStateId::TitleScreen, &window);
+	GameWorld* gameWorld = new GameWorld(&window);
+	GameStateManager gameStateManager(gameWorld, GameStateId::TitleScreen, &window);
 
 	while (window.isOpen()) 
 	{

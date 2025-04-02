@@ -9,7 +9,7 @@ GameState_TitleScreen::GameState_TitleScreen(GameStateManager& context, sf::Rend
 	, m_startSprite(m_startTexture)
 	, m_text(FontManager::getInstance().getDefaultFont())
 {
-	m_text.setCharacterSize(50); // in pixels, not points!
+	m_text.setCharacterSize(50); 
 	m_text.setFillColor(sf::Color::Cyan);
 	m_text.setString("PRESS ENTER TO START THE GAME!");
 	m_text.setOrigin({ m_text.getGlobalBounds().size.x / 2, m_text.getGlobalBounds().size.y / 2 });
@@ -72,6 +72,15 @@ void GameState_Playing::updateState()
 	else
 	{
 		m_pressedLastFrame = false;
+	}
+
+	if (m_GameWorld->getPlayer()->getHealthPoints() == 0)
+	{
+		m_gameStateManager.setGameState(GameStateId::GameOver);
+	}
+	if (m_GameWorld->getBoss()->getHealthPoints() == 0)
+	{
+		m_gameStateManager.setGameState(GameStateId::Victory);
 	}
 }
 
@@ -157,4 +166,92 @@ void GameState_Pause::onExit()
 {
 	m_GameWorld->unblur();
 	SoundManager::getInstance().playInGameMusic();
+}
+
+GameState_Victory::GameState_Victory(GameStateManager& context, sf::RenderWindow* window)
+	: GameState(context, window)
+	, m_victoryTexture("resources/Sprites/UI/winscreen_bg.png")
+	, m_victorySprite(m_victoryTexture)
+	, m_text(FontManager::getInstance().getDefaultFont())
+{
+	m_victorySprite.setOrigin({ m_victorySprite.getGlobalBounds().size.x / 2, m_victorySprite.getGlobalBounds().size.y / 2 });
+	m_victorySprite.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y - m_window->getSize().y / 5.0f });
+	m_victorySprite.setScale(sf::Vector2f{ 1.0f, 0.75f });
+
+	m_text.setCharacterSize(70);
+	m_text.setFillColor(sf::Color::Yellow);
+	m_text.setString("RESULT'S!");
+	m_text.setOrigin({ m_text.getGlobalBounds().size.x / 2, m_text.getGlobalBounds().size.y / 2 });
+	m_text.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y / 6.0f });
+}
+
+void GameState_Victory::updateState()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
+	{
+		m_gameStateManager.resetGameWorld();
+	}
+}
+
+void GameState_Victory::update(float DeltaTime)
+{
+}
+
+void GameState_Victory::draw()
+{
+	m_window->clear();
+	m_window->draw(m_victorySprite);
+	m_window->draw(m_text);
+}
+
+void GameState_Victory::onEnter()
+{
+}
+
+void GameState_Victory::onExit()
+{
+}
+
+GameState_GameOver::GameState_GameOver(GameStateManager& context, sf::RenderWindow* window)
+	: GameState(context, window)
+	, m_gameOverTexture("resources/Sprites/UI/winscreen_bg.png")
+	, m_gameOverSprite(m_gameOverTexture)
+	, m_text(FontManager::getInstance().getDefaultFont())
+{
+	m_gameOverSprite.setOrigin({ m_gameOverSprite.getGlobalBounds().size.x / 2, m_gameOverSprite.getGlobalBounds().size.y / 2 });
+	m_gameOverSprite.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y - m_window->getSize().y / 5.0f });
+	m_gameOverSprite.setScale(sf::Vector2f{ 1.0f, 0.75f });
+	
+	m_text.setCharacterSize(50); 
+	m_text.setFillColor(sf::Color::Cyan);
+	m_text.setString("PRESS ENTER TO TRY AGAIN!");
+	m_text.setOrigin({ m_text.getGlobalBounds().size.x / 2, m_text.getGlobalBounds().size.y / 2 });
+	m_text.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y / 6.0f });
+}
+
+void GameState_GameOver::updateState()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
+	{
+		m_gameStateManager.resetGameWorld();
+	}
+}
+
+void GameState_GameOver::update(float DeltaTime)
+{
+}
+
+void GameState_GameOver::draw()
+{
+	m_window->clear(sf::Color::White);
+	m_window->draw(m_gameOverSprite);
+	m_window->draw(m_text);
+}
+
+void GameState_GameOver::onEnter()
+{
+}
+
+void GameState_GameOver::onExit()
+{
 }

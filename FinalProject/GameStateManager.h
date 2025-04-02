@@ -10,8 +10,8 @@ enum  class GameStateId
 	TitleScreen,
 	Playing,
 	Pause,
-	//GameOver
-	//Victory
+	GameOver,
+	Victory,
 	Count
 };
 
@@ -23,8 +23,11 @@ public:
 
 	void setGameState(GameStateId newGameState);
 	GameState* getCurrentGameState() const { return m_currentGameState; }
+	void resetGameWorld();
 
 private:
+	GameWorld* m_gameWorld = nullptr;
+	sf::RenderWindow* m_window = nullptr;
 	GameState* m_currentGameState = nullptr;
 	GameState* m_gameStates[static_cast<std::size_t>(GameStateId::Count)];
 };

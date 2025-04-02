@@ -20,17 +20,21 @@ public:
 	void update(float DeltaTime);
 	void draw();
 
+	Player* getPlayer() { return m_player; }
+	Boss* getBoss() { return m_boss; }
+
 private:
 	sf::RenderWindow* m_window;
 
-	Player m_player;
-	Boss m_boss;
+	
+	Player* m_player;
+	Boss* m_boss;
 
-	Background m_background;
-	Weapon m_playerProjectiles;
-	BossWeapon m_bossProjectiles;
+	Background* m_background;
+	Weapon* m_playerProjectiles;
+	BossWeapon* m_bossProjectiles;
 
-	PhysicsEngine m_physicsEngine;
+	PhysicsEngine* m_physicsEngine;
 
 	bool m_blurred = false;
 	sf::RectangleShape m_rectangle;
