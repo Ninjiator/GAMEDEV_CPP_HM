@@ -30,45 +30,18 @@ int main()
 
 	sf::Clock frameRateClock;
 
-	/*Background background(&window);
-
-	Player player(&window);
-	Boss boss(&window);
-
-	Weapon weapon(&window, &player);
-	BossWeapon bossWeapon(&window, &boss);
-
-	PhysicsEngine physicsEngine(&player, weapon.getProjectile(), &boss, bossWeapon.getProjectile());*/
-
 	GameWorld gameWorld(&window);
 	GameStateManager gameStateManager(&gameWorld, GameStateId::TitleScreen, &window);
 
-	while (window.isOpen()) //&& player.IsPlayerAlive()
+	while (window.isOpen()) 
 	{
-		/*player.IsPlayerAlive();*/
 		float deltaTimeSec = frameRateClock.restart().asSeconds();
 		//Step:1 Handle System events
 		handleSystemIvents(window);
-
 		//Step:2 update all game obj
-		/*player.update(deltaTimeSec);
-		boss.update(deltaTimeSec);
-		weapon.update(deltaTimeSec);
-		bossWeapon.update(deltaTimeSec);
-		physicsEngine.update(deltaTimeSec);*/
-
 		gameStateManager.getCurrentGameState()->update(deltaTimeSec);
-
 		//Step:3 draw all game obj
-		/*window.clear(sf::Color::White);
-		background.draw();
-
-		player.draw();
-		boss.draw();
-		weapon.draw();
-		bossWeapon.draw();*/
 		gameStateManager.getCurrentGameState()->draw();
-
 		//Step:4 vizualize
 		gameStateManager.getCurrentGameState()->updateState();
 		window.display();

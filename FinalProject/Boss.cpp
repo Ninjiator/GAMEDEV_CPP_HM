@@ -100,7 +100,7 @@ void Boss::move(float dt)
 		direction /= distance;
 	}
 
-	float speed = 200.f;
+	float speed = 180.f;
 	if (currentPos.x > m_window->getSize().x / 2.f)
 	{
 		m_newOrientationRequest = BossOrientation::Left;

@@ -50,7 +50,7 @@ private:
 	PlayerOrientation m_orientation;
 	PlayerOrientation m_newOrientationRequest;
 
-	sf::Vector2f m_velocity; //Player speed for x & y, used for gravity
+	sf::Vector2f m_velocity;
 	bool m_onGround = true;
 
 	sf::Clock m_jumpCoolDownTimer;

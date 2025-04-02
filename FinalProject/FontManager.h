@@ -4,9 +4,7 @@
 class FontManager
 {
 public:
-	//Add other fonts if needed
 	const sf::Font& getDefaultFont() const { return m_defaultFont; }
-
 	static FontManager& getInstance()
 	{
 		static FontManager instance;
@@ -15,6 +13,5 @@ public:
 
 private:
 	FontManager() : m_defaultFont("resources/Fonts/cuphead_font_by_ripoof_dept3h3.ttf") {}
-
 	sf::Font m_defaultFont;
 };

@@ -11,7 +11,7 @@ enum  class GameStateId
 	Playing,
 	Pause,
 	//GameOver
-	//Others
+	//Victory
 	Count
 };
 

@@ -24,10 +24,9 @@ void BossWeapon::draw()
 
 void BossWeapon::shoot(float dt)
 {
-	float SPEED = 900.f;
+	float SPEED = 800.f;
 	float delta_X = 0.f;
 	float delta_Y = 0.f;
-	//const float m_shootTimerMax = 0.5f;
 	m_shootTimer += dt;
 
 	if (m_shootTimer > m_shootTimerMax)
@@ -73,9 +72,9 @@ void BossWeapon::fallingBombsAbility(float dt)
 			float leftSideX[3] = { m_window->getSize().x - part.x / 2.f, m_window->getSize().x - part.x * 2.f, m_window->getSize().x - part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(leftSideX), 0.f };
 
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 1.f, spawnPosition, 0.f, delta_Y });
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 1.f, spawnPosition, 0.f, delta_Y });
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 1.f, spawnPosition, 0.f, delta_Y });
+			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
+			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
+			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
 		}
 		//if Boss located on a right side of arena - bombs will spawn on a left side 
 		if (m_boss->getPosition().x > m_window->getSize().x / 2.f)
@@ -83,9 +82,9 @@ void BossWeapon::fallingBombsAbility(float dt)
 			float rigthSideX[3] = { part.x / 2.f, part.x * 2.f, part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(rigthSideX), 0.f };
 
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 1.f, spawnPosition, 0.f, delta_Y });
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 1.f, spawnPosition, 0.f, delta_Y });
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 1.f, spawnPosition, 0.f, delta_Y });
+			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
+			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
+			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
 		}
 	}
 }

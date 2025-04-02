@@ -37,7 +37,7 @@ public:
 private:
 	void animation(float dt);
 	void handleBossOrientation();
-	void move(float dt); // boss moveset accordingly to the phase/hp
+	void move(float dt); 
 
 private:
 	sf::Texture m_texture;
