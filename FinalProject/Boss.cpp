@@ -62,13 +62,16 @@ void Boss::handleBossOrientation()
 
 void Boss::move(float dt)
 {
-	if (m_hp > 15)
+	constexpr unsigned int phase_1 = 400;
+	constexpr unsigned int phase_2 = 250;
+	constexpr unsigned int phase_3 = 100;
+	if (phase_1 < m_hp)
 		return;
-	else if (m_hp < 10 && m_hp > 5)
+	else if (m_hp < phase_2 && m_hp > phase_3)
 	{
 		m_reverse = true;
 	}
-	else if (m_hp < 5)
+	else if (m_hp < phase_3)
 	{
 		m_reverse = false;
 	}
@@ -152,7 +155,7 @@ void Boss::onCollision(GameObject* colidable)
 	{
 		m_hp--;
 		SoundManager::getInstance().playBossHittedSound();
-		std::cout << "[BOSS HITTED BY PLAYER]" << std::endl;
+		std::cout << "[BOSS HP] " << m_hp <<std::endl;
 	}
 	if (colidable->getType() == Type::Player)
 	{

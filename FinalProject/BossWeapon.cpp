@@ -1,6 +1,7 @@
 #include "BossWeapon.h"
 #include <iostream>
 #include <random>
+#include "SoundManager.h"
 
 BossWeapon::BossWeapon(sf::RenderWindow* window, Boss* boss)
 	: Weapon(window, nullptr) //using base c-tor from Weapon, nullptr for player
@@ -45,9 +46,10 @@ void BossWeapon::shoot(float dt)
 		
 		if (m_boss->getPosition().y <  m_window->getSize().y / 2.f)
 		{
-			delta_Y = 250.f;
+			//delta_Y = 250.f;
 		}
 			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/boss_projectile_temp.png", 4.f, spawnPosition, delta_X, delta_Y });
+			SoundManager::getInstance().playBossShootSound();
 			std::cout << "drawing boss projectiles" << std::endl;
 	}
 }
@@ -62,7 +64,7 @@ void BossWeapon::fallingBombsAbility(float dt)
 	float delta_Y = 500.f;
 	
 	m_bombTimer += dt;
-	if (m_boss->getHealthPoints() < 15 && m_bombTimer > m_boombTimerMax)
+	if (m_boss->getHealthPoints() < 400 && m_bombTimer > m_boombTimerMax)
 	{
 		m_bombTimer = 0.f;
 		sf::Vector2f part = sf::Vector2f{ m_window->getSize().x / 5.f, 0.f };

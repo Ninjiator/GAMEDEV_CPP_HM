@@ -34,6 +34,9 @@ public:
 	void playInGameMusic();
 	void pauseInGameMusic();
 
+	void playVictoryMusic();
+	void stopVictoryMusic();
+
 private:
 	SoundManager();
 	//Player
@@ -58,10 +61,14 @@ private:
 	sf::SoundBuffer m_comentatorPauseSoundBuffer;
 	sf::Sound m_comentatorPauseSound;
 	//Boss
+	sf::SoundBuffer m_bossShotSoundBuffer;
+	sf::Sound m_bossShotSound;
+
 	sf::SoundBuffer m_bossHittedSoundBuffer;
 	sf::Sound m_bossHittedSound;
 
-	//InGame
+	//InGameMusic
 	sf::Music m_inGameMusic;
 	sf::Music m_titleMusic;
+	sf::Music m_victoryMusic;
 };

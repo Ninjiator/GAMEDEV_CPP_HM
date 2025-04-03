@@ -59,6 +59,11 @@ void GameState_Playing::onEnter()
 	SoundManager::getInstance().playInGameMusic();
 }
 
+void GameState_Playing::onExit()
+{
+	SoundManager::getInstance().pauseInGameMusic();
+}
+
 void GameState_Playing::updateState()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
@@ -126,9 +131,7 @@ void GameState_Pause::updateState()
 
 void GameState_Pause::update(float DeltaTime)
 {
-	//Don't update GameWorld, just skipping gameWorld update makes the world freeze in Paused Mode
 	constexpr unsigned int BlinkPeriod = 500;
-
 	bool needUpdate = false;
 
 	if (m_textLoopClock.getElapsedTime().asMilliseconds() > BlinkPeriod)
@@ -158,7 +161,6 @@ void GameState_Pause::onEnter()
 	m_textLoopClock.restart();
 	m_GameWorld->blur();
 
-	SoundManager::getInstance().pauseInGameMusic();
 	SoundManager::getInstance().playComentatorPause();
 }
 
@@ -182,12 +184,12 @@ GameState_Victory::GameState_Victory(GameStateManager& context, sf::RenderWindow
 	m_text.setFillColor(sf::Color::Yellow);
 	m_text.setString("RESULT'S!");
 	m_text.setOrigin({ m_text.getGlobalBounds().size.x / 2, m_text.getGlobalBounds().size.y / 2 });
-	m_text.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y / 6.0f });
+	m_text.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y / 7.0f });
 }
 
 void GameState_Victory::updateState()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R))
 	{
 		m_gameStateManager.resetGameWorld();
 	}
@@ -195,6 +197,7 @@ void GameState_Victory::updateState()
 
 void GameState_Victory::update(float DeltaTime)
 {
+
 }
 
 void GameState_Victory::draw()
@@ -206,13 +209,15 @@ void GameState_Victory::draw()
 
 void GameState_Victory::onEnter()
 {
+	SoundManager::getInstance().playVictoryMusic();
 }
 
 void GameState_Victory::onExit()
 {
+	SoundManager::getInstance().stopVictoryMusic();
 }
 
-GameState_GameOver::GameState_GameOver(GameStateManager& context, sf::RenderWindow* window)
+GameState_GameOver::GameState_GameOver(GameStateManager& context, GameWorld* gameWorld, sf::RenderWindow* window)
 	: GameState(context, window)
 	, m_gameOverTexture("resources/Sprites/UI/winscreen_bg.png")
 	, m_gameOverSprite(m_gameOverTexture)
@@ -231,7 +236,7 @@ GameState_GameOver::GameState_GameOver(GameStateManager& context, sf::RenderWind
 
 void GameState_GameOver::updateState()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R))
 	{
 		m_gameStateManager.resetGameWorld();
 	}
@@ -239,6 +244,7 @@ void GameState_GameOver::updateState()
 
 void GameState_GameOver::update(float DeltaTime)
 {
+
 }
 
 void GameState_GameOver::draw()
@@ -250,8 +256,10 @@ void GameState_GameOver::draw()
 
 void GameState_GameOver::onEnter()
 {
+
 }
 
 void GameState_GameOver::onExit()
 {
+
 }

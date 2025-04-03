@@ -26,7 +26,7 @@ private:
 	
 	sf::Vector2f m_position;
 	
-	const float m_shootTimerMax = 0.45f;
+	const float m_shootTimerMax = 0.55f;
 	const float m_boombTimerMax = 2.0f;
 	float m_bombTimer = 0.f;
 };

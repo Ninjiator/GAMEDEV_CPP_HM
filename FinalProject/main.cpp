@@ -38,10 +38,13 @@ int main()
 		float deltaTimeSec = frameRateClock.restart().asSeconds();
 		//Step:1 Handle System events
 		handleSystemIvents(window);
+
 		//Step:2 update all game obj
 		gameStateManager.getCurrentGameState()->update(deltaTimeSec);
+
 		//Step:3 draw all game obj
 		gameStateManager.getCurrentGameState()->draw();
+
 		//Step:4 vizualize
 		gameStateManager.getCurrentGameState()->updateState();
 		window.display();

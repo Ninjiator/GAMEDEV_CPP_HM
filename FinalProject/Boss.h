@@ -43,7 +43,7 @@ private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 
-	int m_hp = 16;
+	int m_hp = 550;
 
 	sf::Vector2f m_position;
 

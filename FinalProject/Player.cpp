@@ -184,7 +184,7 @@ bool Player::IsPlayerAlive()
 {
 	if (m_hp > 0)
 	{
-		SoundManager::getInstance().playPlayerDeathSound();
+		
 		return true;
 	}
 	else

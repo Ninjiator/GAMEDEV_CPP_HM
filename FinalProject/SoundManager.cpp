@@ -25,8 +25,12 @@ SoundManager::SoundManager()
 	, m_bossHittedSoundBuffer("resources/Audio/SFX/Boss_Hitted.mp3")
 	, m_bossHittedSound(m_bossHittedSoundBuffer)
 
+	, m_bossShotSoundBuffer("resources/Audio/SFX/shooting-sound-fx-159024.mp3")
+	, m_bossShotSound(m_bossShotSoundBuffer)
+
 	, m_inGameMusic("resources/Audio/Music/Botanic_Panic.mp3")
 	, m_titleMusic("resources/Audio/Music/cuphead-dont-deal-with-the-devil-2.mp3")
+	, m_victoryMusic("resources/Audio/Music/Cuphead_Victory.mp3")
 {
 }
 
@@ -50,6 +54,7 @@ void SoundManager::playPlayerShoot()
 
 void SoundManager::playBossShootSound()
 {
+	m_bossShotSound.play();
 }
 
 void SoundManager::playBossHittedSound()
@@ -100,4 +105,14 @@ void SoundManager::playInGameMusic()
 void SoundManager::pauseInGameMusic()
 {
 	m_inGameMusic.pause();
+}
+
+void SoundManager::playVictoryMusic()
+{
+	m_victoryMusic.play();
+}
+
+void SoundManager::stopVictoryMusic()
+{
+	m_victoryMusic.stop();
 }
