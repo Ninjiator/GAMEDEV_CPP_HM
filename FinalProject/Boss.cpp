@@ -32,6 +32,29 @@ void Boss::update(float dt)
 	animation(dt);
 }
 
+void Boss::giveDamage()
+{
+	if (m_damageCooldown.getElapsedTime().asSeconds() > m_invincibilityDuration)
+	{
+		m_hp--;
+		m_damageCooldown.restart();
+		SoundManager::getInstance().playPlayerHittedSound();
+		std::cout << "[BOSS] HIT — HP = " << m_hp << std::endl;
+	}
+}
+
+bool Boss::isEntityAlive()
+{
+	if (m_hp > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void Boss::animation(float dt)
 {
 	m_timer += 0.1f + dt;
@@ -62,9 +85,9 @@ void Boss::handleBossOrientation()
 
 void Boss::move(float dt)
 {
-	constexpr unsigned int phase_1 = 400;
-	constexpr unsigned int phase_2 = 250;
-	constexpr unsigned int phase_3 = 100;
+	constexpr unsigned int phase_1 = 200;
+	constexpr unsigned int phase_2 = 100;
+	constexpr unsigned int phase_3 = 50;
 	if (phase_1 < m_hp)
 		return;
 	else if (m_hp < phase_2 && m_hp > phase_3)
@@ -153,7 +176,7 @@ void Boss::onCollision(GameObject* colidable)
 {
 	if (colidable->getType() == Type::Projectile)
 	{
-		m_hp--;
+		giveDamage();
 		SoundManager::getInstance().playBossHittedSound();
 		std::cout << "[BOSS HP] " << m_hp <<std::endl;
 	}

@@ -3,7 +3,9 @@
 GameWorld::GameWorld(sf::RenderWindow* window)
     : m_window(window)
 {
+    
     m_background = new Background(window);
+    m_playerHealthHUD = new PlayerHealthHUD(window);
     m_player = new Player(window);
     m_boss = new Boss(window);
     m_playerProjectiles = new Weapon(window, m_player);
@@ -16,6 +18,7 @@ GameWorld::GameWorld(sf::RenderWindow* window)
 
 GameWorld::~GameWorld()
 {
+    delete m_playerHealthHUD;
     delete m_player;
     delete m_boss;
     delete m_playerProjectiles;
@@ -40,6 +43,7 @@ void GameWorld::update(float dt)
     m_playerProjectiles->update(dt);
     m_bossProjectiles->update(dt);
     m_physicsEngine->update(dt);
+    m_playerHealthHUD->update(m_player->getHealthPoints());
 }
 
 void GameWorld::draw()
@@ -47,10 +51,12 @@ void GameWorld::draw()
     m_window->clear(sf::Color{ 0, 255, 0 });
 
     m_background->draw();
+    m_playerHealthHUD->draw();
     m_player->draw();
     m_boss->draw();
     m_playerProjectiles->draw();
     m_bossProjectiles->draw();
+    
 
     if (m_blurred)
     {

@@ -29,7 +29,7 @@ int main()
     window.setFramerateLimit(60);
 
 	sf::Clock frameRateClock;
-
+	std::srand(std::time(nullptr));
 	GameWorld* gameWorld = new GameWorld(&window);
 	GameStateManager gameStateManager(gameWorld, GameStateId::TitleScreen, &window);
 

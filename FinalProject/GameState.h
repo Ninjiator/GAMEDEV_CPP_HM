@@ -106,7 +106,7 @@ private:
 class GameState_GameOver : public GameState
 {
 public:
-	GameState_GameOver(GameStateManager& context, GameWorld* gameWorld, sf::RenderWindow* window);
+	GameState_GameOver(GameStateManager& context, sf::RenderWindow* window);
 
 	virtual void updateState() override;
 	virtual void update(float DeltaTime) override;
@@ -115,7 +115,6 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
 private:
-	GameWorld* m_gameWorld;
 
 	sf::Texture m_gameOverTexture;
 	sf::Sprite m_gameOverSprite;

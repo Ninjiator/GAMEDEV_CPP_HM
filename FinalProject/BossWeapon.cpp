@@ -64,7 +64,7 @@ void BossWeapon::fallingBombsAbility(float dt)
 	float delta_Y = 500.f;
 	
 	m_bombTimer += dt;
-	if (m_boss->getHealthPoints() < 400 && m_bombTimer > m_boombTimerMax)
+	if (m_boss->getHealthPoints() < 200 && m_bombTimer > m_boombTimerMax)
 	{
 		m_bombTimer = 0.f;
 		sf::Vector2f part = sf::Vector2f{ m_window->getSize().x / 5.f, 0.f };
@@ -94,7 +94,6 @@ void BossWeapon::fallingBombsAbility(float dt)
 float BossWeapon::generateRandomFromArray(float arr[])
 {
 	int size = sizeof(arr) / sizeof(arr[0]);
-	std::srand(std::time(nullptr));
 	int index = std::rand() % size;
 	return arr[index];
 }

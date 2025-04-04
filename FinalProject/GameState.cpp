@@ -79,11 +79,11 @@ void GameState_Playing::updateState()
 		m_pressedLastFrame = false;
 	}
 
-	if (m_GameWorld->getPlayer()->getHealthPoints() == 0)
+	if (!m_GameWorld->getPlayer()->isEntityAlive())
 	{
 		m_gameStateManager.setGameState(GameStateId::GameOver);
 	}
-	if (m_GameWorld->getBoss()->getHealthPoints() == 0)
+	if (!m_GameWorld->getBoss()->isEntityAlive())
 	{
 		m_gameStateManager.setGameState(GameStateId::Victory);
 	}
@@ -217,7 +217,7 @@ void GameState_Victory::onExit()
 	SoundManager::getInstance().stopVictoryMusic();
 }
 
-GameState_GameOver::GameState_GameOver(GameStateManager& context, GameWorld* gameWorld, sf::RenderWindow* window)
+GameState_GameOver::GameState_GameOver(GameStateManager& context, sf::RenderWindow* window)
 	: GameState(context, window)
 	, m_gameOverTexture("resources/Sprites/UI/winscreen_bg.png")
 	, m_gameOverSprite(m_gameOverTexture)
@@ -229,7 +229,7 @@ GameState_GameOver::GameState_GameOver(GameStateManager& context, GameWorld* gam
 	
 	m_text.setCharacterSize(50); 
 	m_text.setFillColor(sf::Color::Cyan);
-	m_text.setString("PRESS ENTER TO TRY AGAIN!");
+	m_text.setString("PRESS R FOR RESTART");
 	m_text.setOrigin({ m_text.getGlobalBounds().size.x / 2, m_text.getGlobalBounds().size.y / 2 });
 	m_text.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y / 6.0f });
 }

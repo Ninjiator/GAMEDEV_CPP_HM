@@ -10,15 +10,15 @@ Player::Player(sf::RenderWindow* window)
 	, m_orientation(PlayerOrientation::Right)
 	, m_newOrientationRequest(PlayerOrientation::Right)
 {
-	m_spriteIntRect = sf::IntRect({0, 0}, {100, 150}); // x + 100
+	m_spriteIntRect = sf::IntRect({0, 0}, {100, 150}); 
 	m_sprite.setTextureRect(m_spriteIntRect);
 	m_sprite.scale({ 1.0f, 1.0f });
 
 	sf::FloatRect spriteLocalBounds = m_sprite.getLocalBounds();
 	m_sprite.setOrigin({ spriteLocalBounds.size.x / 2.0f, spriteLocalBounds.size.y / 2.0f });
 
-	const sf::Vector2u windowSize = m_window->getSize(); // Vector2u - save w and h in unsigned type
-	const sf::FloatRect spriteSize = m_sprite.getGlobalBounds(); //returns a resctangle sizes
+	const sf::Vector2u windowSize = m_window->getSize(); 
+	const sf::FloatRect spriteSize = m_sprite.getGlobalBounds(); 
 	
 	sf::Vector2f newPosition = sf::Vector2f{ static_cast<float>(windowSize.x) / 3.0f, static_cast<float>(windowSize.y) - spriteSize.size.y / 2.0f};
 	m_sprite.setPosition(newPosition);
@@ -113,13 +113,13 @@ void Player::onCollision(GameObject* colidable)
 {
 	if (colidable->getType() == Type::Projectile)
 	{
-		m_hp--;
+		giveDamage();
 		SoundManager::getInstance().playPlayerHittedSound();
 		std::cout << "[PLAYER] HITTED by Projectile" << std::endl;
 	}
 	if (colidable->getType() == Type::Boss)
 	{
-		m_hp--;
+		giveDamage();
 		SoundManager::getInstance().playPlayerHittedSound();
 		std::cout << "--[BOSS HIT'S THE PLAYER by colision]--" << std::endl;
 
@@ -180,11 +180,22 @@ void Player::animation(float dt)
 	}
 }
 
-bool Player::IsPlayerAlive()
+
+void Player::giveDamage()
 {
-	if (m_hp > 0)
+	if (m_damageCooldown.getElapsedTime().asSeconds() > m_invincibilityDuration)
 	{
-		
+		m_hp--;
+		m_damageCooldown.restart();
+		SoundManager::getInstance().playPlayerHittedSound();
+		std::cout << "[PLAYER] HIT — HP = " << m_hp << std::endl;
+	}
+}
+
+bool Player::isEntityAlive()
+{
+	if (m_hp > 0 )
+	{
 		return true;
 	}
 	else

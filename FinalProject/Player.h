@@ -23,13 +23,13 @@ public:
 	sf::Vector2f getPosition() override { return m_position; }
 
 	const PlayerOrientation& getPlayerOrientation() { return m_orientation; }
-	
+	void giveDamage();
 
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 
 	Type getType() override{ return Type::Player; }
+	bool isEntityAlive() override;
 	int getHealthPoints() override { return m_hp; }
-	bool IsPlayerAlive();
 
 private:
 	void handleInput(float dt);
@@ -44,7 +44,7 @@ private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	
-	int m_hp = 3;
+	unsigned m_hp = 3;
 
 	sf::Vector2f m_position;
 	PlayerOrientation m_orientation;
@@ -60,4 +60,6 @@ private:
 	float m_timer = 0.0f;
 	const float m_timerMax = 0.65f;
 	
+	sf::Clock m_damageCooldown;
+	float m_invincibilityDuration = 0.3f;
 };

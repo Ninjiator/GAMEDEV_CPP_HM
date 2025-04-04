@@ -7,6 +7,7 @@
 #include "Weapon.h"
 #include "BossWeapon.h"
 #include "PhysicsEngine.h"
+#include "PlayerHealthHUD.h"
 
 class GameWorld
 {
@@ -26,6 +27,7 @@ public:
 private:
 	sf::RenderWindow* m_window;
 
+	PlayerHealthHUD* m_playerHealthHUD;
 	
 	Player* m_player;
 	Boss* m_boss;
