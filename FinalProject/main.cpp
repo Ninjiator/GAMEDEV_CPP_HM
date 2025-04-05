@@ -31,6 +31,7 @@ int main()
 	sf::Clock frameRateClock;
 	std::srand(std::time(nullptr));
 	GameWorld* gameWorld = new GameWorld(&window);
+	//gameWorld->init();
 	GameStateManager gameStateManager(gameWorld, GameStateId::TitleScreen, &window);
 
 	while (window.isOpen()) 

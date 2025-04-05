@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "SoundManager.h"
+#include "Animation.h"
 
 Player::Player(sf::RenderWindow* window)
 	: GameObject(window)
@@ -9,9 +10,8 @@ Player::Player(sf::RenderWindow* window)
 	, m_sprite(m_texture)
 	, m_orientation(PlayerOrientation::Right)
 	, m_newOrientationRequest(PlayerOrientation::Right)
+	, m_animation(m_texture, { 100, 150 }, 5, 0.45f)
 {
-	m_spriteIntRect = sf::IntRect({0, 0}, {100, 150}); 
-	m_sprite.setTextureRect(m_spriteIntRect);
 	m_sprite.scale({ 1.0f, 1.0f });
 
 	sf::FloatRect spriteLocalBounds = m_sprite.getLocalBounds();
@@ -35,7 +35,9 @@ void Player::update(float dt)
 	handleArenaBounds();
 	
 	handlePlayerOrientation();
-	animation(dt);
+	m_animation.update(dt);
+	m_animation.applyToSprite(m_sprite);
+
 }
 
 void Player::handleArenaBounds()
@@ -160,27 +162,6 @@ void Player::onCollision(GameObject* colidable)
 	
 }
 
-void Player::animation(float dt)
-{
-	m_timer += 0.1+dt;
-	
-	if (m_timer >= m_timerMax)
-	{
-		const float spriteLocalWidth = m_sprite.getGlobalBounds().size.x;
-		m_spriteIntRect.position.x += spriteLocalWidth;
-		if (m_spriteIntRect.position.x >= m_texture.getSize().x)
-		{
-			m_spriteIntRect.position.x = 0;
-		}
-		if (m_spriteIntRect.position.x < m_texture.getSize().x)
-		{
-			m_sprite.setTextureRect(m_spriteIntRect);
-		}
-		m_timer = 0.0f;
-	}
-}
-
-
 void Player::giveDamage()
 {
 	if (m_damageCooldown.getElapsedTime().asSeconds() > m_invincibilityDuration)
@@ -232,18 +213,6 @@ void Player::handleInput(float dt)
 	//sprite manipulation's for duck, jump, dash
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
-		//m_texture.loadFromFile("resources/Sprites/CupHead/player_spritesheet_duck.png");
-		//m_sprite.setTexture(m_texture);
-		//m_sprite.setScale({1.0f, 1.0f});
-		//m_spriteIntRect = sf::IntRect({ 0, 0 }, { 163, 92 }); // x + 100
-		//m_sprite.setTextureRect(m_spriteIntRect);
-	}
-	else
-	{
-		//m_texture.loadFromFile("resources/Sprites/CupHead/cuphead_spritesheet.png");
-		//m_sprite.setTexture(m_texture);
-		////m_spriteIntRect = sf::IntRect({ 0, 0 }, { 100, 150 });
-		////m_sprite.setTextureRect(m_spriteIntRect);
 	}
 	m_position = m_sprite.getPosition() + sf::Vector2f{ deltaX, deltaY };
 }

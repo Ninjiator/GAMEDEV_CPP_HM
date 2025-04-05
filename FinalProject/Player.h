@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameObj.h"
+#include "Animation.h"
 
 enum class PlayerOrientation
 {
@@ -39,8 +40,9 @@ private:
 	void applyVelocity(float dt);
 	void updateJumpInput(float dt);
 	void jumpImpulse(float dt);
-	void animation(float dt);
+
 private:
+	Animation m_animation;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	
@@ -56,7 +58,7 @@ private:
 	sf::Clock m_jumpCoolDownTimer;
 	float m_jumpCoolDownSec = 0.8f;
 
-	sf::IntRect m_spriteIntRect;
+	//sf::IntRect m_spriteIntRect;
 	float m_timer = 0.0f;
 	const float m_timerMax = 0.65f;
 	

@@ -5,7 +5,7 @@ class Animation
 {
 public:
     Animation(sf::Texture& texture, sf::Vector2i frameSize, int frameCount, float duration);
-    void update(float dt); 
+    void update(float dt);
     void applyToSprite(sf::Sprite& sprite); // new rect
 
     void reset(); //start from 0
@@ -22,4 +22,4 @@ private:
     int m_currentFrame = 0;
     bool m_loop = true;
     bool m_finished = false;
-}
+};

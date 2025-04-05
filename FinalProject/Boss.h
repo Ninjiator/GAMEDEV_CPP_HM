@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "GameObj.h"
+#include "Animation.h"
 
 enum class BossOrientation
 {
@@ -39,7 +40,6 @@ public:
 	const BossOrientation& getBossOrientation() { return m_orientation; }
 	
 private:
-	void animation(float dt);
 	void handleBossOrientation();
 	void move(float dt); 
 
@@ -49,15 +49,11 @@ private:
 
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
+	Animation m_animation;
 
 	int m_hp = 5;
 
 	sf::Vector2f m_position;
-
-	sf::IntRect m_spriteIntRect;
-
-	float m_timer = 0.0f;
-	const float m_timerMax = 0.45f;
 	
 	bool m_reverse = false;
 
