@@ -8,11 +8,12 @@
 #include "BossWeapon.h"
 #include "PhysicsEngine.h"
 #include "PlayerHealthHUD.h"
-#include <map>
+#include "IEffectSpawner.h"
+#include "Effect.h"
 
 
 
-class GameWorld
+class GameWorld : public IEffectSpawner
 {
 public:
 	GameWorld(sf::RenderWindow* window);
@@ -22,6 +23,7 @@ public:
 	void unblur();
 	void update(float DeltaTime);
 	void draw();
+	void spawnEffect(sf::Vector2f position, EffectType type) override;
 
 	Player* getPlayer() { return m_player; }
 	Boss* getBoss() { return m_boss; }
@@ -42,4 +44,9 @@ private:
 
 	bool m_blurred = false;
 	sf::RectangleShape m_rectangle;
+
+	std::vector<Effect*> m_effects;
+	sf::Texture m_playerExplosionTexture;
+	sf::Texture m_bossProjectileExplosion;
+	sf::Texture m_BombExplosionTexture;
 };

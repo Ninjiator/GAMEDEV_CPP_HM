@@ -5,11 +5,15 @@
 #include <string>
 #include "Animation.h"
 
+enum class AttackType {
+	PlayerAttack,
+	BossAttack,
+	BossBombAttack
+};
 
 class Projectile : public GameObject
 {
 public:
-	//Projectile(sf::RenderWindow* window, const ProjectileConfig& config, const sf::Vector2f& position, float deltaX, float deltaY);
 	Projectile(sf::RenderWindow* window, const std::string& fileName, const float& scale, const sf::Vector2f& position, float deltaX, float deltaY);
 	~Projectile() = default;
 
@@ -22,8 +26,10 @@ public:
 	Type getType() override { return Type::Projectile; }
 	bool getIsDestroyed() { return m_isDestroyed; }
 	void setPosition(sf::Vector2f& position) { m_position = position; }
+
+	void initAnimation(AttackType attackType);
 private:
-	//Animation m_animation;
+	Animation m_animation;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	float m_width = 50.f;

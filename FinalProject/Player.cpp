@@ -3,6 +3,7 @@
 #include <iostream>
 #include "SoundManager.h"
 #include "Animation.h"
+#include "GameConfig.h"
 
 Player::Player(sf::RenderWindow* window)
 	: GameObject(window)
@@ -66,8 +67,7 @@ void Player::handleArenaBounds()
 
 void Player::updateGravity(float dt)
 {
-	const float acceleration = 2000.0f;
-	m_velocity.y += acceleration * dt;
+	m_velocity.y += GameConfig::acceleration * dt;
 }
 
 void Player::applyVelocity(float dt)
@@ -92,9 +92,7 @@ void Player::updateJumpInput(float dt)
 
 void Player::jumpImpulse(float dt)
 {
-	const float jumpImpulse = -70000.f * dt;
-
-	m_velocity.y = jumpImpulse;
+	m_velocity.y = GameConfig::jumpImpulse * dt;
 }
 
 void Player::handlePlayerOrientation()

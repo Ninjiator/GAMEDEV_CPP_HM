@@ -4,11 +4,15 @@
 #include "Projectile.h"
 #include <iostream>
 
-PhysicsEngine::PhysicsEngine(Player* player, std::vector<Projectile*>& playerProjectiles, Boss* boss, std::vector<Projectile*>& bossProjectiles)
+
+PhysicsEngine::PhysicsEngine(Player* player, std::vector<Projectile*>& playerProjectiles, 
+							Boss* boss, std::vector<Projectile*>& bossProjectiles, 
+							IEffectSpawner* effectSpawner)
 	: m_player(player)
 	, m_playerProjectiles(playerProjectiles)
 	, m_boss(boss)
 	, m_bossProjectiles(bossProjectiles)
+	, m_effectSpawner(effectSpawner)
 {
 }
 
@@ -25,6 +29,11 @@ void PhysicsEngine::update(float dt)
 		{
 			playerProjectile->onCollision(m_boss);
 			m_boss->onCollision(playerProjectile);
+
+			if (m_effectSpawner)
+			{
+				m_effectSpawner->spawnEffect(playerProjectile->getPosition(), EffectType::HitSpark);
+			}
 		}
 	}
 
@@ -39,6 +48,11 @@ void PhysicsEngine::update(float dt)
 		{
 			bossProjectile->onCollision(m_player);
 			m_player->onCollision(bossProjectile);
+
+			if (m_effectSpawner)
+			{
+				m_effectSpawner->spawnEffect(bossProjectile->getPosition(), EffectType::IceCreamExplosion);
+			}
 		}
 	}
 

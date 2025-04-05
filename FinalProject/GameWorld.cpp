@@ -2,6 +2,8 @@
 
 GameWorld::GameWorld(sf::RenderWindow* window)
     : m_window(window)
+    , m_BombExplosionTexture("resources/Sprites/Boss/smoke_spritesheet_centered_spacing.png")
+    , m_playerExplosionTexture("resources/Sprites/Cuphead/effect_spritesheet_1a_6a.png")
 {
     
     m_background = new Background(window);
@@ -10,7 +12,7 @@ GameWorld::GameWorld(sf::RenderWindow* window)
     m_boss = new Boss(window);
     m_playerProjectiles = new Weapon(window, m_player);
     m_bossProjectiles = new BossWeapon(window, m_boss);
-    m_physicsEngine = new PhysicsEngine(m_player, m_playerProjectiles->getProjectile(), m_boss, m_bossProjectiles->getProjectile());
+    m_physicsEngine = new PhysicsEngine(m_player, m_playerProjectiles->getProjectile(), m_boss, m_bossProjectiles->getProjectile(), this);
 
     m_rectangle.setFillColor(sf::Color{ 255, 255, 255, 150 });
     m_rectangle.setSize({ static_cast<float>(m_window->getSize().x), static_cast<float>(m_window->getSize().y) });
@@ -44,6 +46,17 @@ void GameWorld::update(float dt)
     m_bossProjectiles->update(dt);
     m_physicsEngine->update(dt);
     m_playerHealthHUD->update(m_player->getHealthPoints());
+
+    for (auto it = m_effects.begin(); it != m_effects.end(); )
+    {
+        (*it)->update(dt);
+        if ((*it)->isFinished())
+        {
+            delete* it;
+            it = m_effects.erase(it);
+        }
+        else ++it;
+    }
 }
 
 void GameWorld::draw()
@@ -57,9 +70,27 @@ void GameWorld::draw()
     m_playerProjectiles->draw();
     m_bossProjectiles->draw();
     
+    for (auto* e : m_effects)
+        e->draw(*m_window);
 
     if (m_blurred)
     {
         m_window->draw(m_rectangle);
     }
 }
+
+void GameWorld::spawnEffect(sf::Vector2f position, EffectType type)
+{
+    switch (type)
+    {
+    case EffectType::IceCreamExplosion:
+        m_effects.push_back(new Effect(m_BombExplosionTexture, position, { 180, 182 }, 9, 0.9f, 0.9f));
+        break;
+    case EffectType::HitSpark:
+        m_effects.push_back(new Effect(m_playerExplosionTexture, position, {256 , 276}, 6, 0.25f, 0.5f));
+    }
+}
+
+
+    
+    

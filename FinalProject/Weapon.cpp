@@ -1,6 +1,7 @@
 #include "Weapon.h"
 #include <iostream>
 #include "SoundManager.h"
+#include "GameConfig.h"
 
 Weapon::Weapon(sf::RenderWindow* window, Player* player)
 	: GameObject(window)
@@ -32,7 +33,6 @@ void Weapon::draw()
 
 void Weapon::shoot(float dt)
 {
-	float SPEED_X = 1000.f;
 	float delta_X = 0.f;
 	sf::Vector2f spawnPosition;
 	const float shootTimerMax = 0.1f; 
@@ -43,18 +43,20 @@ void Weapon::shoot(float dt)
 		m_shootTimer = 0.f;
 		if (m_player->getPlayerOrientation() == PlayerOrientation::Left)
 		{
-			delta_X = -SPEED_X;
+			delta_X = -GameConfig::PlayerProjectileSPEED;
 
-			spawnPosition = m_player->getPosition() - sf::Vector2f{ m_player->getSpriteWidth() * 1.5f, 0.f };
+			spawnPosition = m_player->getPosition() - sf::Vector2f{ m_player->getSpriteWidth(), 0.f };
 		}
 		if (m_player->getPlayerOrientation() == PlayerOrientation::Right)
 		{
-			delta_X = SPEED_X;
+			delta_X = GameConfig::PlayerProjectileSPEED;
 
-			spawnPosition = m_player->getPosition() + sf::Vector2f{ 0.f, 0.f };
+			spawnPosition = m_player->getPosition() + sf::Vector2f{ m_player->getSpriteWidth()/2.0f, 0.f };
 		}
 		
-		m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/CupHead/cuphead_projectile_basic.png", 1.f, spawnPosition, delta_X, 0.f});
+		auto* projectile = new Projectile(m_window, "resources/Sprites/CupHead/beam_spritesheet_centered_spacing_updated.png", 1.f, spawnPosition, delta_X, 0.f);
+		projectile->initAnimation(AttackType::PlayerAttack);
+		m_projectiles.push_back(projectile);
 		SoundManager::getInstance().playPlayerShoot();
 	}
 }

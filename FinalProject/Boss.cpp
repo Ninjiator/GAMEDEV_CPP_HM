@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "SoundManager.h"
+#include "GameConfig.h"
 
 Boss::Boss(sf::RenderWindow* window)
 	: GameObject(window)
@@ -38,7 +39,7 @@ void Boss::giveDamage()
 	{
 		m_hp--;
 		m_damageCooldown.restart();
-		SoundManager::getInstance().playPlayerHittedSound();
+		SoundManager::getInstance().playBossHittedSound();
 		std::cout << "[BOSS] HIT — HP = " << m_hp << std::endl;
 	}
 }
@@ -66,16 +67,13 @@ void Boss::handleBossOrientation()
 
 void Boss::move(float dt)
 {
-	constexpr unsigned int phase_1 = 200;
-	constexpr unsigned int phase_2 = 100;
-	constexpr unsigned int phase_3 = 50;
-	if (phase_1 < m_hp)
+	if (GameConfig::BossHP_Phase1 < m_hp)
 		return;
-	else if (m_hp < phase_2 && m_hp > phase_3)
+	else if (m_hp < GameConfig::BossHP_Phase2 && m_hp > GameConfig::BossHP_Phase3)
 	{
 		m_reverse = true;
 	}
-	else if (m_hp < phase_3)
+	else if (m_hp < GameConfig::BossHP_Phase3)
 	{
 		m_reverse = false;
 	}
@@ -155,7 +153,6 @@ void Boss::onCollision(GameObject* colidable)
 	if (colidable->getType() == Type::Projectile)
 	{
 		giveDamage();
-		SoundManager::getInstance().playBossHittedSound();
 		std::cout << "[BOSS HP] " << m_hp <<std::endl;
 	}
 	if (colidable->getType() == Type::Player)

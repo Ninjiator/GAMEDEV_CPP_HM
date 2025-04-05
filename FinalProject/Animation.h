@@ -5,10 +5,11 @@ class Animation
 {
 public:
     Animation(sf::Texture& texture, sf::Vector2i frameSize, int frameCount, float duration);
+    Animation() = default;
     void update(float dt);
     void applyToSprite(sf::Sprite& sprite); // new rect
+    void setLoopFalse() { m_loop = false; }
 
-    void reset(); //start from 0
     bool isFinished() const;
 
 private:

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <random>
 #include "SoundManager.h"
+#include "GameConfig.h"
 
 BossWeapon::BossWeapon(sf::RenderWindow* window, Boss* boss)
 	: Weapon(window, nullptr) //using base c-tor from Weapon, nullptr for player
@@ -25,7 +26,6 @@ void BossWeapon::draw()
 
 void BossWeapon::shoot(float dt)
 {
-	float SPEED = 800.f;
 	float delta_X = 0.f;
 	float delta_Y = 0.f;
 	m_shootTimer += dt;
@@ -35,23 +35,22 @@ void BossWeapon::shoot(float dt)
 		m_shootTimer = 0.f;
 		if (m_boss->getBossOrientation() == BossOrientation::Left)
 		{
-			delta_X -= SPEED;
+			delta_X -= GameConfig::BossProjectileSPEED;
 		}
 		if (m_boss->getBossOrientation() == BossOrientation::Right)
 		{
-			delta_X = SPEED;
+			delta_X = GameConfig::BossProjectileSPEED;;
 		}
 		float projectileSpawnY[2] = { 0.f, m_window->getSize().y / 5.f };
 		sf::Vector2f spawnPosition = m_boss->getPosition() + sf::Vector2f{ -(m_boss->getSpriteWidth() / 4.f), generateRandomFromArray(projectileSpawnY) };
 		
-		//if (m_boss->getPosition().y <  m_window->getSize().y / 2.f)
-		//{
-		//	//delta_Y = 250.f;
-		//}
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/boss_projectile_temp.png", 4.f, spawnPosition, delta_X, delta_Y });
-		//auto* shoot = createProjectile(m_window, ProjectileType::BossSimpleShot, spawnPosition, delta_X, 0.f);
-
-		//m_projectiles.push_back(shoot);
+		/*if (m_boss->getPosition().y <  m_window->getSize().y / 2.f)
+		{
+			delta_Y = 250.f;
+		}*/
+		auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/moon_spritesheet.png", 0.8f, spawnPosition, delta_X, delta_Y);
+		projectile->initAnimation(AttackType::BossAttack);
+		m_projectiles.push_back(projectile);
 		SoundManager::getInstance().playBossShootSound();
 		std::cout << "drawing boss projectiles" << std::endl;
 	}
@@ -64,10 +63,8 @@ void BossWeapon::deleteProjectile(float dt)
 
 void BossWeapon::fallingBombsAbility(float dt)
 {
-	float delta_Y = 500.f;
-	
 	m_bombTimer += dt;
-	if (m_boss->getHealthPoints() < 200 && m_bombTimer > m_boombTimerMax)
+	if (m_boss->getHealthPoints() < GameConfig::BossHP_Phase1 && m_bombTimer > m_boombTimerMax)
 	{
 		m_bombTimer = 0.f;
 		sf::Vector2f part = sf::Vector2f{ m_window->getSize().x / 5.f, 0.f };
@@ -77,19 +74,19 @@ void BossWeapon::fallingBombsAbility(float dt)
 			float bombSpawnPositionXLeft[3] = { m_window->getSize().x - part.x / 2.f, m_window->getSize().x - part.x * 2.f, m_window->getSize().x - part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(bombSpawnPositionXLeft), 0.f };
 
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
-			
+			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/icecream_cone_spritesheet_aligned.png", 0.8f, spawnPosition, 0.f, GameConfig::BossBombsSPEED);
+			projectile->initAnimation(AttackType::BossBombAttack);
+			m_projectiles.push_back(projectile);
 		}
 		//if Boss located on a right side of arena - bombs will spawn on a left side 
 		if (m_boss->getPosition().x > m_window->getSize().x / 2.f)
 		{
 			float bombSpawnPositionXRight[3] = { part.x / 2.f, part.x * 2.f, part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(bombSpawnPositionXRight), 0.f };
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
-			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
+			
+			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/icecream_cone_spritesheet_aligned.png", 0.8f, spawnPosition, 0.f, GameConfig::BossBombsSPEED);
+			projectile->initAnimation(AttackType::BossBombAttack);
+			m_projectiles.push_back(projectile);
 		}
 	}
 }

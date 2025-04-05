@@ -8,12 +8,25 @@ Projectile::Projectile(sf::RenderWindow* window, const std::string& fileName, co
 	, m_position(position)
 	, m_deltaX(deltaX)
 	, m_deltaY(deltaY)
+	, m_animation(m_texture, sf::Vector2i(0, 0), 0, 0.f)
 {
 	m_sprite.setPosition(m_position);
 	m_sprite.setScale({ scale, scale });
 }
 
-
+void Projectile::initAnimation(AttackType attackType) {
+	switch (attackType) {
+	case AttackType::PlayerAttack:
+		m_animation = Animation(m_texture, { 157, 47 }, 8, 0.7f);
+		break;
+	case AttackType::BossAttack:
+		m_animation = Animation(m_texture, { 80, 80 }, 9, 0.7f);
+		break;
+	case AttackType::BossBombAttack:
+		m_animation = Animation(m_texture, { 96, 136 }, 10, 0.60f);
+		break;
+	}
+}
 
 void Projectile::update(float dt)
 {
@@ -23,12 +36,14 @@ void Projectile::update(float dt)
 		m_position.y += m_deltaY * dt;
 	}
 	m_sprite.setPosition(m_position);
+
+	m_animation.update(dt);
+	m_animation.applyToSprite(m_sprite);
 }
 
 void Projectile::draw()
 {
 	m_window->draw(m_sprite);
-	std::cout << "[DEBUG] Drawing projectile, pos: " << m_position.x << ", " << m_position.y << "\n";
 }
 
 void Projectile::onCollision(GameObject* colidable)

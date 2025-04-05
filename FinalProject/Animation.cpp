@@ -49,9 +49,3 @@ bool Animation::isFinished() const
 	return m_finished;
 }
 
-void Animation::reset()
-{
-    m_elapsed = 0.f;
-    m_currentFrame = 0;
-    m_finished = false;
-}
