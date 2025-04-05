@@ -36,16 +36,6 @@ void GameWorld::unblur()
     m_blurred = false;
 }
 
-//void GameWorld::init()
-//{
-//    m_cupHeadSimpleShotTexture.loadFromFile("resources/fireball.png");
-//    if (!m_BossSimpleShotTexture.loadFromFile("resources/Sprites/Boss/moon_spritesheet.png")) {
-//        std::cerr << "FAILED to load moon_spritesheet.png" << std::endl;
-//    }
-//    m_IceCreamBombTexture.loadFromFile("resources/Sprites/Boss/icecream_cone_spritesheet.png");
-//    initProjectileConfigs(m_cupHeadSimpleShotTexture, m_BossSimpleShotTexture, m_IceCreamBombTexture);
-//}
-
 void GameWorld::update(float dt)
 {
     m_player->update(dt);

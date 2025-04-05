@@ -77,12 +77,10 @@ void BossWeapon::fallingBombsAbility(float dt)
 			float bombSpawnPositionXLeft[3] = { m_window->getSize().x - part.x / 2.f, m_window->getSize().x - part.x * 2.f, m_window->getSize().x - part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(bombSpawnPositionXLeft), 0.f };
 
-			//m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
-			//m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
-			//m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
-			//auto* shoot = createProjectile(m_window, ProjectileType::IceCreamBomb, spawnPosition, 0.f, delta_Y);
-
-			//m_projectiles.push_back(shoot);
+			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
+			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
+			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
+			
 		}
 		//if Boss located on a right side of arena - bombs will spawn on a left side 
 		if (m_boss->getPosition().x > m_window->getSize().x / 2.f)
@@ -92,10 +90,6 @@ void BossWeapon::fallingBombsAbility(float dt)
 			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
 			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
 			m_projectiles.push_back(new Projectile{ m_window, "resources/Sprites/Boss/ph3_icecream_cone_0018.png", 0.7f, spawnPosition, 0.f, delta_Y });
-			
-			//auto* shoot = createProjectile(m_window, ProjectileType::IceCreamBomb, spawnPosition, 0.f, delta_Y);
-
-			//m_projectiles.push_back(shoot);
 		}
 	}
 }

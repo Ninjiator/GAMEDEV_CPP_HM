@@ -4,8 +4,6 @@
 #include <iostream>
 #include <string>
 #include "Animation.h"
-#include "ProjectileFactory.h"
-#include "GameConfig.h"
 
 
 class Projectile : public GameObject

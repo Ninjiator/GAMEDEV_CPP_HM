@@ -20,7 +20,6 @@ public:
 
 	void blur();
 	void unblur();
-	void init();
 	void update(float DeltaTime);
 	void draw();
 
@@ -43,8 +42,4 @@ private:
 
 	bool m_blurred = false;
 	sf::RectangleShape m_rectangle;
-
-	sf::Texture m_cupHeadSimpleShotTexture;
-	sf::Texture m_BossSimpleShotTexture;
-	sf::Texture m_IceCreamBombTexture;
 };
