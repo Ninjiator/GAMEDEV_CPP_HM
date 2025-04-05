@@ -7,7 +7,7 @@ GameStateManager::GameStateManager(GameWorld* gameWorld, GameStateId initialGame
 	m_gameStates[static_cast<std::size_t>(GameStateId::TitleScreen)] = new GameState_TitleScreen(*this, window);
 	m_gameStates[static_cast<std::size_t>(GameStateId::Pause)] = new GameState_Pause(*this, gameWorld, window);
 	m_gameStates[static_cast<std::size_t>(GameStateId::Playing)] = new GameState_Playing(*this, gameWorld, window);
-	m_gameStates[static_cast<std::size_t>(GameStateId::GameOver)] = new GameState_GameOver(*this, window);
+	m_gameStates[static_cast<std::size_t>(GameStateId::GameOver)] = new GameState_GameOver(*this, window, gameWorld);
 	m_gameStates[static_cast<std::size_t>(GameStateId::Victory)] = new GameState_Victory(*this, window);
 
 	m_currentGameState = m_gameStates[static_cast<std::size_t>(initialGameStateId)];

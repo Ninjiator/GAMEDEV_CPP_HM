@@ -51,7 +51,7 @@ private:
 	sf::Sprite m_sprite;
 	Animation m_animation;
 
-	int m_hp = 200;
+	int m_hp = 2;
 
 	sf::Vector2f m_position;
 	

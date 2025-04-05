@@ -20,10 +20,10 @@ void Projectile::initAnimation(AttackType attackType) {
 		m_animation = Animation(m_texture, { 157, 47 }, 8, 0.7f);
 		break;
 	case AttackType::BossAttack:
-		m_animation = Animation(m_texture, { 80, 80 }, 9, 0.7f);
+		m_animation = Animation(m_texture, { 80, 80 }, 9, 0.6f);
 		break;
 	case AttackType::BossBombAttack:
-		m_animation = Animation(m_texture, { 96, 136 }, 10, 0.60f);
+		m_animation = Animation(m_texture, { 96, 136 }, 10, 0.6f);
 		break;
 	}
 }

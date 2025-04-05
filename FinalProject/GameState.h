@@ -40,7 +40,9 @@ private:
 	sf::Texture m_startTexture;
 	sf::Sprite m_startSprite;
 
-	
+	Animation m_animation;
+	sf::Texture m_animatedTexture;
+	sf::Sprite m_animatedSprite;
 };
 
 class GameState_Playing : public GameState
@@ -56,9 +58,12 @@ public:
 	void draw() override;
 
 private:
+	sf::RenderWindow* m_window;
 	GameWorld* m_GameWorld;
-
 	bool m_pressedLastFrame = true;
+	bool m_playEffectOnce = true;
+	sf::Clock m_victoryDelayClock;
+	bool m_bossJustDied = false;
 };
 
 class GameState_Pause : public GameState
@@ -69,7 +74,7 @@ public:
 	void updateState() override;
 	void update(float DeltaTime) override;
 	void draw() override;
-
+	
 	void onEnter() override;
 	void onExit() override;
 
@@ -78,8 +83,8 @@ private:
 
 	bool m_pressedLastFrame = true;
 
-	/*sf::Texture m_pauseTexture;
-	sf::Sprite m_pauseSprite;*/
+	sf::Texture m_pauseTexture;
+	sf::Sprite m_pauseSprite;
 
 	sf::Text m_pauseText;
 	sf::Clock m_textLoopClock;
@@ -106,7 +111,7 @@ private:
 class GameState_GameOver : public GameState
 {
 public:
-	GameState_GameOver(GameStateManager& context, sf::RenderWindow* window);
+	GameState_GameOver(GameStateManager& context, sf::RenderWindow* window, GameWorld* gameWorld);
 
 	virtual void updateState() override;
 	virtual void update(float DeltaTime) override;
@@ -115,7 +120,7 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
 private:
-
+	GameWorld* m_gameWorld;
 	sf::Texture m_gameOverTexture;
 	sf::Sprite m_gameOverSprite;
 	sf::Text m_text;

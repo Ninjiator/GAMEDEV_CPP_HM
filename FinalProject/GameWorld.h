@@ -49,4 +49,7 @@ private:
 	sf::Texture m_playerExplosionTexture;
 	sf::Texture m_bossProjectileExplosion;
 	sf::Texture m_BombExplosionTexture;
+
+	sf::Texture m_readyTexture;
+	sf::Texture m_victoryTexture;
 };

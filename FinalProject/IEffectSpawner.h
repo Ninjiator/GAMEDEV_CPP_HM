@@ -3,9 +3,13 @@
 
 enum class EffectType
 {
+    //Gameplay effect's
     HitSpark,
-    IceCreamExplosion
-
+    IceCreamExplosion,
+    //Side effect's
+    READY,
+    DEAD,
+    VICTORY
 };
 
 class IEffectSpawner

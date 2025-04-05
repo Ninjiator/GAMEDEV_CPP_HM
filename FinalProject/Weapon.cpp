@@ -74,6 +74,7 @@ void Weapon::deleteProjectile(float dt)
 		{
 			delete* it; 
 			std::cout << "PROJECTILE DELETED\n";  
+			
 			it = m_projectiles.erase(it); 
 
 		}

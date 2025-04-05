@@ -8,5 +8,11 @@ Background::Background(sf::RenderWindow* window) : m_window(window), m_texture("
 
 void Background::draw()
 {
-	m_window->draw(m_sprite);
+	m_window->draw(m_sprite); 
+	//starsky
+	//polar stars animation
+	//castle
+	//animated public 2
+	//animated pulic 1
+
 }

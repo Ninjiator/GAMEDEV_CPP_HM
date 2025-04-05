@@ -30,7 +30,13 @@ void Boss::update(float dt)
 	move(dt);
 	handleBossOrientation();
 	m_animation.update(dt);
-	m_animation.applyToSprite(m_sprite);
+	if (isEntityAlive() == true);
+	{
+		m_animation.applyToSprite(m_sprite);
+	}
+	//TODO:Death anim
+	
+	
 }
 
 void Boss::giveDamage()
@@ -67,7 +73,7 @@ void Boss::handleBossOrientation()
 
 void Boss::move(float dt)
 {
-	if (GameConfig::BossHP_Phase1 < m_hp)
+	if (GameConfig::BossHP_Phase1 < m_hp || isEntityAlive() == false)
 		return;
 	else if (m_hp < GameConfig::BossHP_Phase2 && m_hp > GameConfig::BossHP_Phase3)
 	{

@@ -4,6 +4,8 @@ GameWorld::GameWorld(sf::RenderWindow* window)
     : m_window(window)
     , m_BombExplosionTexture("resources/Sprites/Boss/smoke_spritesheet_centered_spacing.png")
     , m_playerExplosionTexture("resources/Sprites/Cuphead/effect_spritesheet_1a_6a.png")
+    , m_readyTexture("resources/Sprites/UI/get_ready_sprite_sheet.png")
+    , m_victoryTexture("resources/Sprites/UI/victory.png")
 {
     
     m_background = new Background(window);
@@ -14,7 +16,7 @@ GameWorld::GameWorld(sf::RenderWindow* window)
     m_bossProjectiles = new BossWeapon(window, m_boss);
     m_physicsEngine = new PhysicsEngine(m_player, m_playerProjectiles->getProjectile(), m_boss, m_bossProjectiles->getProjectile(), this);
 
-    m_rectangle.setFillColor(sf::Color{ 255, 255, 255, 150 });
+    m_rectangle.setFillColor(sf::Color{ 255, 255, 255, 50 });
     m_rectangle.setSize({ static_cast<float>(m_window->getSize().x), static_cast<float>(m_window->getSize().y) });
 }
 
@@ -88,6 +90,15 @@ void GameWorld::spawnEffect(sf::Vector2f position, EffectType type)
         break;
     case EffectType::HitSpark:
         m_effects.push_back(new Effect(m_playerExplosionTexture, position, {256 , 276}, 6, 0.25f, 0.5f));
+        break;
+    case EffectType::READY:
+        m_effects.push_back(new Effect(m_readyTexture, position, { 512 , 288 }, 10, 1.0f, 1.0f));
+        break;
+    case EffectType::VICTORY:
+        m_effects.push_back(new Effect(m_victoryTexture, position, { 1027 , 715 }, 8, 0.8f, 1.0f));
+        break;
+    case EffectType::DEAD:
+        break;
     }
 }
 

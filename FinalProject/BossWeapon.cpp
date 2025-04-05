@@ -14,8 +14,11 @@ BossWeapon::BossWeapon(sf::RenderWindow* window, Boss* boss)
 
 void BossWeapon::update(float dt)
 {
-	shoot(dt);
-	fallingBombsAbility(dt);
+	if (m_boss->isEntityAlive() != false)
+	{
+		shoot(dt);
+		fallingBombsAbility(dt);
+	}
 	deleteProjectile(dt);
 }
 
@@ -44,10 +47,10 @@ void BossWeapon::shoot(float dt)
 		float projectileSpawnY[2] = { 0.f, m_window->getSize().y / 5.f };
 		sf::Vector2f spawnPosition = m_boss->getPosition() + sf::Vector2f{ -(m_boss->getSpriteWidth() / 4.f), generateRandomFromArray(projectileSpawnY) };
 		
-		/*if (m_boss->getPosition().y <  m_window->getSize().y / 2.f)
+		if (m_boss->getPosition().y <  m_window->getSize().y / 2.f)
 		{
 			delta_Y = 250.f;
-		}*/
+		}
 		auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/moon_spritesheet.png", 0.8f, spawnPosition, delta_X, delta_Y);
 		projectile->initAnimation(AttackType::BossAttack);
 		m_projectiles.push_back(projectile);

@@ -5,15 +5,23 @@
 
 GameState_TitleScreen::GameState_TitleScreen(GameStateManager& context, sf::RenderWindow* window)
 	: GameState(context, window)
-	, m_startTexture("resources/Sprites/Enviroment/Title_screen_choose_player.png")
+	, m_startTexture("resources/Sprites/UI/title_screen_background.png")
 	, m_startSprite(m_startTexture)
 	, m_text(FontManager::getInstance().getDefaultFont())
+	, m_animatedTexture("resources/Sprites/UI/cuphead_title_aligned_spritesheet.png")
+	, m_animatedSprite(m_animatedTexture)
+	, m_animation(m_animatedTexture, {1093, 612}, 10, 1.5f)
 {
-	m_text.setCharacterSize(50); 
-	m_text.setFillColor(sf::Color::Cyan);
+	m_animatedSprite.setOrigin({ m_animatedSprite.getLocalBounds().size.x / 2.f,  m_animatedSprite.getLocalBounds().size.y / 2.f });
+	m_animatedSprite.setPosition({ m_window->getSize().x / 2.f, m_window->getSize().y / 2.f + m_animatedSprite.getLocalBounds().size.y / 10.f});
+	m_animation.setLoopFalse();
+
+	m_text.setCharacterSize(30); 
+	m_text.sf::Text::Bold;
+	m_text.setFillColor(sf::Color::Yellow);
 	m_text.setString("PRESS ENTER TO START THE GAME!");
 	m_text.setOrigin({ m_text.getGlobalBounds().size.x / 2, m_text.getGlobalBounds().size.y / 2 });
-	m_text.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y - m_window->getSize().y / 3.0f });
+	m_text.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y - m_window->getSize().y / 5.0f });
 }
 
 void GameState_TitleScreen::onEnter()
@@ -35,28 +43,33 @@ void GameState_TitleScreen::updateState()
 	}
 }
 
-void GameState_TitleScreen::update(float DeltaTime)
+void GameState_TitleScreen::update(float dt)
 {
-
+	m_animation.update(dt);
+	m_animation.applyToSprite(m_animatedSprite);
 }
 
 void GameState_TitleScreen::draw()
 {
 	m_window->clear(sf::Color::White);
-
 	m_window->draw(m_startSprite);
+	m_window->draw(m_animatedSprite);
 	m_window->draw(m_text);
 }
 
 GameState_Playing::GameState_Playing(GameStateManager& context, GameWorld* gameWorld, sf::RenderWindow* window)
-	: GameState(context, m_window), m_GameWorld(gameWorld)
+	: GameState(context, m_window), m_GameWorld(gameWorld) , m_window(window)
 {
-
 }
 
 void GameState_Playing::onEnter()
 {
 	SoundManager::getInstance().playInGameMusic();
+	if (m_playEffectOnce == true)
+	{
+		m_GameWorld->spawnEffect({ m_window->getSize().x / 2.f, m_window->getSize().y / 2.f - m_window->getSize().y / 3.f }, EffectType::READY);
+		m_playEffectOnce = false;
+	}
 }
 
 void GameState_Playing::onExit()
@@ -85,13 +98,22 @@ void GameState_Playing::updateState()
 	}
 	if (!m_GameWorld->getBoss()->isEntityAlive())
 	{
-		m_gameStateManager.setGameState(GameStateId::Victory);
+		if (!m_bossJustDied)
+		{
+			m_bossJustDied = true;
+			m_victoryDelayClock.restart();
+			//Boss playing death animation here
+		}
+		else if (m_victoryDelayClock.getElapsedTime().asSeconds() > 1.5f)
+		{
+			m_gameStateManager.setGameState(GameStateId::Victory);
+		}
 	}
 }
 
-void GameState_Playing::update(float DeltaTime)
+void GameState_Playing::update(float dt)
 {
-	m_GameWorld->update(DeltaTime);
+	m_GameWorld->update(dt);
 }
 
 void GameState_Playing::draw()
@@ -103,14 +125,20 @@ GameState_Pause::GameState_Pause(GameStateManager& context, GameWorld* gameWorld
 	: GameState(context, window)
 	, m_GameWorld(gameWorld)
 	, m_pauseText(FontManager::getInstance().getDefaultFont())
+	, m_pauseTexture("resources/Sprites/UI/pause_menu_v2.png")
+	, m_pauseSprite(m_pauseTexture)
 {
-	m_pauseText.setCharacterSize(240);
-	m_pauseText.setFillColor(sf::Color::Blue);
-	m_pauseText.setString("PAUSED");
-	m_pauseText.setRotation(sf::degrees(45));
 
-	m_pauseText.setPosition({ m_window->getSize().x / 2.0f - m_pauseText.getGlobalBounds().size.x / 2.0f
-		, m_window->getSize().y / 2.0f - m_pauseText.getGlobalBounds().size.y / 2.0f });
+	m_pauseSprite.setOrigin({m_pauseSprite.getLocalBounds().size.x / 2.f, m_pauseSprite.getLocalBounds().size.y / 2.f});
+	m_pauseSprite.setScale({ 0.5f,0.5f });
+	m_pauseSprite.setPosition({ m_window->getSize().x / 2.f, m_window->getSize().y / 2.f });
+	
+	m_pauseText.setCharacterSize(45);
+	m_pauseText.setFillColor(sf::Color::Black);
+	m_pauseText.setString("PAUSED");
+	m_pauseText.setOrigin({ m_pauseText.getLocalBounds().size.x / 2.f, m_pauseText.getLocalBounds().size.y / 2.f });
+
+	m_pauseText.setPosition({ m_window->getSize().x / 2.f, m_window->getSize().y / 2.f - m_pauseText.getLocalBounds().size.y / 2.f });
 }
 
 void GameState_Pause::updateState()
@@ -152,7 +180,9 @@ void GameState_Pause::update(float DeltaTime)
 void GameState_Pause::draw()
 {
 	m_GameWorld->draw();
+	m_window->draw(m_pauseSprite);
 	m_window->draw(m_pauseText);
+
 }
 
 void GameState_Pause::onEnter()
@@ -217,21 +247,22 @@ void GameState_Victory::onExit()
 	SoundManager::getInstance().stopVictoryMusic();
 }
 
-GameState_GameOver::GameState_GameOver(GameStateManager& context, sf::RenderWindow* window)
+GameState_GameOver::GameState_GameOver(GameStateManager& context, sf::RenderWindow* window, GameWorld* gameWorld)
 	: GameState(context, window)
-	, m_gameOverTexture("resources/Sprites/UI/winscreen_bg.png")
+	, m_gameWorld(gameWorld)
+	, m_gameOverTexture("resources/Sprites/UI/GameOver_final.png")
 	, m_gameOverSprite(m_gameOverTexture)
 	, m_text(FontManager::getInstance().getDefaultFont())
 {
 	m_gameOverSprite.setOrigin({ m_gameOverSprite.getGlobalBounds().size.x / 2, m_gameOverSprite.getGlobalBounds().size.y / 2 });
-	m_gameOverSprite.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y - m_window->getSize().y / 5.0f });
-	m_gameOverSprite.setScale(sf::Vector2f{ 1.0f, 0.75f });
+	m_gameOverSprite.setPosition({ m_window->getSize().x / 2.0f,  m_window->getSize().y / 2.0f });
+	m_gameOverSprite.setScale(sf::Vector2f{ 0.5f, 0.5f });
 	
-	m_text.setCharacterSize(50); 
-	m_text.setFillColor(sf::Color::Cyan);
+	m_text.setCharacterSize(20); 
+	m_text.setFillColor(sf::Color::Black);
 	m_text.setString("PRESS R FOR RESTART");
 	m_text.setOrigin({ m_text.getGlobalBounds().size.x / 2, m_text.getGlobalBounds().size.y / 2 });
-	m_text.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y / 6.0f });
+	m_text.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y / 2.0f + m_text.getGlobalBounds().size.y * 3.f });
 }
 
 void GameState_GameOver::updateState()
@@ -249,14 +280,14 @@ void GameState_GameOver::update(float DeltaTime)
 
 void GameState_GameOver::draw()
 {
-	m_window->clear(sf::Color::White);
+	m_gameWorld->draw();
 	m_window->draw(m_gameOverSprite);
 	m_window->draw(m_text);
 }
 
 void GameState_GameOver::onEnter()
 {
-
+	SoundManager::getInstance().playPlayerDeathSound();
 }
 
 void GameState_GameOver::onExit()
