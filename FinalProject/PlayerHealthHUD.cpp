@@ -2,7 +2,7 @@
 
 PlayerHealthHUD::PlayerHealthHUD(sf::RenderWindow* window)
 	: m_window(window)
-	, m_texture("resources/Sprites/UI/hp.png")
+	, m_texture("resources/Sprites/UI/PC-Computer---Cuphead-Dont-Deal-With-the-Devil---Health-(3).png")
 	, m_sprite(m_texture)
 {
 	const int frameWidth = m_texture.getSize().x / 9;

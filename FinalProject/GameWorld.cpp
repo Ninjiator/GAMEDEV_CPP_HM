@@ -28,6 +28,7 @@ GameWorld::~GameWorld()
     delete m_playerProjectiles;
     delete m_bossProjectiles;
     delete m_physicsEngine;
+    delete m_background;
 }
 
 void GameWorld::blur()
@@ -42,6 +43,7 @@ void GameWorld::unblur()
 
 void GameWorld::update(float dt)
 {
+    m_background->update(dt);
     m_player->update(dt);
     m_boss->update(dt);
     m_playerProjectiles->update(dt);
@@ -63,7 +65,8 @@ void GameWorld::update(float dt)
 
 void GameWorld::draw()
 {
-    m_window->clear(sf::Color{ 0, 255, 0 });
+    //m_window->clear(sf::Color{ 0, 255, 0 });
+    m_window->clear(sf::Color::White);
 
     m_background->draw();
     m_playerHealthHUD->draw();
