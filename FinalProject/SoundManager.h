@@ -18,7 +18,8 @@ public:
 	
 	void playPlayerHittedSound();
 	void playPlayerDeathSound();
-
+	
+	void playGameOverSound();
 	//Commentator
 	void playComentatorStart();
 	void playComentatorPause();
@@ -36,6 +37,8 @@ public:
 
 	void playVictoryMusic();
 	void stopVictoryMusic();
+
+
 
 private:
 	SoundManager();
@@ -71,4 +74,8 @@ private:
 	sf::Music m_inGameMusic;
 	sf::Music m_titleMusic;
 	sf::Music m_victoryMusic;
+
+	sf::SoundBuffer m_gameOverSoundBuffer;
+	sf::Sound m_gameOverSound;
+	
 };

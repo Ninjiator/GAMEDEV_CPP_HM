@@ -28,9 +28,12 @@ SoundManager::SoundManager()
 	, m_bossShotSoundBuffer("resources/Audio/SFX/shooting-sound-fx-159024.mp3")
 	, m_bossShotSound(m_bossShotSoundBuffer)
 
-	, m_inGameMusic("resources/Audio/Music/Botanic_Panic.mp3")
+	, m_inGameMusic("resources/Audio/Music/CupheadSnowCultScuffle[Music].mp3")
 	, m_titleMusic("resources/Audio/Music/cuphead-dont-deal-with-the-devil-2.mp3")
 	, m_victoryMusic("resources/Audio/Music/Cuphead_Victory.mp3")
+
+	, m_gameOverSoundBuffer("resources/Audio/SFX/Game_Over.wav")
+	, m_gameOverSound(m_gameOverSoundBuffer)
 {
 }
 
@@ -74,6 +77,11 @@ void SoundManager::playPlayerDeathSound()
 	m_playerDeathSound.play();
 }
 
+void SoundManager::playGameOverSound()
+{
+	m_gameOverSound.play();
+}
+
 void SoundManager::playComentatorStart()
 {
 	m_comentatorStartSound.play();
@@ -96,7 +104,7 @@ void SoundManager::stopTitleMusic()
 
 void SoundManager::playInGameMusic()
 {
-	m_inGameMusic.setVolume(5.f);
+	m_inGameMusic.setVolume(25.f);
 	m_inGameMusic.play();
 	m_inGameMusic.setLooping(true);
 	

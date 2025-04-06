@@ -94,16 +94,25 @@ void GameState_Playing::updateState()
 
 	if (!m_GameWorld->getPlayer()->isEntityAlive())
 	{
-		m_gameStateManager.setGameState(GameStateId::GameOver);
+		if (!m_playerJustDied)
+		{
+			SoundManager::getInstance().playPlayerDeathSound();
+			m_playerJustDied = true;
+			m_victoryDelayClock.restart();
+		}
+		else if (m_victoryDelayClock.getElapsedTime().asSeconds() > 2.0f)
+		{
+			m_gameStateManager.setGameState(GameStateId::GameOver);
+		}
 	}
 	if (!m_GameWorld->getBoss()->isEntityAlive())
 	{
 		if (!m_bossJustDied)
 		{
 			m_bossJustDied = true;
-			m_victoryDelayClock.restart();
+			m_gameOverDelayClock.restart();
 		}
-		else if (m_victoryDelayClock.getElapsedTime().asSeconds() > 3.0f)
+		else if (m_gameOverDelayClock.getElapsedTime().asSeconds() > 3.0f)
 		{
 			m_gameStateManager.setGameState(GameStateId::Victory);
 		}
@@ -286,7 +295,8 @@ void GameState_GameOver::draw()
 
 void GameState_GameOver::onEnter()
 {
-	SoundManager::getInstance().playPlayerDeathSound();
+	
+	SoundManager::getInstance().playGameOverSound();
 }
 
 void GameState_GameOver::onExit()

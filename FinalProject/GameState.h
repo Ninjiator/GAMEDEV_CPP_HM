@@ -62,8 +62,10 @@ private:
 	GameWorld* m_GameWorld;
 	bool m_pressedLastFrame = true;
 	bool m_playEffectOnce = true;
+	sf::Clock m_gameOverDelayClock;
 	sf::Clock m_victoryDelayClock;
 	bool m_bossJustDied = false;
+	bool m_playerJustDied = false;
 };
 
 class GameState_Pause : public GameState

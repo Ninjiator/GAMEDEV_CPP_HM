@@ -12,7 +12,10 @@ Player::Player(sf::RenderWindow* window)
 	, m_orientation(PlayerOrientation::Right)
 	, m_newOrientationRequest(PlayerOrientation::Right)
 	, m_animation(m_texture, { 100, 150 }, 5, 0.45f)
+	, m_deathTexture("resources/Sprites/CupHead/cuphead_death.png")
+	, m_deathAnimation(m_deathTexture, {152,90}, 16, 2.f)
 {
+	m_deathAnimation.setLoopFalse();
 	m_sprite.scale({ 1.0f, 1.0f });
 
 	sf::FloatRect spriteLocalBounds = m_sprite.getLocalBounds();
@@ -27,17 +30,23 @@ Player::Player(sf::RenderWindow* window)
 
 void Player::update(float dt)
 {
-	handleInput(dt);
-	updateJumpInput(dt);
-
-	updateGravity(dt);
-	applyVelocity(dt);
-	
-	handleArenaBounds();
-	
-	handlePlayerOrientation();
-	m_animation.update(dt);
-	m_animation.applyToSprite(m_sprite);
+	if (isEntityAlive() == true)
+	{
+		handleInput(dt);
+		updateJumpInput(dt);
+		updateGravity(dt);
+		applyVelocity(dt);
+		handleArenaBounds();
+		handlePlayerOrientation();
+		m_animation.update(dt);
+		m_animation.applyToSprite(m_sprite);
+	}
+	else
+	{
+		m_sprite.setTexture(m_deathTexture);
+		m_deathAnimation.update(dt);
+		m_deathAnimation.applyToSprite(m_sprite);
+	}
 
 }
 
