@@ -102,9 +102,8 @@ void GameState_Playing::updateState()
 		{
 			m_bossJustDied = true;
 			m_victoryDelayClock.restart();
-			//Boss playing death animation here
 		}
-		else if (m_victoryDelayClock.getElapsedTime().asSeconds() > 1.5f)
+		else if (m_victoryDelayClock.getElapsedTime().asSeconds() > 3.0f)
 		{
 			m_gameStateManager.setGameState(GameStateId::Victory);
 		}

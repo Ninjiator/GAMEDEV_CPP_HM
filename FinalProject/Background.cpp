@@ -17,10 +17,10 @@ Background::Background(sf::RenderWindow* window)
 	
 	, m_audienceBackTexture("resources/Sprites/Background/cult_members_spritesheet_back.png")
 	, m_audienceBackSprite(m_audienceBackTexture)
-	, m_audienceBackAnimation(m_audienceBackTexture, {1497, 256}, 5, 0.9f)
+	, m_audienceBackAnimation(m_audienceBackTexture, {1497, 256}, 5, 0.8f)
 	, m_audienceFrontTexture("resources/Sprites/Background/cult_members_spritesheet_front.png")
 	, m_audienceFrontSprite(m_audienceFrontTexture)
-	, m_audienceFrontAnimation(m_audienceFrontTexture, {1507, 252}, 5, 0.9f)
+	, m_audienceFrontAnimation(m_audienceFrontTexture, {1507, 252}, 5, 0.8f)
 
 	, m_castleFrontTexture("resources/Sprites/Background/min-main_front.png")
 	, m_castleFrontSprite(m_castleFrontTexture)
@@ -56,7 +56,7 @@ Background::Background(sf::RenderWindow* window)
 	
 	//audience
 	m_audienceBackSprite.setOrigin({ m_audienceBackSprite.getGlobalBounds().size.x / 2.f, m_audienceBackSprite.getGlobalBounds().size.y / 2.f });
-	m_audienceBackSprite.setPosition({ m_window->getSize().x / 2.f, m_window->getSize().y / 2.f - m_window->getSize().y / 8.3f });
+	m_audienceBackSprite.setPosition({ m_window->getSize().x / 2.f, m_window->getSize().y / 2.f - m_window->getSize().y / 10.f });
 
 	m_audienceFrontSprite.setOrigin({ m_audienceBackSprite.getGlobalBounds().size.x / 2.f, m_audienceBackSprite.getGlobalBounds().size.y / 2.f });
 	m_audienceFrontSprite.setPosition({ m_window->getSize().x / 2.f, m_window->getSize().y / 2.f - m_window->getSize().y / 17.0f });

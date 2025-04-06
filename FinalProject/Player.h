@@ -46,7 +46,7 @@ private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	
-	unsigned m_hp = 50;
+	unsigned m_hp = 8;
 
 	sf::Vector2f m_position;
 	PlayerOrientation m_orientation;

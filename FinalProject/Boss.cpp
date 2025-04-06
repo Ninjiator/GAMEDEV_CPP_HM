@@ -10,9 +10,11 @@ Boss::Boss(sf::RenderWindow* window)
 	, m_sprite(m_texture)
 	, m_orientation(BossOrientation::Left)
 	, m_newOrientationRequest(BossOrientation::Left)
-	, m_animation(m_texture, { 566, 890 }, 8, 0.45f)
+	, m_animation(m_texture, { 566, 890 }, 8, 0.6f)
+	, m_deathTexture("resources/Sprites/Boss/death_final.png")
+	, m_deathAnimation(m_deathTexture, { 557,834 }, 20, 3.0f)
 {
-	
+	m_deathAnimation.setLoopFalse();
 	m_animation.applyToSprite(m_sprite);
 
 	m_sprite.setScale({ 0.5f, 0.5f });
@@ -30,11 +32,16 @@ void Boss::update(float dt)
 	move(dt);
 	handleBossOrientation();
 	m_animation.update(dt);
-	if (isEntityAlive() == true);
+	if (isEntityAlive() == true)
 	{
 		m_animation.applyToSprite(m_sprite);
 	}
-	//TODO:Death anim
+	else
+	{
+		m_sprite.setTexture(m_deathTexture);
+		m_deathAnimation.update(dt);
+		m_deathAnimation.applyToSprite(m_sprite);
+	}
 	
 	
 }
