@@ -92,7 +92,7 @@ void GameState_Playing::updateState()
 		m_pressedLastFrame = false;
 	}
 
-	if (!m_GameWorld->getPlayer()->isEntityAlive())
+	if (m_GameWorld->getPlayer()->isDead())
 	{
 		if (!m_playerJustDied)
 		{
@@ -100,7 +100,7 @@ void GameState_Playing::updateState()
 			m_playerJustDied = true;
 			m_victoryDelayClock.restart();
 		}
-		else if (m_victoryDelayClock.getElapsedTime().asSeconds() > 2.0f)
+		else if (m_victoryDelayClock.getElapsedTime().asSeconds() > 2.1f)
 		{
 			m_gameStateManager.setGameState(GameStateId::GameOver);
 		}

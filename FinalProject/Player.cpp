@@ -30,7 +30,7 @@ Player::Player(sf::RenderWindow* window)
 
 void Player::update(float dt)
 {
-	if (isEntityAlive() == true)
+	if (isEntityAlive() && !m_isDead)
 	{
 		handleInput(dt);
 		updateJumpInput(dt);
@@ -174,6 +174,10 @@ void Player::giveDamage()
 	if (m_damageCooldown.getElapsedTime().asSeconds() > m_invincibilityDuration)
 	{
 		m_hp--;
+		if (m_hp <= 0)
+		{
+			m_isDead = true;
+		}
 		m_damageCooldown.restart();
 		SoundManager::getInstance().playPlayerHittedSound();
 		std::cout << "[PLAYER] HIT — HP = " << m_hp << std::endl;

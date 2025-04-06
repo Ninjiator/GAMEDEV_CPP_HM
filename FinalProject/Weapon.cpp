@@ -19,7 +19,10 @@ Weapon::Weapon(sf::RenderWindow* window, Player* player)
 
 void Weapon::update(float dt)
 {
-	shoot(dt);
+	if (m_player->isEntityAlive() && !m_player->isDead())
+	{
+		shoot(dt);
+	}
 	deleteProjectile(dt);
 }
 
