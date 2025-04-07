@@ -8,7 +8,7 @@
 
 enum class AttackType {
 	PlayerAttack,
-	BossAttack,
+	BossAttackMoon,
 	BossCubesAttack,
 	BossBombAttack
 };

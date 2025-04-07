@@ -27,7 +27,7 @@ void Projectile::initAnimation(AttackType attackType) {
 	case AttackType::PlayerAttack:
 		m_animation = Animation(m_texture, { 157, 47 }, 8, 0.7f);
 		break;
-	case AttackType::BossAttack:
+	case AttackType::BossAttackMoon:
 		m_animation = Animation(m_texture, { 80, 80 }, 9, 0.6f);
 		break;
 	case AttackType::BossBombAttack:

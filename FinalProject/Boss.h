@@ -37,6 +37,7 @@ public:
 	sf::FloatRect getBoundingBox() { return m_sprite.getGlobalBounds(); }
 	const BossOrientation& getBossOrientation() { return m_orientation; }
 	
+	BossPhase getBossPhase() { return m_bossPhase; }
 private:
 	void chooseAnimation(float dt);
 	void giveDamage();

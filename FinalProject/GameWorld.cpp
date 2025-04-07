@@ -101,7 +101,7 @@ void GameWorld::spawnEffect(sf::Vector2f position, EffectType type)
         m_effects.push_back(new Effect(m_victoryTexture, position, { 1284 , 715 }, 8, 1.0f, 0.8f));
         break;
     case EffectType::BossIceCubsEffect:
-        m_effects.push_back(new Effect(m_bossFinalStageExplosion, position, { 647 , 348 }, 10, 1.0f, 1.0f));
+        m_effects.push_back(new Effect(m_bossFinalStageExplosion, position, { 647 , 348 }, 10, 1.0f, 0.4f));
         break;
     }
 }

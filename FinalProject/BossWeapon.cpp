@@ -51,9 +51,19 @@ void BossWeapon::shoot(float dt)
 		{
 			delta_Y = 250.f;
 		}
-		auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/moon_spritesheet.png", 0.8f, spawnPosition, delta_X, delta_Y, EffectType::BossIceCreamEffect);
-		projectile->initAnimation(AttackType::BossAttack);
-		m_projectiles.push_back(projectile);
+
+		if (m_boss->getBossPhase() == BossPhase::Phase_1)
+		{
+			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/moon_spritesheet.png", 0.8f, spawnPosition, delta_X, delta_Y, EffectType::BossIceCreamEffect);
+			projectile->initAnimation(AttackType::BossAttackMoon);
+			m_projectiles.push_back(projectile);
+		}
+		else
+		{
+			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/last_stage_projectile.png", 0.6f, spawnPosition, delta_X, delta_Y, EffectType::BossIceCubsEffect);
+			projectile->initAnimation(AttackType::BossCubesAttack);
+			m_projectiles.push_back(projectile);
+		}
 		SoundManager::getInstance().playBossShootSound();
 		std::cout << "drawing boss projectiles" << std::endl;
 	}
@@ -76,7 +86,7 @@ void BossWeapon::fallingBombsAbility(float dt)
 		{
 			float bombSpawnPositionXLeft[3] = { m_window->getSize().x - part.x / 2.f, m_window->getSize().x - part.x * 2.f, m_window->getSize().x - part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(bombSpawnPositionXLeft), 0.f };
-
+			
 			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/icecream_cone_spritesheet_aligned.png", 0.8f, spawnPosition, 0.f, GameConfig::BossBombsSPEED, EffectType::BossIceCreamEffect);
 			projectile->initAnimation(AttackType::BossBombAttack);
 			m_projectiles.push_back(projectile);
