@@ -46,9 +46,10 @@ private:
 	sf::RectangleShape m_rectangle;
 
 	std::vector<Effect*> m_effects;
-	sf::Texture m_playerExplosionTexture;
+	sf::Texture m_playerDefaultExplosion;
 	sf::Texture m_bossProjectileExplosion;
-	sf::Texture m_BombExplosionTexture;
+	sf::Texture m_bossFinalStageExplosion;
+	sf::Texture m_bossBombExplosionTexture;
 
 	sf::Texture m_readyTexture;
 	sf::Texture m_victoryTexture;

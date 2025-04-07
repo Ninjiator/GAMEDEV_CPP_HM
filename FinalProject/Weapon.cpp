@@ -57,7 +57,7 @@ void Weapon::shoot(float dt)
 			spawnPosition = m_player->getPosition() + sf::Vector2f{ m_player->getSpriteWidth()/2.0f, 0.f };
 		}
 		
-		auto* projectile = new Projectile(m_window, "resources/Sprites/CupHead/beam_spritesheet_centered_spacing_updated.png", 1.f, spawnPosition, delta_X, 0.f);
+		auto* projectile = new Projectile(m_window, "resources/Sprites/CupHead/beam_spritesheet_centered_spacing_updated.png", 1.f, spawnPosition, delta_X, 0.f, EffectType::PlayerHitSparkEffect);
 		projectile->initAnimation(AttackType::PlayerAttack);
 		m_projectiles.push_back(projectile);
 		SoundManager::getInstance().playPlayerShoot();

@@ -2,12 +2,12 @@
 
 GameWorld::GameWorld(sf::RenderWindow* window)
     : m_window(window)
-    , m_BombExplosionTexture("resources/Sprites/Boss/smoke_spritesheet_centered_spacing.png")
-    , m_playerExplosionTexture("resources/Sprites/Cuphead/effect_spritesheet_1a_6a.png")
+    , m_bossBombExplosionTexture("resources/Sprites/Boss/smoke_spritesheet_centered_spacing.png")
+    , m_playerDefaultExplosion("resources/Sprites/Cuphead/effect_spritesheet_1a_6a.png")
+    , m_bossFinalStageExplosion("resources/Sprites/Boss/ice_cube_large_explosion_sprite_sheet_spaced.png")
     , m_readyTexture("resources/Sprites/UI/get_ready_sprite_sheet.png")
     , m_victoryTexture("resources/Sprites/UI/victory.png")
 {
-    
     m_background = new Background(window);
     m_playerHealthHUD = new PlayerHealthHUD(window);
     m_player = new Player(window);
@@ -88,19 +88,20 @@ void GameWorld::spawnEffect(sf::Vector2f position, EffectType type)
 {
     switch (type)
     {
-    case EffectType::IceCreamExplosion:
-        m_effects.push_back(new Effect(m_BombExplosionTexture, position, { 180, 182 }, 9, 0.9f, 0.9f));
+    case EffectType::BossIceCreamEffect:
+        m_effects.push_back(new Effect(m_bossBombExplosionTexture, position, { 180, 182 }, 9, 0.9f, 0.9f));
         break;
-    case EffectType::HitSpark:
-        m_effects.push_back(new Effect(m_playerExplosionTexture, position, {256 , 276}, 6, 0.25f, 0.5f));
+    case EffectType::PlayerHitSparkEffect:
+        m_effects.push_back(new Effect(m_playerDefaultExplosion, position, {256 , 276}, 6, 0.25f, 0.5f));
         break;
     case EffectType::READY:
         m_effects.push_back(new Effect(m_readyTexture, position, { 512 , 288 }, 10, 1.0f, 1.0f));
-        break;
+        break; 
     case EffectType::VICTORY:
-        m_effects.push_back(new Effect(m_victoryTexture, position, { 1027 , 715 }, 8, 0.8f, 1.0f));
+        m_effects.push_back(new Effect(m_victoryTexture, position, { 1284 , 715 }, 8, 1.0f, 0.8f));
         break;
-    case EffectType::DEAD:
+    case EffectType::BossIceCubsEffect:
+        m_effects.push_back(new Effect(m_bossFinalStageExplosion, position, { 647 , 348 }, 10, 1.0f, 1.0f));
         break;
     }
 }

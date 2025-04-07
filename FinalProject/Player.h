@@ -52,7 +52,7 @@ private:
 	sf::Texture m_deathTexture;
 	Animation m_deathAnimation;
 
-	unsigned m_hp = 8;
+	unsigned m_hp = 100;
 
 	sf::Vector2f m_position;
 	PlayerOrientation m_orientation;

@@ -2,10 +2,10 @@
 class GameConfig
 {
 public:
-	//Boss
-	static constexpr unsigned BossHP_Phase1 = 150;
-	static constexpr unsigned BossHP_Phase2 = 100;
-	static constexpr unsigned BossHP_Phase3 = 50;
+	//Boss start HP 200
+	static constexpr unsigned BossHPThreshold_1 = 150;
+	static constexpr unsigned BossHPThreshold_2 = 100;
+	static constexpr unsigned BossHPThreshold_3 = 50;
 	static constexpr float BossProjectileSPEED = 720.f;
 	static constexpr float BossBombsSPEED = 500.f;
 	//Player

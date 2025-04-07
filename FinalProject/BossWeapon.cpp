@@ -5,7 +5,7 @@
 #include "GameConfig.h"
 
 BossWeapon::BossWeapon(sf::RenderWindow* window, Boss* boss)
-	: Weapon(window, nullptr) //using base c-tor from Weapon, nullptr for player
+	: Weapon(window, nullptr)
 	, m_boss(boss)
 {
 	m_position = boss->getPosition();
@@ -51,7 +51,7 @@ void BossWeapon::shoot(float dt)
 		{
 			delta_Y = 250.f;
 		}
-		auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/moon_spritesheet.png", 0.8f, spawnPosition, delta_X, delta_Y);
+		auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/moon_spritesheet.png", 0.8f, spawnPosition, delta_X, delta_Y, EffectType::BossIceCreamEffect);
 		projectile->initAnimation(AttackType::BossAttack);
 		m_projectiles.push_back(projectile);
 		SoundManager::getInstance().playBossShootSound();
@@ -67,7 +67,7 @@ void BossWeapon::deleteProjectile(float dt)
 void BossWeapon::fallingBombsAbility(float dt)
 {
 	m_bombTimer += dt;
-	if (m_boss->getHealthPoints() < GameConfig::BossHP_Phase1 && m_bombTimer > m_boombTimerMax)
+	if (m_boss->getHealthPoints() < GameConfig::BossHPThreshold_1 && m_bombTimer > m_boombTimerMax)
 	{
 		m_bombTimer = 0.f;
 		sf::Vector2f part = sf::Vector2f{ m_window->getSize().x / 5.f, 0.f };
@@ -77,7 +77,7 @@ void BossWeapon::fallingBombsAbility(float dt)
 			float bombSpawnPositionXLeft[3] = { m_window->getSize().x - part.x / 2.f, m_window->getSize().x - part.x * 2.f, m_window->getSize().x - part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(bombSpawnPositionXLeft), 0.f };
 
-			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/icecream_cone_spritesheet_aligned.png", 0.8f, spawnPosition, 0.f, GameConfig::BossBombsSPEED);
+			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/icecream_cone_spritesheet_aligned.png", 0.8f, spawnPosition, 0.f, GameConfig::BossBombsSPEED, EffectType::BossIceCreamEffect);
 			projectile->initAnimation(AttackType::BossBombAttack);
 			m_projectiles.push_back(projectile);
 		}
@@ -87,7 +87,7 @@ void BossWeapon::fallingBombsAbility(float dt)
 			float bombSpawnPositionXRight[3] = { part.x / 2.f, part.x * 2.f, part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(bombSpawnPositionXRight), 0.f };
 			
-			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/icecream_cone_spritesheet_aligned.png", 0.8f, spawnPosition, 0.f, GameConfig::BossBombsSPEED);
+			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/icecream_cone_spritesheet_aligned.png", 0.8f, spawnPosition, 0.f, GameConfig::BossBombsSPEED, EffectType::BossIceCreamEffect);
 			projectile->initAnimation(AttackType::BossBombAttack);
 			m_projectiles.push_back(projectile);
 		}

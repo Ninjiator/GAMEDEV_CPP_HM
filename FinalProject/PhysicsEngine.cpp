@@ -32,7 +32,7 @@ void PhysicsEngine::update(float dt)
 
 			if (m_effectSpawner)
 			{
-				m_effectSpawner->spawnEffect(playerProjectile->getPosition(), EffectType::HitSpark);
+				m_effectSpawner->spawnEffect(playerProjectile->getPosition(), EffectType::PlayerHitSparkEffect);
 			}
 		}
 	}
@@ -51,7 +51,15 @@ void PhysicsEngine::update(float dt)
 
 			if (m_effectSpawner)
 			{
-				m_effectSpawner->spawnEffect(bossProjectile->getPosition(), EffectType::IceCreamExplosion);
+				if (bossProjectile->getEffectType() == EffectType::BossIceCreamEffect)
+				{
+					m_effectSpawner->spawnEffect(bossProjectile->getPosition(), EffectType::BossIceCreamEffect);
+				}
+				if (bossProjectile->getEffectType() == EffectType::BossIceCubsEffect)
+				{
+					m_effectSpawner->spawnEffect(bossProjectile->getPosition(), EffectType::BossIceCubsEffect);
+				}
+				
 			}
 		}
 	}

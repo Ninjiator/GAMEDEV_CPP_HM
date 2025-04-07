@@ -107,7 +107,16 @@ public:
 private:
 	sf::Texture m_victoryTexture;
 	sf::Sprite m_victorySprite;
-	sf::Text m_text;
+
+	sf::Texture m_boardTexture;
+	sf::Sprite m_boardSprite;
+
+	sf::Texture m_playerTexture;
+	sf::Sprite m_playerSprite;
+	Animation m_playerAnimation;
+
+	sf::Texture m_textTexture;
+	sf::Sprite m_textSprite;
 };
 
 class GameState_GameOver : public GameState

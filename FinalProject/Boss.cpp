@@ -10,13 +10,15 @@ Boss::Boss(sf::RenderWindow* window)
 	, m_sprite(m_texture)
 	, m_orientation(BossOrientation::Left)
 	, m_newOrientationRequest(BossOrientation::Left)
-	, m_animation(m_texture, { 566, 890 }, 8, 0.6f)
+	, m_defaultAnimation(m_texture, { 566, 890 }, 8, 0.6f)
+	, m_finalStageTexture("resources/Sprites/Boss/last_stage.png")
+	, m_finalStageAnimation(m_finalStageTexture, {581, 935}, 10, 0.8)
 	, m_deathTexture("resources/Sprites/Boss/death_final.png")
 	, m_deathAnimation(m_deathTexture, { 557,834 }, 20, 3.0f)
 {
 	//boss setup
 	m_deathAnimation.setLoopFalse();
-	m_animation.applyToSprite(m_sprite);
+	m_defaultAnimation.applyToSprite(m_sprite);
 
 	m_sprite.setScale({ 0.5f, 0.5f });
 	sf::FloatRect spriteLocalBounds = m_sprite.getLocalBounds();
@@ -51,10 +53,25 @@ void Boss::update(float dt)
 {
 	move(dt);
 	handleBossOrientation();
-	m_animation.update(dt);
+	updateStage();
+	chooseAnimation(dt);
+}
+
+void Boss::chooseAnimation(float dt)
+{
 	if (isEntityAlive() == true)
 	{
-		m_animation.applyToSprite(m_sprite);
+		if (m_bossPhase == BossPhase::Phase_1)
+		{
+			m_defaultAnimation.update(dt);
+			m_defaultAnimation.applyToSprite(m_sprite);
+		}
+		if (m_bossPhase == BossPhase::Phase_2)
+		{
+			m_sprite.setTexture(m_finalStageTexture);
+			m_finalStageAnimation.update(dt);
+			m_finalStageAnimation.applyToSprite(m_sprite);
+		}	
 	}
 	else
 	{
@@ -62,8 +79,6 @@ void Boss::update(float dt)
 		m_deathAnimation.update(dt);
 		m_deathAnimation.applyToSprite(m_sprite);
 	}
-	
-	
 }
 
 void Boss::giveDamage()
@@ -100,13 +115,15 @@ void Boss::handleBossOrientation()
 
 void Boss::move(float dt)
 {
-	if (GameConfig::BossHP_Phase1 < m_hp || isEntityAlive() == false)
+	if (GameConfig::BossHPThreshold_1 < m_hp || isEntityAlive() == false)
+	{
 		return;
-	else if (m_hp < GameConfig::BossHP_Phase2 && m_hp > GameConfig::BossHP_Phase3)
+	}
+	else if (m_hp < GameConfig::BossHPThreshold_2 && m_hp > GameConfig::BossHPThreshold_3)
 	{
 		m_reverse = true;
 	}
-	else if (m_hp < GameConfig::BossHP_Phase3)
+	else if (m_hp < GameConfig::BossHPThreshold_3)
 	{
 		m_reverse = false;
 	}
@@ -177,10 +194,26 @@ void Boss::onCollision(GameObject* colidable)
 	}
 	if (colidable->getType() == Type::Player)
 	{
-//TODO: add some effect/SFX
 	}
 	if (colidable->getType() == Type::Unknown)
 	{
 		std::cerr << "UNKOWN TYPE!!!" << std::endl;
 	}
+}
+
+void Boss::updateStage()
+{
+	if (m_hp > GameConfig::BossHPThreshold_1)
+	{
+		m_bossPhase = BossPhase::Phase_1;														// 200-150
+	}
+	else if (m_hp < GameConfig::BossHPThreshold_2 && m_hp > GameConfig::BossHPThreshold_3)
+	{
+		m_bossPhase = BossPhase::Phase_2;														// 100-50
+	}
+	else if (m_hp < GameConfig::BossHPThreshold_3)
+	{
+		m_bossPhase = BossPhase::Phase_3;														// 50-1
+	}
+	
 }

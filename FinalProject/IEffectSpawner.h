@@ -4,11 +4,11 @@
 enum class EffectType
 {
     //Gameplay effect's
-    HitSpark,
-    IceCreamExplosion,
+    PlayerHitSparkEffect,
+    BossIceCreamEffect,
+    BossIceCubsEffect,
     //Side effect's
     READY,
-    DEAD,
     VICTORY
 };
 

@@ -220,10 +220,6 @@ void Player::handleInput(float dt)
 		m_newOrientationRequest = PlayerOrientation::Right;
 	}
 
-	//TO DO:
-	//sprite manipulation's for duck, jump, dash
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-	{
-	}
+	//TO DO: duck, jump, dash
 	m_position = m_sprite.getPosition() + sf::Vector2f{ deltaX, deltaY };
 }

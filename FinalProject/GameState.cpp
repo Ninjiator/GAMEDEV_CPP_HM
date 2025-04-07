@@ -212,17 +212,27 @@ GameState_Victory::GameState_Victory(GameStateManager& context, sf::RenderWindow
 	: GameState(context, window)
 	, m_victoryTexture("resources/Sprites/UI/winscreen_bg.png")
 	, m_victorySprite(m_victoryTexture)
-	, m_text(FontManager::getInstance().getDefaultFont())
+	, m_textTexture("resources/Sprites/UI/winscreen_results_title_a_0001.png")
+	, m_textSprite(m_textTexture)
+	, m_boardTexture("resources/Sprites/UI/winscreen_board.png")
+	, m_boardSprite(m_boardTexture)
+	, m_playerTexture("resources/Sprites/UI/cuphead_winscreen_spritesheet.png")
+	, m_playerSprite(m_playerTexture)
+	, m_playerAnimation(m_playerTexture, {301,433}, 7, 0.7f)
 {
+
 	m_victorySprite.setOrigin({ m_victorySprite.getGlobalBounds().size.x / 2, m_victorySprite.getGlobalBounds().size.y / 2 });
 	m_victorySprite.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y - m_window->getSize().y / 5.0f });
 	m_victorySprite.setScale(sf::Vector2f{ 1.0f, 0.75f });
 
-	m_text.setCharacterSize(70);
-	m_text.setFillColor(sf::Color::Yellow);
-	m_text.setString("RESULT'S!");
-	m_text.setOrigin({ m_text.getGlobalBounds().size.x / 2, m_text.getGlobalBounds().size.y / 2 });
-	m_text.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y / 7.0f });
+	m_boardSprite.setOrigin({ m_boardSprite.getGlobalBounds().size.x / 2, m_boardSprite.getGlobalBounds().size.y / 2 });
+	m_boardSprite.setPosition({ m_window->getSize().x - m_window->getSize().x / 3.f, m_window->getSize().y / 2.0f + m_window->getSize().y / 10.f});
+
+	m_playerSprite.setOrigin({ m_playerSprite.getGlobalBounds().size.x / 2, m_playerSprite.getGlobalBounds().size.y / 2 });
+	m_playerSprite.setPosition({ m_window->getSize().x / 3.f, m_window->getSize().y / 2.0f + m_window->getSize().y / 10.f });
+
+	m_textSprite.setOrigin({ m_textSprite.getGlobalBounds().size.x / 2, m_textSprite.getGlobalBounds().size.y / 2 });
+	m_textSprite.setPosition({ m_window->getSize().x / 2.0f, m_window->getSize().y / 7.0f });
 }
 
 void GameState_Victory::updateState()
@@ -233,16 +243,19 @@ void GameState_Victory::updateState()
 	}
 }
 
-void GameState_Victory::update(float DeltaTime)
+void GameState_Victory::update(float dt)
 {
-
+	m_playerAnimation.update(dt);
+	m_playerAnimation.applyToSprite(m_playerSprite);
 }
 
 void GameState_Victory::draw()
 {
 	m_window->clear();
 	m_window->draw(m_victorySprite);
-	m_window->draw(m_text);
+	m_window->draw(m_playerSprite);
+	m_window->draw(m_boardSprite);
+	m_window->draw(m_textSprite);
 }
 
 void GameState_Victory::onEnter()

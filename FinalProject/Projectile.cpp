@@ -1,13 +1,21 @@
 #include "Projectile.h"
 #include "SoundManager.h"
 
-Projectile::Projectile(sf::RenderWindow* window, const std::string& fileName, const float& scale, const sf::Vector2f& position, float deltaX, float deltaY)
+Projectile::Projectile(sf::RenderWindow* window,
+	const std::string& fileName,
+	const float& scale,
+	const sf::Vector2f& position,
+	float deltaX,
+	float deltaY,
+	EffectType Type)
+
 	: GameObject(window)
 	, m_texture(fileName)
 	, m_sprite(m_texture)
 	, m_position(position)
 	, m_deltaX(deltaX)
 	, m_deltaY(deltaY)
+	, m_effectType(Type)
 	, m_animation(m_texture, sf::Vector2i(0, 0), 0, 0.f)
 {
 	m_sprite.setPosition(m_position);
@@ -24,6 +32,9 @@ void Projectile::initAnimation(AttackType attackType) {
 		break;
 	case AttackType::BossBombAttack:
 		m_animation = Animation(m_texture, { 96, 136 }, 10, 0.6f);
+		break;
+	case AttackType::BossCubesAttack:
+		m_animation = Animation(m_texture, { 164, 141 }, 8, 0.7f);
 		break;
 	}
 }
