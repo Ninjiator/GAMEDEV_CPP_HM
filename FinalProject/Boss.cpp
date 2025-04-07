@@ -14,6 +14,7 @@ Boss::Boss(sf::RenderWindow* window)
 	, m_deathTexture("resources/Sprites/Boss/death_final.png")
 	, m_deathAnimation(m_deathTexture, { 557,834 }, 20, 3.0f)
 {
+	//boss setup
 	m_deathAnimation.setLoopFalse();
 	m_animation.applyToSprite(m_sprite);
 
@@ -25,6 +26,25 @@ Boss::Boss(sf::RenderWindow* window)
 	sf::Vector2f newPosition = sf::Vector2f{ static_cast<float>(windowSize.x) - spriteSize.size.x / 2.0f,
 								static_cast<float>(windowSize.y) - spriteSize.size.y / 2.0f };
 	m_sprite.setPosition(newPosition);
+	
+	//waipoint's setup for movement
+	sf::Vector2u winSize = m_window->getSize();
+	float halfWidth = m_sprite.getGlobalBounds().size.x / 2.0f;
+	float halfHeight = m_sprite.getGlobalBounds().size.y / 2.0f;
+
+	sf::Vector2f bottomRight(winSize.x - halfWidth, winSize.y - halfHeight);
+	sf::Vector2f topRight(winSize.x - halfWidth, halfHeight);
+	sf::Vector2f centerOfScreen(winSize.x / 2.f, winSize.y / 2.f);
+	//sf::Vector2f centerBottom(winSize.x / 2.f, winSize.y - halfHeight);
+	sf::Vector2f topLeft(halfWidth, halfHeight);
+	sf::Vector2f bottomLeft(halfWidth, winSize.y - halfHeight);
+
+	m_waypoints.push_back(bottomRight); // index 0
+	m_waypoints.push_back(topRight);
+	m_waypoints.push_back(centerOfScreen);
+	//m_waypoints.push_back(centerBottom);
+	m_waypoints.push_back(topLeft);
+	m_waypoints.push_back(bottomLeft);
 }
 
 void Boss::update(float dt)
@@ -93,20 +113,7 @@ void Boss::move(float dt)
 
 	if (m_waypoints.empty())
 	{
-		sf::Vector2u winSize = m_window->getSize();
-		float halfWidth = m_sprite.getGlobalBounds().size.x / 2.0f;
-		float halfHeight = m_sprite.getGlobalBounds().size.y / 2.0f;
-		
-		
-		sf::Vector2f bottomRight(winSize.x - halfWidth, winSize.y - halfHeight); // 0 – start
-		sf::Vector2f topRight(winSize.x - halfWidth, halfHeight);                // 1
-		sf::Vector2f topLeft(halfWidth, halfHeight);                             // 2
-		sf::Vector2f bottomLeft(halfWidth, winSize.y - halfHeight);              // 3
-
-		m_waypoints.push_back(bottomRight); // index 0
-		m_waypoints.push_back(topRight);    // index 1
-		m_waypoints.push_back(topLeft);     // index 2
-		m_waypoints.push_back(bottomLeft);  // index 3
+		 
 	}
 	
 	sf::Vector2f target = m_waypoints[m_currentWaypoint];

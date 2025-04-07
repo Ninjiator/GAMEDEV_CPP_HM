@@ -54,7 +54,7 @@ private:
 	sf::Texture m_deathTexture;
 	Animation m_deathAnimation;
 
-	int m_hp = 2;
+	int m_hp = 200;
 
 	sf::Vector2f m_position;
 	
@@ -62,7 +62,6 @@ private:
 
 	BossOrientation m_newOrientationRequest;
 	BossOrientation m_orientation;
-	BossMovementState m_state = BossMovementState::MovingUp;
 
 	std::vector<sf::Vector2f >m_waypoints;
 	int m_currentWaypoint = 0;

@@ -167,7 +167,7 @@ void GameState_Pause::updateState()
 
 void GameState_Pause::update(float DeltaTime)
 {
-	constexpr unsigned int BlinkPeriod = 500;
+	constexpr unsigned int BlinkPeriod = 1200;
 	bool needUpdate = false;
 
 	if (m_textLoopClock.getElapsedTime().asMilliseconds() > BlinkPeriod)
