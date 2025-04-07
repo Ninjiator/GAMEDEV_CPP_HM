@@ -66,7 +66,7 @@ void Boss::chooseAnimation(float dt)
 			m_defaultAnimation.update(dt);
 			m_defaultAnimation.applyToSprite(m_sprite);
 		}
-		if (m_bossPhase == BossPhase::Phase_2)
+		else
 		{
 			m_sprite.setTexture(m_finalStageTexture);
 			m_finalStageAnimation.update(dt);

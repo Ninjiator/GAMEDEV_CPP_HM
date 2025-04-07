@@ -13,7 +13,6 @@ public:
 
 	//SFX Player
 	void playJumpSound();
-	void playPlayerGroundSound();
 	void playPlayerShoot();
 	
 	void playPlayerHittedSound();
@@ -23,7 +22,6 @@ public:
 	//Commentator
 	void playComentatorStart();
 	void playComentatorPause();
-
 	//Boss
 	void playBossShootSound();
 	void playBossHittedSound();
@@ -38,16 +36,13 @@ public:
 	void playVictoryMusic();
 	void stopVictoryMusic();
 
-
+	void playComentatorKnockout() { m_comentatorKnowckoutSound.play(); }
 
 private:
 	SoundManager();
 	//Player
 	sf::SoundBuffer m_playerJumpSoundBuffer;
 	sf::Sound m_playerJumpSound;
-
-	sf::SoundBuffer m_playerGroundSoundBuffer;
-	sf::Sound m_playerGroundSound;
 
 	sf::SoundBuffer m_playerShootSoundBuffer;
 	sf::Sound m_playerShootSound;
@@ -58,11 +53,15 @@ private:
 	sf::SoundBuffer m_playerDeathSoundBuffer;
 	sf::Sound m_playerDeathSound;
 	//Comentator
+	sf::SoundBuffer m_comentatorKnockoutSoundBuffer;
+	sf::Sound m_comentatorKnowckoutSound;
+
 	sf::SoundBuffer m_comentatorStartSoundBuffer;
 	sf::Sound m_comentatorStartSound;
 
 	sf::SoundBuffer m_comentatorPauseSoundBuffer;
 	sf::Sound m_comentatorPauseSound;
+
 	//Boss
 	sf::SoundBuffer m_bossShotSoundBuffer;
 	sf::Sound m_bossShotSound;

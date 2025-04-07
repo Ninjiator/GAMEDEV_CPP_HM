@@ -47,7 +47,7 @@ private:
 
 	std::vector<Effect*> m_effects;
 	sf::Texture m_playerDefaultExplosion;
-	sf::Texture m_bossProjectileExplosion;
+	sf::Texture m_bossMoonExplosion;
 	sf::Texture m_bossFinalStageExplosion;
 	sf::Texture m_bossBombExplosionTexture;
 

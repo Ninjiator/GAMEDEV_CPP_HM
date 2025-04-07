@@ -219,7 +219,7 @@ void Player::handleInput(float dt)
 		deltaX = +(SPEED_X - deltaAir);
 		m_newOrientationRequest = PlayerOrientation::Right;
 	}
-
 	//TO DO: duck, jump, dash
+
 	m_position = m_sprite.getPosition() + sf::Vector2f{ deltaX, deltaY };
 }

@@ -30,7 +30,6 @@ void GameStateManager::resetGameWorld()
 		m_gameWorld = nullptr;
 	}
 	m_gameWorld = new GameWorld(m_window);
-	//m_gameWorld->init();
 	delete m_gameStates[static_cast<std::size_t>(GameStateId::Playing)];
 	delete m_gameStates[static_cast<std::size_t>(GameStateId::Pause)];
 

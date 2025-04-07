@@ -4,7 +4,7 @@ GameWorld::GameWorld(sf::RenderWindow* window)
     : m_window(window)
     , m_bossBombExplosionTexture("resources/Sprites/Boss/smoke_spritesheet_centered_spacing.png")
     , m_playerDefaultExplosion("resources/Sprites/Cuphead/effect_spritesheet_1a_6a.png")
-    , m_bossFinalStageExplosion("resources/Sprites/Boss/ice_cube_large_explosion_sprite_sheet_spaced.png")
+    , m_bossFinalStageExplosion("resources/Sprites/Boss/ice_cube_medium_explosion_sheet.png")
     , m_readyTexture("resources/Sprites/UI/get_ready_sprite_sheet.png")
     , m_victoryTexture("resources/Sprites/UI/victory.png")
 {
@@ -65,7 +65,6 @@ void GameWorld::update(float dt)
 
 void GameWorld::draw()
 {
-    //m_window->clear(sf::Color{ 0, 255, 0 });
     m_window->clear(sf::Color::White);
 
     m_background->draw();
@@ -101,7 +100,7 @@ void GameWorld::spawnEffect(sf::Vector2f position, EffectType type)
         m_effects.push_back(new Effect(m_victoryTexture, position, { 1284 , 715 }, 8, 1.0f, 0.8f));
         break;
     case EffectType::BossIceCubsEffect:
-        m_effects.push_back(new Effect(m_bossFinalStageExplosion, position, { 647 , 348 }, 10, 1.0f, 0.4f));
+        m_effects.push_back(new Effect(m_bossFinalStageExplosion, position, { 368 , 258 }, 10, 1.0f, 0.5f));
         break;
     }
 }

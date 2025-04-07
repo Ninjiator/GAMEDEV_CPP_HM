@@ -107,10 +107,13 @@ void GameState_Playing::updateState()
 	}
 	if (!m_GameWorld->getBoss()->isEntityAlive())
 	{
+		
 		if (!m_bossJustDied)
 		{
+			SoundManager::getInstance().playComentatorKnockout();
 			m_bossJustDied = true;
 			m_gameOverDelayClock.restart();
+			
 		}
 		else if (m_gameOverDelayClock.getElapsedTime().asSeconds() > 3.0f)
 		{
