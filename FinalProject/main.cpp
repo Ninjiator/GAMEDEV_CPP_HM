@@ -49,4 +49,5 @@ int main()
 		gameStateManager.getCurrentGameState()->updateState();
 		window.display();
 	}
+	delete gameWorld;
 }

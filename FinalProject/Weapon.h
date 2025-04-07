@@ -9,7 +9,7 @@ class Weapon : public GameObject
 {
 public:
 	Weapon(sf::RenderWindow* window, Player* player);
-
+	~Weapon();
 	void update(float dt) override;
 	void draw() override;
 

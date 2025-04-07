@@ -17,6 +17,14 @@ Weapon::Weapon(sf::RenderWindow* window, Player* player)
 	}
 }
 
+Weapon::~Weapon()
+{
+	for (auto projectile : m_projectiles) {
+		delete projectile;
+	}
+	m_projectiles.clear();
+}
+
 void Weapon::update(float dt)
 {
 	if (m_player->isEntityAlive() && !m_player->isDead())

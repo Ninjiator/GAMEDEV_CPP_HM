@@ -12,6 +12,7 @@ BossWeapon::BossWeapon(sf::RenderWindow* window, Boss* boss)
 	std::cout << "\n" << m_position.x << " " << m_position.y << std::endl;
 }
 
+
 void BossWeapon::update(float dt)
 {
 	if (m_boss->isEntityAlive() != false)

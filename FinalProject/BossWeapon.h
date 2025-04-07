@@ -10,7 +10,6 @@ class BossWeapon : public Weapon
 {
 public:
 	BossWeapon(sf::RenderWindow* window, Boss* boss);
-
 	void update(float dt) override;
 	void draw();
 
