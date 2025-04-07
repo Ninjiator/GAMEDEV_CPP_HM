@@ -52,7 +52,7 @@ private:
 	sf::Texture m_deathTexture;
 	Animation m_deathAnimation;
 
-	unsigned m_hp = 100;
+	unsigned m_hp = 8;
 
 	sf::Vector2f m_position;
 	PlayerOrientation m_orientation;
@@ -68,5 +68,5 @@ private:
 	const float m_timerMax = 0.65f;
 	
 	sf::Clock m_damageCooldown;
-	float m_invincibilityDuration = 0.2f;
+	float m_invincibilityDuration = 0.3f;
 };

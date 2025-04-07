@@ -30,16 +30,13 @@ public:
 
 private:
 	sf::RenderWindow* m_window;
-
 	PlayerHealthHUD* m_playerHealthHUD;
 	
 	Player* m_player;
 	Boss* m_boss;
-
 	Background* m_background;
 	Weapon* m_playerProjectiles;
 	BossWeapon* m_bossProjectiles;
-
 	PhysicsEngine* m_physicsEngine;
 
 	bool m_blurred = false;

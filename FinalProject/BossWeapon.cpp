@@ -47,7 +47,7 @@ void BossWeapon::shoot(float dt)
 		float projectileSpawnY[2] = { 0.f, m_window->getSize().y / 5.f };
 		sf::Vector2f spawnPosition = m_boss->getPosition() + sf::Vector2f{ -(m_boss->getSpriteWidth() / 4.f), generateRandomFromArray(projectileSpawnY) };
 		
-		if (m_boss->getPosition().y <  m_window->getSize().y / 2.f)
+		if (m_boss->getPosition().y <  m_window->getSize().y / 2.f && m_boss->getBossPhase() == BossPhase::Phase_3)
 		{
 			delta_Y = 250.f;
 		}

@@ -36,15 +36,16 @@ Boss::Boss(sf::RenderWindow* window)
 
 	sf::Vector2f bottomRight(winSize.x - halfWidth, winSize.y - halfHeight);
 	sf::Vector2f topRight(winSize.x - halfWidth, halfHeight);
-	sf::Vector2f centerOfScreen(winSize.x / 2.f, winSize.y / 2.f);
-	//sf::Vector2f centerBottom(winSize.x / 2.f, winSize.y - halfHeight);
+	sf::Vector2f centerOfScreen(winSize.x / 2.f, winSize.y / 2.f - winSize.y / 12.f);
+	sf::Vector2f centerBottom(winSize.x / 2.f, winSize.y - halfHeight);
 	sf::Vector2f topLeft(halfWidth, halfHeight);
 	sf::Vector2f bottomLeft(halfWidth, winSize.y - halfHeight);
 
 	m_waypoints.push_back(bottomRight); // index 0
 	m_waypoints.push_back(topRight);
 	m_waypoints.push_back(centerOfScreen);
-	//m_waypoints.push_back(centerBottom);
+	m_waypoints.push_back(centerBottom);
+	m_waypoints.push_back(centerOfScreen);
 	m_waypoints.push_back(topLeft);
 	m_waypoints.push_back(bottomLeft);
 }
@@ -119,18 +120,13 @@ void Boss::move(float dt)
 	{
 		return;
 	}
-	else if (m_hp < GameConfig::BossHPThreshold_2 && m_hp > GameConfig::BossHPThreshold_3)
+	else if (m_hp < GameConfig::BossHPThreshold_2 && m_hp > GameConfig::BossHPThreshold_3) 
 	{
 		m_reverse = true;
 	}
 	else if (m_hp < GameConfig::BossHPThreshold_3)
 	{
 		m_reverse = false;
-	}
-
-	if (m_waypoints.empty())
-	{
-		 
 	}
 	
 	sf::Vector2f target = m_waypoints[m_currentWaypoint];

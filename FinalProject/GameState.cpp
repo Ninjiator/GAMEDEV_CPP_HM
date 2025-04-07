@@ -134,7 +134,7 @@ void GameState_Playing::draw()
 
 GameState_Pause::GameState_Pause(GameStateManager& context, GameWorld* gameWorld, sf::RenderWindow* window)
 	: GameState(context, window)
-	, m_GameWorld(gameWorld)
+	, m_gameWorld(gameWorld)
 	, m_pauseText(FontManager::getInstance().getDefaultFont())
 	, m_pauseTexture("resources/Sprites/UI/pause_menu_v2.png")
 	, m_pauseSprite(m_pauseTexture)
@@ -190,7 +190,7 @@ void GameState_Pause::update(float DeltaTime)
 
 void GameState_Pause::draw()
 {
-	m_GameWorld->draw();
+	m_gameWorld->draw();
 	m_window->draw(m_pauseSprite);
 	m_window->draw(m_pauseText);
 
@@ -200,14 +200,14 @@ void GameState_Pause::onEnter()
 {
 	m_isVisible = true;
 	m_textLoopClock.restart();
-	m_GameWorld->blur();
+	m_gameWorld->blur();
 
 	SoundManager::getInstance().playComentatorPause();
 }
 
 void GameState_Pause::onExit()
 {
-	m_GameWorld->unblur();
+	m_gameWorld->unblur();
 	SoundManager::getInstance().playInGameMusic();
 }
 
@@ -297,9 +297,8 @@ void GameState_GameOver::updateState()
 	}
 }
 
-void GameState_GameOver::update(float DeltaTime)
+void GameState_GameOver::update(float dt)
 {
-
 }
 
 void GameState_GameOver::draw()
@@ -317,5 +316,5 @@ void GameState_GameOver::onEnter()
 
 void GameState_GameOver::onExit()
 {
-
+	
 }

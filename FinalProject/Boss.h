@@ -58,7 +58,7 @@ private:
 	sf::Texture m_deathTexture;
 	Animation m_deathAnimation;
 
-	int m_hp = 20;
+	int m_hp = 125;
 
 	sf::Vector2f m_position;
 	

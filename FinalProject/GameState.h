@@ -81,7 +81,7 @@ public:
 	void onExit() override;
 
 private:
-	GameWorld* m_GameWorld;
+	GameWorld* m_gameWorld;
 
 	bool m_pressedLastFrame = true;
 
