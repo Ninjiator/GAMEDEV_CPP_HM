@@ -94,7 +94,7 @@ void GameWorld::spawnEffect(sf::Vector2f position, EffectType type)
         m_effects.push_back(new Effect(m_playerDefaultExplosion, position, {256 , 276}, 6, 0.25f, 0.5f));
         break;
     case EffectType::READY:
-        m_effects.push_back(new Effect(m_readyTexture, position, { 512 , 288 }, 10, 1.0f, 1.0f));
+        m_effects.push_back(new Effect(m_readyTexture, position, { 512 , 288 }, 10, 1.0f, 1.8f));
         break; 
     case EffectType::VICTORY:
         m_effects.push_back(new Effect(m_victoryTexture, position, { 1284 , 715 }, 8, 1.0f, 0.8f));

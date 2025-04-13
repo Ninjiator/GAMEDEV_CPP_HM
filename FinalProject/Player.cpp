@@ -186,14 +186,7 @@ void Player::giveDamage()
 
 bool Player::isEntityAlive()
 {
-	if (m_hp > 0 )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return (m_hp > 0);
 }
 
 void Player::handleInput(float dt)

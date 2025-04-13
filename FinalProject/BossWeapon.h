@@ -16,11 +16,10 @@ public:
 	void shoot(float dt) override;
 	float generateRandomFromArray(float arr[]);
 	void deleteProjectile(float dt);
-	
 	void fallingBombsAbility(float dt);
 
-
 private:
+	void spawnBomb(sf::Vector2f spawnPos);
 	Boss* m_boss = nullptr;
 	
 	sf::Vector2f m_position;

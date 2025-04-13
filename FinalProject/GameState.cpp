@@ -67,7 +67,7 @@ void GameState_Playing::onEnter()
 	SoundManager::getInstance().playInGameMusic();
 	if (m_playEffectOnce == true)
 	{
-		m_GameWorld->spawnEffect({ m_window->getSize().x / 2.f, m_window->getSize().y / 2.f - m_window->getSize().y / 3.f }, EffectType::READY);
+		m_GameWorld->spawnEffect({ m_window->getSize().x / 2.f, m_window->getSize().y / 2.f }, EffectType::READY);
 		m_playEffectOnce = false;
 	}
 }

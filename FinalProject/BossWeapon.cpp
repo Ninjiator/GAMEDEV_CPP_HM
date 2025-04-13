@@ -87,22 +87,23 @@ void BossWeapon::fallingBombsAbility(float dt)
 		{
 			float bombSpawnPositionXLeft[3] = { m_window->getSize().x - part.x / 2.f, m_window->getSize().x - part.x * 2.f, m_window->getSize().x - part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(bombSpawnPositionXLeft), 0.f };
-			
-			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/icecream_cone_spritesheet_aligned.png", 0.8f, spawnPosition, 0.f, GameConfig::BossBombsSPEED, EffectType::BossIceCreamEffect);
-			projectile->initAnimation(AttackType::BossBombAttack);
-			m_projectiles.push_back(projectile);
+			spawnBomb(spawnPosition);
 		}
 		//if Boss located on a right side of arena - bombs will spawn on a left side 
 		if (m_boss->getPosition().x > m_window->getSize().x / 2.f)
 		{
 			float bombSpawnPositionXRight[3] = { part.x / 2.f, part.x * 2.f, part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(bombSpawnPositionXRight), 0.f };
-			
-			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/icecream_cone_spritesheet_aligned.png", 0.8f, spawnPosition, 0.f, GameConfig::BossBombsSPEED, EffectType::BossIceCreamEffect);
-			projectile->initAnimation(AttackType::BossBombAttack);
-			m_projectiles.push_back(projectile);
+			spawnBomb(spawnPosition);
 		}
 	}
+}
+
+void BossWeapon::spawnBomb(sf::Vector2f spawnPos)
+{
+	auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/icecream_cone_spritesheet_aligned.png", 0.8f, spawnPos, 0.f, GameConfig::BossBombsSPEED, EffectType::BossIceCreamEffect);
+	projectile->initAnimation(AttackType::BossBombAttack);
+	m_projectiles.push_back(projectile);
 }
 
 float BossWeapon::generateRandomFromArray(float arr[])

@@ -95,14 +95,7 @@ void Boss::giveDamage()
 
 bool Boss::isEntityAlive()
 {
-	if (m_hp > 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return (m_hp > 0);
 }
 
 void Boss::handleBossOrientation()
