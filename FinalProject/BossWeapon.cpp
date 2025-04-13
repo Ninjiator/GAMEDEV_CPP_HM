@@ -53,20 +53,26 @@ void BossWeapon::shoot(float dt)
 			delta_Y = 250.f;
 		}
 
-		if (m_boss->getBossPhase() == BossPhase::Phase_1)
-		{
-			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/moon_spritesheet.png", 0.8f, spawnPosition, delta_X, delta_Y, EffectType::BossIceCreamEffect);
-			projectile->initAnimation(AttackType::BossAttackMoon);
-			m_projectiles.push_back(projectile);
-		}
-		else
-		{
-			auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/last_stage_projectile.png", 0.6f, spawnPosition, delta_X, delta_Y, EffectType::BossIceCubsEffect);
-			projectile->initAnimation(AttackType::BossCubesAttack);
-			m_projectiles.push_back(projectile);
-		}
+		initProjectileForShooting(spawnPosition, delta_X, delta_Y);
+
 		SoundManager::getInstance().playBossShootSound();
 		std::cout << "drawing boss projectiles" << std::endl;
+	}
+}
+
+void BossWeapon::initProjectileForShooting(sf::Vector2f spawnPos, float delta_x, float delta_y)
+{
+	if (m_boss->getBossPhase() == BossPhase::Phase_1)
+	{
+		auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/moon_spritesheet.png", 0.8f, spawnPos, delta_x, delta_y, EffectType::BossIceCreamEffect);
+		projectile->initAnimation(AttackType::BossAttackMoon);
+		m_projectiles.push_back(projectile);
+	}
+	else
+	{
+		auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/last_stage_projectile.png", 0.6f, spawnPos, delta_x, delta_y, EffectType::BossIceCubsEffect);
+		projectile->initAnimation(AttackType::BossCubesAttack);
+		m_projectiles.push_back(projectile);
 	}
 }
 
@@ -87,19 +93,19 @@ void BossWeapon::fallingBombsAbility(float dt)
 		{
 			float bombSpawnPositionXLeft[3] = { m_window->getSize().x - part.x / 2.f, m_window->getSize().x - part.x * 2.f, m_window->getSize().x - part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(bombSpawnPositionXLeft), 0.f };
-			spawnBomb(spawnPosition);
+			initBombForBombAbility(spawnPosition);
 		}
 		//if Boss located on a right side of arena - bombs will spawn on a left side 
 		if (m_boss->getPosition().x > m_window->getSize().x / 2.f)
 		{
 			float bombSpawnPositionXRight[3] = { part.x / 2.f, part.x * 2.f, part.x * 3.5f };
 			sf::Vector2f spawnPosition = sf::Vector2f{ generateRandomFromArray(bombSpawnPositionXRight), 0.f };
-			spawnBomb(spawnPosition);
+			initBombForBombAbility(spawnPosition);
 		}
 	}
 }
 
-void BossWeapon::spawnBomb(sf::Vector2f spawnPos)
+void BossWeapon::initBombForBombAbility(sf::Vector2f spawnPos)
 {
 	auto* projectile = new Projectile(m_window, "resources/Sprites/Boss/icecream_cone_spritesheet_aligned.png", 0.8f, spawnPos, 0.f, GameConfig::BossBombsSPEED, EffectType::BossIceCreamEffect);
 	projectile->initAnimation(AttackType::BossBombAttack);

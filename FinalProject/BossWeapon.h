@@ -19,7 +19,8 @@ public:
 	void fallingBombsAbility(float dt);
 
 private:
-	void spawnBomb(sf::Vector2f spawnPos);
+	void initProjectileForShooting(sf::Vector2f spawnPos, float delta_x, float delta_y);
+	void initBombForBombAbility(sf::Vector2f spawnPos);
 	Boss* m_boss = nullptr;
 	
 	sf::Vector2f m_position;
